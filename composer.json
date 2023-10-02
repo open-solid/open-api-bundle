@@ -11,11 +11,13 @@
         }
     ],
     "require": {
-        "php": ">=8.1",
-        "symfony/config": "6.4|^7.0",
-        "symfony/dependency-injection": "^6.4|^7.0",
-        "symfony/http-kernel": "^6.4|^7.0",
-        "symfony/routing": "^6.4|^7.0",
+        "php": ">=8.2",
+        "symfony/config": "^7.0",
+        "symfony/dependency-injection": "^7.0",
+        "symfony/http-kernel": "^7.0",
+        "symfony/routing": "^7.0",
+        "symfony/serializer": "^7.0",
+        "symfony/validator": "^7.0",
         "zircote/swagger-php": "^4.7"
     },
     "require-dev": {
