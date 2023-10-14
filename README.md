@@ -17,8 +17,8 @@ Create a payload class with a `#[Schema]` attribute and `#[Property]` attributes
 
 namespace App\Controller;
 
+use OpenApi\Attributes\Schema;
 use Yceruto\OpenApiBundle\Attributes\Property;
-use Yceruto\OpenApiBundle\Attributes\Schema;
 
 #[Schema]
 class PostProductPayload
@@ -38,8 +38,8 @@ Create a view class with a `#[Schema]` attribute and `#[Property]` attributes in
 namespace App\Model;
 
 use DateTimeImmutable;
+use OpenApi\Attributes\Schema;
 use Yceruto\OpenApiBundle\Attributes\Property;
-use Yceruto\OpenApiBundle\Attributes\Schema;
 
 #[Schema]
 readonly class ProductView
