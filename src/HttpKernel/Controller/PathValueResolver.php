@@ -2,10 +2,7 @@
 
 namespace Yceruto\OpenApiBundle\HttpKernel\Controller;
 
-use App\Shared\Presentation\OpenApi\Attributes\Path;
 use BackedEnum;
-use Symfony\Component\DependencyInjection\Attribute\AsTaggedItem;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestAttributeValueResolver;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
@@ -15,11 +12,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Exception\ValidationFailedException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use UnitEnum;
+use Yceruto\OpenApiBundle\Attributes\Path;
 
 readonly class PathValueResolver implements ValueResolverInterface
 {
     public function __construct(
-        #[Autowire(service: 'argument_resolver.request_attribute')]
         private RequestAttributeValueResolver $attributeValueResolver,
         private ValidatorInterface $validator,
     ) {

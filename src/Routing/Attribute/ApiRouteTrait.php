@@ -40,7 +40,6 @@ trait ApiRouteTrait
         bool $utf8 = null,
         bool $stateless = null,
         string $env = null,
-        string $decider = null,
     ) {
         self::$_blacklist[] = 'route';
 
@@ -61,10 +60,6 @@ trait ApiRouteTrait
             $x,
             $attachables,
         );
-
-        if ($decider) {
-            $defaults += ['_decider' => $decider];
-        }
 
         $this->route = new Route(
             $path,

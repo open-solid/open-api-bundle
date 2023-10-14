@@ -1,13 +1,13 @@
 <?php
 
-namespace Yceruto\OpenApiBundle\Validator\Mapping\Loader;
+namespace Yceruto\OpenApiBundle\Mapping\Loader;
 
-use Yceruto\OpenApiBundle\Attributes\Property;
 use OpenApi\Generator;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Mapping\Loader\LoaderInterface;
 use UnitEnum;
+use Yceruto\OpenApiBundle\Attributes\Property;
 
 class OpenApiValidatorAttributeLoader implements LoaderInterface
 {

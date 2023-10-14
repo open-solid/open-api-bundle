@@ -17,7 +17,7 @@ return static function (DefinitionConfigurator $configurator): void {
             ->arrayNode('spec')
                 ->defaultValue([
                     'info' => [
-                        'title' => 'Acme API Documentation',
+                        'title' => 'API Documentation',
                         'version' => '1.0.0',
                     ],
                     'servers' => [

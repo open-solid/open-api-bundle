@@ -6,6 +6,8 @@ use Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
+use Yceruto\OpenApiBundle\DependencyInjection\Compiler\SerializerMappingPass;
+use Yceruto\OpenApiBundle\DependencyInjection\Compiler\ValidatorMappingPass;
 
 class OpenApiBundle extends AbstractBundle
 {
@@ -14,6 +16,12 @@ class OpenApiBundle extends AbstractBundle
     public function configure(DefinitionConfigurator $definition): void
     {
         $definition->import('../config/definition.php');
+    }
+
+    public function build(ContainerBuilder $container): void
+    {
+        $container->addCompilerPass(new ValidatorMappingPass());
+        $container->addCompilerPass(new SerializerMappingPass());
     }
 
     public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void

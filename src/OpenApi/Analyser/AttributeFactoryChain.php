@@ -11,10 +11,8 @@ class AttributeFactoryChain extends AttributeAnnotationFactory
     /**
      * @param iterable<AttributeFactoryInterface> $factories
      */
-    public function __construct(
-        #[TaggedIterator('api.attribute_factory')]
-        private readonly iterable $factories,
-    ) {
+    public function __construct(private readonly iterable $factories)
+    {
     }
 
     public function build(\Reflector $reflector, Context $context): array

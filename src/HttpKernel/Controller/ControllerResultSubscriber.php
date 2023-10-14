@@ -1,6 +1,6 @@
 <?php
 
-namespace Yceruto\OpenApiBundle\Response;
+namespace Yceruto\OpenApiBundle\HttpKernel\Controller;
 
 use OpenApi\Annotations\Operation;
 use OpenApi\Attributes as OA;
