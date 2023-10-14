@@ -1,7 +1,7 @@
 # OpenApiBundle
 
 Provides a tight integration of `zircote/swagger-php` library into the Symfony full-stack framework for generating 
-OpenAPI documentation.
+OpenAPI documentation and building restful APIs.
 
 ## Installation
 
