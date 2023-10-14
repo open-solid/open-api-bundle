@@ -14,7 +14,7 @@ composer require yceruto/open-api-bundle
 Basic Usage
 -----------
 
-Create a controller with a `#[Payload]` attribute in the action method:
+Create a controller with `#[Post]` and a `#[Payload]` attribute in the action method:
 ```php
 <?php
 
