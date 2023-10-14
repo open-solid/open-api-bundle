@@ -88,9 +88,10 @@ class MethodAttributeFactory implements AttributeFactoryInterface
 
     protected function guessResponses(\ReflectionMethod $reflector, Context $context, Operation $annotation): void
     {
-        $isVoid = (null === $rrt = $reflector->getReturnType()) || ($rrt->isBuiltin() && $rrt->getName() !== 'array') || !$rrt instanceof \ReflectionNamedType;
+        $isVoid = (null === $rrt = $reflector->getReturnType()) || ($rrt->isBuiltin() && ($typeName = $rrt->getName()) !== 'array') || !$rrt instanceof \ReflectionNamedType;
         $isPost = $annotation instanceof OA\Post;
         $isMutable = $annotation instanceof OA\Post || $annotation instanceof OA\Put || $annotation instanceof OA\Patch;
+        $isResourceAware = ($annotation instanceof OA\Get || $annotation instanceof OA\Put || $annotation instanceof OA\Patch || $annotation instanceof OA\Delete) && (!isset($typeName) || $typeName !== 'array');
 
         if ($isVoid) {
             $statusCode = 204;
@@ -106,6 +107,12 @@ class MethodAttributeFactory implements AttributeFactoryInterface
         }
 
         $responses = [$successResponse];
+
+        if ($isResourceAware) {
+            $notFoundErrorResponse = new OA\Response(response: 404, description: 'Not found');
+            $notFoundErrorResponse->_context = new Context(['nested' => $annotation], $context);
+            $responses[] = $notFoundErrorResponse;
+        }
 
         if ($isMutable) {
             $validationErrorResponse = new OA\Response(response: 422, description: 'Validation error');

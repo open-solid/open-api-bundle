@@ -23,7 +23,7 @@ Create a payload class with a `#[Schema]` attribute and `#[Property]` attributes
 ```php
 <?php
 
-namespace App\Controller;
+namespace App\Presentation\Controller\Post;
 
 use OpenApi\Attributes\Schema;
 use Yceruto\OpenApiBundle\Attributes\Property;
@@ -43,7 +43,7 @@ Create a view class with a `#[Schema]` attribute and `#[Property]` attributes in
 ```php
 <?php
 
-namespace App\Model;
+namespace App\Domain\View;
 
 use DateTimeImmutable;
 use OpenApi\Attributes\Schema;
@@ -72,9 +72,9 @@ Create a controller with `#[Post]` and a `#[Payload]` attribute in the action me
 ```php
 <?php
 
-namespace App\Controller;
+namespace App\Presentation\Controller\Post;
 
-use App\Model\ProductView;
+use App\Domain\View\ProductView;
 use Yceruto\OpenApiBundle\Attributes\Payload;
 use Yceruto\OpenApiBundle\Routing\Attribute\Post;
 
@@ -83,15 +83,13 @@ class PostProductAction
     #[Post('/products')]
     public function __invoke(#[Payload] PostProductPayload $payload): ProductView
     {
-        // ...
-
-        return $product;
+        // TODO: Implement __invoke() method.
     }
 }
 ```
 
 Initialize the Web server and navigate to the `https://127.0.0.1:8000/` URL to see the generated documentation:
-![Output](cover.png)
+![cover.png](cover.png)
 
 ## License
 
