@@ -13,6 +13,7 @@ use OpenApi\Generator;
 class Path extends PathParameter
 {
     public function __construct(
+        // path properties
         ?string $parameter = null,
         ?string $name = null,
         ?string $description = null,
@@ -32,6 +33,7 @@ class Path extends PathParameter
         ?array $pipeDelimited = null,
         ?array $x = null,
         ?array $attachables = null,
+        // custom properties
         public readonly string $format = Generator::UNDEFINED,
         public readonly array|string $enum = Generator::UNDEFINED,
     ) {

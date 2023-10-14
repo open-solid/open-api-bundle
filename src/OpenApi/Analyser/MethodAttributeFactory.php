@@ -88,10 +88,10 @@ class MethodAttributeFactory implements AttributeFactoryInterface
 
     protected function guessResponses(\ReflectionMethod $reflector, Context $context, Operation $annotation): void
     {
-        $isVoid = (null === $rrt = $reflector->getReturnType()) || ($rrt->isBuiltin() && ($typeName = $rrt->getName()) !== 'array') || !$rrt instanceof \ReflectionNamedType;
+        $isVoid = (null === $rrt = $reflector->getReturnType()) || ($rrt->isBuiltin() && 'array' !== $rrt->getName()) || !$rrt instanceof \ReflectionNamedType;
         $isPost = $annotation instanceof OA\Post;
         $isMutable = $annotation instanceof OA\Post || $annotation instanceof OA\Put || $annotation instanceof OA\Patch;
-        $isResourceAware = ($annotation instanceof OA\Get || $annotation instanceof OA\Put || $annotation instanceof OA\Patch || $annotation instanceof OA\Delete) && (!isset($typeName) || $typeName !== 'array');
+        $isResourceAware = ($annotation instanceof OA\Get || $annotation instanceof OA\Put || $annotation instanceof OA\Patch || $annotation instanceof OA\Delete) && 'array' !== $rrt?->getName();
 
         if ($isVoid) {
             $statusCode = 204;
@@ -103,6 +103,9 @@ class MethodAttributeFactory implements AttributeFactoryInterface
         if (!$isVoid) {
             $jsonContent = new OA\JsonContent(type: $rrt->getName());
             $jsonContent->_context = new Context(['nested' => $successResponse], $context);
+            if (property_exists($annotation, 'itemsType') && null !== $annotation->itemsType && 'array' === $rrt->getName()) {
+                $jsonContent->items = new OA\Items(type: $annotation->itemsType);
+            }
             $successResponse->merge([$jsonContent]);
         }
 

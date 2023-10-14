@@ -69,6 +69,7 @@ class Property extends \OpenApi\Attributes\Property
         // annotation
         ?array $x = null,
         ?array $attachables = null,
+        // custom properties
         public readonly ?array $groups = null,
     ) {
         self::$_blacklist = array_merge(self::$_blacklist, ['groups']);

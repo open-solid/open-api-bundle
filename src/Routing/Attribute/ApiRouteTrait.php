@@ -40,8 +40,10 @@ trait ApiRouteTrait
         bool $utf8 = null,
         bool $stateless = null,
         string $env = null,
+        // custom properties
+        public ?string $itemsType = null,
     ) {
-        self::$_blacklist[] = 'route';
+        self::$_blacklist = array_merge(self::$_blacklist, ['route', 'itemsType']);
 
         parent::__construct(
             $path,
