@@ -9,7 +9,7 @@ OpenAPI documentation.
 composer require yceruto/open-api-bundle
 ```
 
-Import the routes in `config/routes.yaml`:
+Import the Swagger controller routes in `config/routes.yaml`:
 ```yaml
 openapi:
     resource: '@OpenApiBundle/config/routes.php'
