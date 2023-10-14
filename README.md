@@ -14,28 +14,6 @@ composer require yceruto/open-api-bundle
 Basic Usage
 -----------
 
-Create a controller with `#[Post]` and a `#[Payload]` attribute in the action method:
-```php
-<?php
-
-namespace App\Controller;
-
-use App\Model\ProductView;
-use Yceruto\OpenApiBundle\Attributes\Payload;
-use Yceruto\OpenApiBundle\Routing\Attribute\Post;
-
-class PostProductAction
-{
-    #[Post('/products')]
-    public function __invoke(#[Payload] PostProductPayload $payload): ProductView
-    {
-        // ...
-
-        return $product;
-    }
-}
-```
-
 Create a payload class with a `#[Schema]` attribute and `#[Property]` attributes in the properties:
 ```php
 <?php
@@ -82,6 +60,28 @@ readonly class ProductView
     public ?DateTimeImmutable $updatedAt;
 
     // ...
+}
+```
+
+Create a controller with `#[Post]` and a `#[Payload]` attribute in the action method:
+```php
+<?php
+
+namespace App\Controller;
+
+use App\Model\ProductView;
+use Yceruto\OpenApiBundle\Attributes\Payload;
+use Yceruto\OpenApiBundle\Routing\Attribute\Post;
+
+class PostProductAction
+{
+    #[Post('/products')]
+    public function __invoke(#[Payload] PostProductPayload $payload): ProductView
+    {
+        // ...
+
+        return $product;
+    }
 }
 ```
 
