@@ -16,6 +16,7 @@ return static function (DefinitionConfigurator $configurator): void {
             ->end()
             ->arrayNode('spec')
                 ->defaultValue([
+                    'openapi' => '3.1.0',
                     'info' => [
                         'title' => 'API Documentation',
                         'version' => '1.0.0',
