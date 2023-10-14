@@ -6,6 +6,7 @@ use Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
+use Symfony\Component\Validator\Exception\ValidationFailedException;
 use Yceruto\OpenApiBundle\DependencyInjection\Compiler\SerializerMappingPass;
 use Yceruto\OpenApiBundle\DependencyInjection\Compiler\ValidatorMappingPass;
 
@@ -22,6 +23,15 @@ class OpenApiBundle extends AbstractBundle
     {
         $container->addCompilerPass(new ValidatorMappingPass());
         $container->addCompilerPass(new SerializerMappingPass());
+    }
+
+    public function prependExtension(ContainerConfigurator $container, ContainerBuilder $builder): void
+    {
+        $builder->prependExtensionConfig('framework', [
+            'exceptions' => [
+                ValidationFailedException::class => ['status_code' => 422],
+            ],
+        ]);
     }
 
     public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
