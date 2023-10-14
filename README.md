@@ -1,18 +1,15 @@
-OpenApiBundle
-=============
+# OpenApiBundle
 
 Provides a tight integration of `zircote/swagger-php` library into the Symfony full-stack framework for generating 
 OpenAPI documentation.
 
-Installation
-------------
+## Installation
 
 ```bash
 composer require yceruto/open-api-bundle
 ```
 
-Basic Usage
------------
+## Basic Usage
 
 Create a payload class with a `#[Schema]` attribute and `#[Property]` attributes in the properties:
 ```php
@@ -88,3 +85,7 @@ class PostProductAction
 Output:
 
 ![Output](cover.png)
+
+## License
+
+This software is published under the [MIT License](LICENSE)
