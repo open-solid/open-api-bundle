@@ -9,6 +9,12 @@ OpenAPI documentation.
 composer require yceruto/open-api-bundle
 ```
 
+Import the routes in `config/routes.yaml`:
+```yaml
+openapi:
+    resource: '@OpenApiBundle/config/routes.php'
+```
+
 ## Basic Usage
 
 Create a payload class with a `#[Schema]` attribute and `#[Property]` attributes in the properties:
