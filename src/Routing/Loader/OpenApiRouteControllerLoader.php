@@ -2,9 +2,9 @@
 
 namespace Yceruto\OpenApiBundle\Routing\Loader;
 
-use Symfony\Bundle\FrameworkBundle\Routing\AnnotatedRouteControllerLoader;
+use Symfony\Bundle\FrameworkBundle\Routing\AttributeRouteControllerLoader;
 
-class OpenApiRouteControllerLoader extends AnnotatedRouteControllerLoader
+class OpenApiRouteControllerLoader extends AttributeRouteControllerLoader
 {
     public function supports(mixed $resource, string $type = null): bool
     {
