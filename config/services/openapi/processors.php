@@ -1,9 +1,11 @@
 <?php
 
+use OpenApi\Analysers\AnalyserInterface;
 use OpenApi\Processors;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Yceruto\OpenApiBundle\OpenApi as OAB;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\param;
+use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
 return static function (ContainerConfigurator $container): void {
     $container->services()

@@ -111,18 +111,18 @@ class MethodAttributeFactory implements AttributeFactoryInterface
 
         $responses = [$successResponse];
 
-        $notFoundErrorResponse = new OA\Response(response: 400, description: 'Bad request');
+        $notFoundErrorResponse = new OA\Response(ref: '#/components/responses/400', response: 400);
         $notFoundErrorResponse->_context = new Context(['nested' => $annotation], $context);
         $responses[] = $notFoundErrorResponse;
 
         if ($isResourceAware) {
-            $notFoundErrorResponse = new OA\Response(response: 404, description: 'Not found');
+            $notFoundErrorResponse = new OA\Response(ref: '#/components/responses/404', response: 404);
             $notFoundErrorResponse->_context = new Context(['nested' => $annotation], $context);
             $responses[] = $notFoundErrorResponse;
         }
 
         if ($isMutable) {
-            $validationErrorResponse = new OA\Response(response: 422, description: 'Validation error');
+            $validationErrorResponse = new OA\Response(ref: '#/components/responses/422', response: 422);
             $validationErrorResponse->_context = new Context(['nested' => $annotation], $context);
             $responses[] = $validationErrorResponse;
         }

@@ -36,8 +36,11 @@ class OpenApiBundle extends AbstractBundle
 
     public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
     {
+        $scanDirs = $config['generator']['scan_dirs'];
+        $scanDirs[] = __DIR__.'/OpenApi/Responses';
+
         $container->parameters()
-            ->set('openapi_generator_scan_dirs', $config['generator']['scan_dirs'])
+            ->set('openapi_generator_scan_dirs', $scanDirs)
             ->set('openapi_spec', $config['spec'])
         ;
 
