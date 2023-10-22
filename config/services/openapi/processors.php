@@ -2,9 +2,7 @@
 
 use OpenApi\Processors;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Yceruto\OpenApiBundle\OpenApi\Processor\CleanupProcessor;
-use Yceruto\OpenApiBundle\OpenApi\Processor\MergeConfigIntoOpenApi;
-
+use Yceruto\OpenApiBundle\OpenApi as OAB;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\param;
 
 return static function (ContainerConfigurator $container): void {
@@ -18,7 +16,7 @@ return static function (ContainerConfigurator $container): void {
         ->set(Processors\MergeIntoOpenApi::class)
             ->tag('openapi.processor', ['priority' => 95])
 
-        ->set(MergeConfigIntoOpenApi::class)
+        ->set(OAB\Processor\MergeConfigIntoOpenApi::class)
             ->args([
                 param('openapi_spec'),
             ])
@@ -66,7 +64,7 @@ return static function (ContainerConfigurator $container): void {
         ->set(Processors\CleanUnmerged::class)
             ->tag('openapi.processor', ['priority' => 20])
 
-        ->set(CleanupProcessor::class)
+        ->set(OAB\Processor\CleanupProcessor::class)
             ->tag('openapi.processor', ['priority' => 15])
     ;
 };

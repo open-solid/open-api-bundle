@@ -11,6 +11,8 @@ use Yceruto\OpenApiBundle\OpenApi\Analyser\PropertyAttributeFactory;
 
 use Yceruto\OpenApiBundle\OpenApi\Analyser\ReflectionAnalyserFactory;
 
+use Yceruto\OpenApiBundle\OpenApi\Analyser\SchemaAttributeFactory;
+
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\tagged_iterator;
 
@@ -21,6 +23,9 @@ return static function (ContainerConfigurator $container): void {
 
         ->instanceof(AnnotationFactoryInterface::class)
            ->tag('openapi.annotation_factory')
+
+        ->set(SchemaAttributeFactory::class)
+            ->tag('openapi.attribute_factory')
 
         ->set(MethodAttributeFactory::class)
             ->tag('openapi.attribute_factory')

@@ -29,6 +29,10 @@ class PropertyAttributeFactory implements AttributeFactoryInterface
                 $annotation->enum = $type->getName()::cases();
                 $annotation->type = is_subclass_of($type->getName(), IntBackedEnum::class) ? 'integer' : 'string';
             }
+
+            if ($reflector->isReadOnly() && Generator::isDefault($annotation->readOnly)) {
+                $annotation->readOnly = true;
+            }
         }
 
         return $annotations;
