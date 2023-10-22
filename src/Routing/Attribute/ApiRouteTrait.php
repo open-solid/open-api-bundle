@@ -43,7 +43,7 @@ trait ApiRouteTrait
         // custom properties
         public ?string $itemsType = null,
     ) {
-        self::$_blacklist = array_merge(self::$_blacklist, ['route', 'itemsType']);
+        self::$_blacklist = array_unique(array_merge(self::$_blacklist, ['route', 'itemsType']));
 
         parent::__construct(
             $path,

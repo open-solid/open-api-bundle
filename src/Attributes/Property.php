@@ -72,7 +72,7 @@ class Property extends \OpenApi\Attributes\Property
         // custom properties
         public readonly ?array $groups = null,
     ) {
-        self::$_blacklist = array_merge(self::$_blacklist, ['groups']);
+        self::$_blacklist = array_unique(array_merge(self::$_blacklist, ['groups']));
 
         parent::__construct(
             $property,
