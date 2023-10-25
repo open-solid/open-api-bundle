@@ -16,7 +16,7 @@ readonly class OpenApiController
 
     public function __invoke(): Response
     {
-        return new Response(file_get_contents(\dirname(__DIR__, 2).'/templates/doc.html'));
+        return new Response(file_get_contents(\dirname(__DIR__, 2).'/templates/openapi_ui.html'));
     }
 
     public function json(): JsonResponse
