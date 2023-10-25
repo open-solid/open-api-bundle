@@ -73,9 +73,11 @@ readonly class PathValueResolver implements ValueResolverInterface
         };
 
         $enum = $attribute->enum;
+
         if (is_string($enum) && is_subclass_of($enum, UnitEnum::class)) {
             $enum = $enum::cases();
         }
+
         if (is_array($enum) && $enum) {
             $choices = [];
             foreach ($enum as $value) {

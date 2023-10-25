@@ -9,8 +9,13 @@ return static function (RoutingConfigurator $routes): void {
         ->methods(['GET'])
     ;
 
-    $routes->add('openapi_json', '/swagger.json')
+    $routes->add('openapi_json', '/openapi.json')
         ->controller([OpenApiController::class, 'json'])
+        ->methods(['GET'])
+    ;
+
+    $routes->add('openapi_json_schema', '/{name}.schema.json')
+        ->controller([OpenApiController::class, 'jsonSchema'])
         ->methods(['GET'])
     ;
 };
