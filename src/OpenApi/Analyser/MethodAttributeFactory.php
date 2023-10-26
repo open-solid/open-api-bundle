@@ -72,9 +72,14 @@ class MethodAttributeFactory implements AttributeFactoryInterface
 
                 foreach ($parameterReflector->getProperties(\ReflectionProperty::IS_PUBLIC) as $propertyReflector) {
                     $parameter = new OA\QueryParameter(name: $propertyReflector->getName());
+
                     if ($propertyReflector->isDefault()) {
-                        $parameter->example = $propertyReflector->getDefaultValue();
+                        $defaultValue = $propertyReflector->getDefaultValue();
+                        if (null !== $defaultValue && '' !== $defaultValue) {
+                            $parameter->example = $defaultValue;
+                        }
                     }
+
                     $parameter->_context = new Context(['nested' => $annotation], $context);
                     $parameters[] = $parameter;
                 }
