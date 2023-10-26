@@ -7,7 +7,7 @@ use OpenApi\Annotations\AbstractAnnotation;
 use OpenApi\Generator;
 use OpenApi\Processors\ProcessorInterface;
 
-readonly class CleanupProcessor implements ProcessorInterface
+readonly class CleanupComponents implements ProcessorInterface
 {
     public function __invoke(Analysis $analysis): void
     {

@@ -1,11 +1,9 @@
 <?php
 
-use OpenApi\Analysers\AnalyserInterface;
 use OpenApi\Processors;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Yceruto\OpenApiBundle\OpenApi as OAB;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\param;
-use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
 return static function (ContainerConfigurator $container): void {
     $container->services()
@@ -54,19 +52,22 @@ return static function (ContainerConfigurator $container): void {
         ->set(Processors\AugmentRefs::class)
             ->tag('openapi.processor', ['priority' => 40])
 
-        ->set(Processors\MergeJsonContent::class)
+        ->set(OAB\Processor\AugmentSchemas::class)
             ->tag('openapi.processor', ['priority' => 35])
 
-        ->set(Processors\MergeXmlContent::class)
+        ->set(Processors\MergeJsonContent::class)
             ->tag('openapi.processor', ['priority' => 30])
 
-        ->set(Processors\OperationId::class)
+        ->set(Processors\MergeXmlContent::class)
             ->tag('openapi.processor', ['priority' => 25])
 
-        ->set(Processors\CleanUnmerged::class)
+        ->set(Processors\OperationId::class)
             ->tag('openapi.processor', ['priority' => 20])
 
-        ->set(OAB\Processor\CleanupProcessor::class)
+        ->set(Processors\CleanUnmerged::class)
             ->tag('openapi.processor', ['priority' => 15])
+
+        ->set(OAB\Processor\CleanupComponents::class)
+            ->tag('openapi.processor', ['priority' => 10])
     ;
 };
