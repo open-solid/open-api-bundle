@@ -4,7 +4,7 @@ namespace Yceruto\OpenApiBundle\Mapping\Validator\Loader;
 
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Mapping\Loader\LoaderInterface;
-use Yceruto\OpenApiBundle\Attributes\Property;
+use Yceruto\OpenApiBundle\Attribute\Property;
 
 readonly class OpenApiValidatorMetadataLoader implements LoaderInterface
 {

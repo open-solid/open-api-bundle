@@ -5,7 +5,7 @@ namespace Yceruto\OpenApiBundle\Mapping\Serializer\Loader;
 use Symfony\Component\Serializer\Mapping\AttributeMetadata;
 use Symfony\Component\Serializer\Mapping\ClassMetadataInterface;
 use Symfony\Component\Serializer\Mapping\Loader\LoaderInterface;
-use Yceruto\OpenApiBundle\Attributes\Property;
+use Yceruto\OpenApiBundle\Attribute\Property;
 
 class OpenApiSerializerMetadataLoader implements LoaderInterface
 {

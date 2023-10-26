@@ -6,8 +6,8 @@ use OpenApi\Annotations\Operation;
 use OpenApi\Attributes as OA;
 use OpenApi\Context;
 use OpenApi\Generator;
-use Yceruto\OpenApiBundle\Attributes\Payload;
-use Yceruto\OpenApiBundle\Attributes\Query;
+use Yceruto\OpenApiBundle\Attribute\Payload;
+use Yceruto\OpenApiBundle\Attribute\Query;
 
 class MethodAttributeFactory implements AttributeFactoryInterface
 {

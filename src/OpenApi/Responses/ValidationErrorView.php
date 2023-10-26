@@ -6,7 +6,7 @@ use OpenApi\Attributes\Items;
 use OpenApi\Attributes\JsonContent;
 use OpenApi\Attributes\Response;
 use OpenApi\Attributes\Schema;
-use Yceruto\OpenApiBundle\Attributes\Property;
+use Yceruto\OpenApiBundle\Attribute\Property;
 
 #[Response(
     response: 422,

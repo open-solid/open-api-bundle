@@ -7,7 +7,7 @@ use ReflectionProperty;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use UnitEnum;
-use Yceruto\OpenApiBundle\Attributes\Property;
+use Yceruto\OpenApiBundle\Attribute\Property;
 
 class ValidationMetadataLoader implements ValidatorMetadataLoaderInterface
 {

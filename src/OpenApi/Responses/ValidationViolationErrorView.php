@@ -4,7 +4,7 @@ namespace Yceruto\OpenApiBundle\OpenApi\Responses;
 
 use OpenApi\Attributes\AdditionalProperties;
 use OpenApi\Attributes\Schema;
-use Yceruto\OpenApiBundle\Attributes\Property;
+use Yceruto\OpenApiBundle\Attribute\Property;
 
 #[Schema(readOnly: true)]
 class ValidationViolationErrorView

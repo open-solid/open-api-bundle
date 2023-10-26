@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Exception\ValidationFailedException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use UnitEnum;
-use Yceruto\OpenApiBundle\Attributes\Path;
+use Yceruto\OpenApiBundle\Attribute\Path;
 
 readonly class PathValueResolver implements ValueResolverInterface
 {

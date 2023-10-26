@@ -1,6 +1,6 @@
 <?php
 
-namespace Yceruto\OpenApiBundle\Attributes;
+namespace Yceruto\OpenApiBundle\Attribute;
 
 use OpenApi\Attributes\Attachable;
 use OpenApi\Attributes\JsonContent;

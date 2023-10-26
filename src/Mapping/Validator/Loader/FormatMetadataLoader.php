@@ -5,7 +5,7 @@ namespace Yceruto\OpenApiBundle\Mapping\Validator\Loader;
 use ReflectionProperty;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Yceruto\OpenApiBundle\Attributes\Property;
+use Yceruto\OpenApiBundle\Attribute\Property;
 
 readonly class FormatMetadataLoader implements ValidatorMetadataLoaderInterface
 {

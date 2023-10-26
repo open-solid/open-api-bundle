@@ -1,6 +1,6 @@
 <?php
 
-namespace Yceruto\OpenApiBundle\Attributes;
+namespace Yceruto\OpenApiBundle\Attribute;
 
 use OpenApi\Attributes\AdditionalProperties;
 use OpenApi\Attributes\Attachable;
