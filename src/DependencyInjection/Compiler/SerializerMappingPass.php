@@ -5,7 +5,7 @@ namespace Yceruto\OpenApiBundle\DependencyInjection\Compiler;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
-use Yceruto\OpenApiBundle\Mapping\Loader\OpenApiSerializerAttributeLoader;
+use Yceruto\OpenApiBundle\Mapping\Serializer\Loader\OpenApiSerializerMetadataLoader;
 
 class SerializerMappingPass implements CompilerPassInterface
 {
@@ -17,7 +17,7 @@ class SerializerMappingPass implements CompilerPassInterface
 
         $chainLoader = $container->getDefinition('serializer.mapping.chain_loader');
         $serializerLoaders = $chainLoader->getArgument(0);
-        $serializerLoaders[] = new Reference(OpenApiSerializerAttributeLoader::class);
+        $serializerLoaders[] = new Reference(OpenApiSerializerMetadataLoader::class);
         $chainLoader->replaceArgument(0, $serializerLoaders);
         $container->getDefinition('serializer.mapping.cache_warmer')->replaceArgument(0, $serializerLoaders);
     }

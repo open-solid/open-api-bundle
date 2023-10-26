@@ -1,13 +1,13 @@
 <?php
 
-namespace Yceruto\OpenApiBundle\Mapping\Loader;
+namespace Yceruto\OpenApiBundle\Mapping\Serializer\Loader;
 
 use Symfony\Component\Serializer\Mapping\AttributeMetadata;
 use Symfony\Component\Serializer\Mapping\ClassMetadataInterface;
 use Symfony\Component\Serializer\Mapping\Loader\LoaderInterface;
 use Yceruto\OpenApiBundle\Attributes\Property;
 
-class OpenApiSerializerAttributeLoader implements LoaderInterface
+class OpenApiSerializerMetadataLoader implements LoaderInterface
 {
     public function loadClassMetadata(ClassMetadataInterface $classMetadata): bool
     {
