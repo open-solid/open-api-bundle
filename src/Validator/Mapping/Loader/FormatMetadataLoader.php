@@ -1,6 +1,6 @@
 <?php
 
-namespace Yceruto\OpenApiBundle\Mapping\Validator\Loader;
+namespace Yceruto\OpenApiBundle\Validator\Mapping\Loader;
 
 use ReflectionProperty;
 use Symfony\Component\Validator\Constraints as Assert;

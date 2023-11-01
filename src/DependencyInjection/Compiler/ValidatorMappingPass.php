@@ -5,7 +5,7 @@ namespace Yceruto\OpenApiBundle\DependencyInjection\Compiler;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
-use Yceruto\OpenApiBundle\Mapping\Validator\Loader\OpenApiValidatorMetadataLoader;
+use Yceruto\OpenApiBundle\Validator\Mapping\Loader\OpenApiValidatorMetadataLoader;
 
 class ValidatorMappingPass implements CompilerPassInterface
 {

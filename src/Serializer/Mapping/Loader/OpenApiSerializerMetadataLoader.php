@@ -1,6 +1,6 @@
 <?php
 
-namespace Yceruto\OpenApiBundle\Mapping\Serializer\Loader;
+namespace Yceruto\OpenApiBundle\Serializer\Mapping\Loader;
 
 use Symfony\Component\Serializer\Mapping\AttributeMetadata;
 use Symfony\Component\Serializer\Mapping\ClassMetadataInterface;

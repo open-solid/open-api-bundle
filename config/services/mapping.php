@@ -1,10 +1,10 @@
 <?php
 
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Yceruto\OpenApiBundle\Mapping\Serializer\Loader\OpenApiSerializerMetadataLoader;
-use Yceruto\OpenApiBundle\Mapping\Validator\Loader\FormatMetadataLoader;
-use Yceruto\OpenApiBundle\Mapping\Validator\Loader\OpenApiValidatorMetadataLoader;
-use Yceruto\OpenApiBundle\Mapping\Validator\Loader\ValidationMetadataLoader;
+use Yceruto\OpenApiBundle\Serializer\Mapping\Loader\OpenApiSerializerMetadataLoader;
+use Yceruto\OpenApiBundle\Validator\Mapping\Loader\FormatMetadataLoader;
+use Yceruto\OpenApiBundle\Validator\Mapping\Loader\OpenApiValidatorMetadataLoader;
+use Yceruto\OpenApiBundle\Validator\Mapping\Loader\ValidationMetadataLoader;
 
 use function Symfony\Component\DependencyInjection\Loader\Configurator\tagged_iterator;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Yceruto\OpenApiBundle\Mapping\Validator\Loader;
+namespace Yceruto\OpenApiBundle\Validator\Mapping\Loader;
 
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Mapping\Loader\LoaderInterface;

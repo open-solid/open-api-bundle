@@ -5,7 +5,7 @@ namespace Yceruto\OpenApiBundle\DependencyInjection\Compiler;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
-use Yceruto\OpenApiBundle\Mapping\Serializer\Loader\OpenApiSerializerMetadataLoader;
+use Yceruto\OpenApiBundle\Serializer\Mapping\Loader\OpenApiSerializerMetadataLoader;
 
 class SerializerMappingPass implements CompilerPassInterface
 {
