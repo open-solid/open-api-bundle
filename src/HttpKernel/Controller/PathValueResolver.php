@@ -69,7 +69,7 @@ readonly class PathValueResolver implements ValueResolverInterface
             'datetime' => new Assert\DateTime(),
             'locale' => new Assert\Locale(),
             'currency' => new Assert\Currency(),
-            'integer' => new Assert\Type(type: 'int'),
+            'numeric' => new Assert\Type(type: 'numeric'),
             default => null,
         };
 
