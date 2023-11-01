@@ -18,11 +18,17 @@
         "zircote/swagger-php": "^4.7"
     },
     "require-dev": {
-        "roave/security-advisories": "dev-latest"
+        "roave/security-advisories": "dev-latest",
+        "phpunit/phpunit": "^10.0"
     },
     "autoload": {
         "psr-4": {
             "Yceruto\\OpenApiBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Yceruto\\Tests\\OpenApiBundle\\": "tests/"
         }
     },
     "minimum-stability": "dev"
