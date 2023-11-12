@@ -34,7 +34,7 @@ class PostProductAction
     #[Post('/products')]
     public function __invoke(#[Body] PostProductBody $body): ProductView
     {
-        // TODO: Implement __invoke() method.
+        // ...
     }
 }
 ```
@@ -77,8 +77,6 @@ readonly class ProductView
 
     #[Property]
     public DateTimeImmutable $createdAt;
-
-    // ...
 }
 ```
 
