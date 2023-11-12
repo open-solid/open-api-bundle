@@ -2,10 +2,9 @@
 
 namespace Yceruto\OpenApiBundle\Tests\Functional;
 
-use Symfony\Component\HttpKernel\KernelInterface;
 use Yceruto\OpenApiBundle\Generator;
 
-class DefaultTest extends AbstractWebTestCase
+class ImportRoutesTest extends AbstractWebTestCase
 {
     public function testDefaultServices(): void
     {
@@ -15,7 +14,7 @@ class DefaultTest extends AbstractWebTestCase
 
     public function testDefaultEndpoints(): void
     {
-        $client = self::createClient(['test_case' => 'Default']);
+        $client = self::createClient();
 
         $client->request('GET', '/');
         self::assertResponseIsSuccessful();
@@ -30,10 +29,5 @@ class DefaultTest extends AbstractWebTestCase
         $this->assertArrayHasKey('openapi', $data);
         $this->assertArrayHasKey('info', $data);
         $this->assertArrayHasKey('servers', $data);
-    }
-
-    protected static function createKernel(array $options = []): KernelInterface
-    {
-        return parent::createKernel(['test_case' => 'Default']);
     }
 }

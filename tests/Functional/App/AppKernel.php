@@ -25,7 +25,7 @@ class AppKernel extends Kernel
 
         $fs = new Filesystem();
         if (!$fs->isAbsolutePath($rootConfig) && !file_exists($rootConfig = __DIR__.'/'.$testCase.'/'.$rootConfig)) {
-            throw new \InvalidArgumentException(sprintf('The root config "%s" does not exist.', $rootConfig));
+            $rootConfig = __DIR__.'/config.yaml';
         }
         $this->rootConfig = $rootConfig;
 
@@ -35,7 +35,7 @@ class AppKernel extends Kernel
     public function registerBundles(): iterable
     {
         if (!file_exists($filename = $this->getProjectDir().'/'.$this->testCase.'/bundles.php')) {
-            throw new \RuntimeException(sprintf('The bundles file "%s" does not exist.', $filename));
+            $filename = $this->getProjectDir().'/bundles.php';
         }
 
         return include $filename;

@@ -2,6 +2,7 @@
 
 namespace Yceruto\OpenApiBundle\Tests\Functional;
 
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -36,12 +37,21 @@ class AbstractWebTestCase extends WebTestCase
         return AppKernel::class;
     }
 
+    protected static function createClient(array $options = [], array $server = []): KernelBrowser
+    {
+        if (!isset($options['test_case'])) {
+            $options['test_case'] = static::getTestCase();
+        }
+
+        return parent::createClient($options, $server);
+    }
+
     protected static function createKernel(array $options = []): KernelInterface
     {
         $class = self::getKernelClass();
 
         if (!isset($options['test_case'])) {
-            throw new \InvalidArgumentException('The option "test_case" must be set.');
+            $options['test_case'] = static::getTestCase();
         }
 
         return new $class(
@@ -56,5 +66,12 @@ class AbstractWebTestCase extends WebTestCase
     protected static function getVarDir(): string
     {
         return 'YOA'.substr(strrchr(static::class, '\\'), 1);
+    }
+
+    protected static function getTestCase(): string
+    {
+        $parts = explode('\\', static::class);
+
+        return substr(end($parts), 0, -4);
     }
 }

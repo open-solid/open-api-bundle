@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Yceruto\OpenApiBundle\Generator;
 
 readonly class OpenApiController
@@ -14,9 +15,18 @@ readonly class OpenApiController
     {
     }
 
-    public function __invoke(): Response
+    public function __invoke(UrlGeneratorInterface $urlGenerator): Response
     {
-        return new Response(file_get_contents(\dirname(__DIR__, 2).'/templates/openapi_ui.html'));
+        $filename = \dirname(__DIR__, 2).'/templates/openapi_ui.html';
+
+        if (false === $content = file_get_contents($filename)) {
+            throw new \RuntimeException('Unable to read the OpenAPI UI template file.');
+        }
+
+        $openapiUrl = $urlGenerator->generate('openapi_json', [], UrlGeneratorInterface::RELATIVE_PATH);
+        $content = str_replace('{{ openapi_url }}', $openapiUrl, $content);
+
+        return new Response($content);
     }
 
     public function json(): JsonResponse

@@ -1,0 +1,3 @@
+openapi:
+    resource: '@OpenApiBundle/config/routes.php'
+    prefix: '/api'
