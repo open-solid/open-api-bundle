@@ -19,7 +19,10 @@
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
-        "phpunit/phpunit": "^10.0"
+        "vimeo/psalm": "^6.0",
+        "phpunit/phpunit": "^10.0",
+        "psalm/plugin-phpunit": "^0.18",
+        "symfony/browser-kit": "^7.0"
     },
     "autoload": {
         "psr-4": {
@@ -28,8 +31,12 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Yceruto\\Tests\\OpenApiBundle\\": "tests/"
+            "Yceruto\\OpenApiBundle\\Tests\\": "tests/"
         }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit tests",
+        "psalm": "vendor/bin/psalm --show-info=true --no-cache"
     },
     "minimum-stability": "dev"
 }

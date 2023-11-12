@@ -93,7 +93,7 @@ class MethodAttributeFactory implements AttributeFactoryInterface
 
     protected function guessResponses(\ReflectionMethod $reflector, Context $context, Operation $annotation): void
     {
-        $isVoid = (null === $rrt = $reflector->getReturnType()) || ($rrt->isBuiltin() && 'array' !== $rrt->getName()) || !$rrt instanceof \ReflectionNamedType;
+        $isVoid = (null === $rrt = $reflector->getReturnType()) || !$rrt instanceof \ReflectionNamedType || ($rrt->isBuiltin() && 'array' !== $rrt->getName());
         $isPost = $annotation instanceof OA\Post;
         $isMutable = $annotation instanceof OA\Post || $annotation instanceof OA\Put || $annotation instanceof OA\Patch;
         $isResourceAware = ($annotation instanceof OA\Get || $annotation instanceof OA\Put || $annotation instanceof OA\Patch || $annotation instanceof OA\Delete) && 'array' !== $rrt?->getName();

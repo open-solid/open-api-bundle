@@ -9,7 +9,7 @@ use Yceruto\OpenApiBundle\Attribute\Path;
 interface ConstraintGuesserInterface
 {
     /**
-     * @return list<Constraint>
+     * @return array<Constraint>
      */
     public function guess(ArgumentMetadata $argument, Path $attribute): array;
 }

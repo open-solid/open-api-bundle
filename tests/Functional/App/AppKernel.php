@@ -1,0 +1,87 @@
+<?php
+
+namespace Yceruto\OpenApiBundle\Tests\Functional\App;
+
+use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
+use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpKernel\Kernel;
+
+class AppKernel extends Kernel
+{
+    use MicroKernelTrait;
+
+    private string $varDir;
+    private string $testCase;
+    private string $rootConfig;
+
+    public function __construct($varDir, $testCase, $rootConfig, $environment, $debug)
+    {
+        if (!is_dir(__DIR__.'/'.$testCase)) {
+            throw new \InvalidArgumentException(sprintf('The test case "%s" does not exist.', $testCase));
+        }
+        $this->varDir = $varDir;
+        $this->testCase = $testCase;
+
+        $fs = new Filesystem();
+        if (!$fs->isAbsolutePath($rootConfig) && !file_exists($rootConfig = __DIR__.'/'.$testCase.'/'.$rootConfig)) {
+            throw new \InvalidArgumentException(sprintf('The root config "%s" does not exist.', $rootConfig));
+        }
+        $this->rootConfig = $rootConfig;
+
+        parent::__construct($environment, $debug);
+    }
+
+    public function registerBundles(): iterable
+    {
+        if (!file_exists($filename = $this->getProjectDir().'/'.$this->testCase.'/bundles.php')) {
+            throw new \RuntimeException(sprintf('The bundles file "%s" does not exist.', $filename));
+        }
+
+        return include $filename;
+    }
+
+    public function getProjectDir(): string
+    {
+        return __DIR__;
+    }
+
+    public function getCacheDir(): string
+    {
+        return sys_get_temp_dir().'/'.$this->varDir.'/'.$this->testCase.'/cache/'.$this->environment;
+    }
+
+    public function getLogDir(): string
+    {
+        return sys_get_temp_dir().'/'.$this->varDir.'/'.$this->testCase.'/logs';
+    }
+
+    public function registerContainerConfiguration(LoaderInterface $loader): void
+    {
+        $loader->load($this->rootConfig);
+    }
+
+    public function __sleep(): array
+    {
+        return ['varDir', 'testCase', 'rootConfig', 'environment', 'debug'];
+    }
+
+    public function __wakeup(): void
+    {
+        foreach ($this as $k => $v) {
+            if (\is_object($v)) {
+                throw new \BadMethodCallException('Cannot unserialize '.__CLASS__);
+            }
+        }
+
+        $this->__construct($this->varDir, $this->testCase, $this->rootConfig, $this->environment, $this->debug);
+    }
+
+    protected function getKernelParameters(): array
+    {
+        $parameters = parent::getKernelParameters();
+        $parameters['kernel.test_case'] = $this->testCase;
+
+        return $parameters;
+    }
+}

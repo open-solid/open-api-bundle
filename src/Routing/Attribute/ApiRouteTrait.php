@@ -4,7 +4,7 @@ namespace Yceruto\OpenApiBundle\Routing\Attribute;
 
 use OpenApi\Attributes\ExternalDocumentation;
 use OpenApi\Attributes\RequestBody;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 trait ApiRouteTrait
 {

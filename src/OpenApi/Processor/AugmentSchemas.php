@@ -23,7 +23,7 @@ class AugmentSchemas implements ProcessorInterface
     protected function augmentRequired(array $schemas): void
     {
         foreach ($schemas as $schema) {
-            if ('object' !== $schema->type || !is_array($schema->properties)) {
+            if ('object' !== $schema->type || Generator::isDefault($schema->properties)) {
                 continue;
             }
 

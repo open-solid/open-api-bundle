@@ -4,6 +4,7 @@ namespace Yceruto\OpenApiBundle\Validator\Mapping\Loader;
 
 use OpenApi\Generator;
 use ReflectionProperty;
+use ReflectionType;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use UnitEnum;
@@ -95,7 +96,9 @@ class ValidationMetadataLoader implements ValidatorMetadataLoaderInterface
             $loaded = true;
         }
 
-        if (!$type = $reflectionProperty->getType()) {
+        $type = $reflectionProperty->getType();
+
+        if (!$type instanceof ReflectionType) {
             return $loaded;
         }
 

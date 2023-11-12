@@ -4,6 +4,7 @@ namespace Yceruto\OpenApiBundle\HttpKernel\Controller;
 
 use OpenApi\Annotations\Operation;
 use OpenApi\Attributes as OA;
+use OpenApi\Generator;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
@@ -30,7 +31,7 @@ readonly class ControllerResultSubscriber implements EventSubscriberInterface
             return;
         }
 
-        if ($result instanceof Response) {
+        if ($result instanceof Response || null === $event->controllerArgumentsEvent) {
             return;
         }
 
@@ -50,7 +51,7 @@ readonly class ControllerResultSubscriber implements EventSubscriberInterface
                     continue;
                 }
 
-                if (is_array($attribute->responses)) {
+                if (!Generator::isDefault($attribute->responses)) {
                     foreach ($attribute->responses as $res) {
                         if (is_numeric($res->response) && $res->response >= 200 && $res->response < 300) {
                             return (int) $res->response;

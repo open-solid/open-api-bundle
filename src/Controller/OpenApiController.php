@@ -31,9 +31,10 @@ readonly class OpenApiController
         $openapi = json_decode($this->generator->generate()->toJson(JSON_THROW_ON_ERROR), true, 512, JSON_THROW_ON_ERROR);
         $schema = $openapi['components']['schemas'][$name] ?? throw new NotFoundHttpException(sprintf('Schema "%s" not found.', $name));
 
-        $data['$schema'] = 'https://json-schema.org/draft/2020-12/schema';
-        $data['$id'] = $request->getUri();
-        $data = array_merge($data, $schema);
+        $data = [
+            '$schema' => 'https://json-schema.org/draft/2020-12/schema',
+            '$id' => $request->getUri(),
+        ] + $schema;
 
         return new JsonResponse($data);
     }

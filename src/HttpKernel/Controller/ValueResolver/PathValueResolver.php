@@ -30,14 +30,6 @@ readonly class PathValueResolver implements ValueResolverInterface
             throw new \LogicException(sprintf('Mapping variadic argument "$%s" is not supported.', $argument->getName()));
         }
 
-        if (!$type = $argument->getType()) {
-            throw new \LogicException(sprintf('Could not resolve the "$%s" controller argument: argument should be typed.', $argument->getName()));
-        }
-
-        if (!is_scalar($type)) {
-            throw new \LogicException(sprintf('Could not resolve the "$%s" controller argument: argument type should be a scalar type, "%s" given.', $argument->getName(), $type));
-        }
-
         $value = $this->attributeValueResolver->resolve($request, $argument)[0] ?? null;
 
         if (null === $value) {
@@ -50,7 +42,7 @@ readonly class PathValueResolver implements ValueResolverInterface
     }
 
     /**
-     * @return list<Constraint>
+     * @return array<Constraint>
      */
     private function guessConstraints(ArgumentMetadata $argument, Path $attribute): array
     {

@@ -15,11 +15,13 @@ return static function (ContainerConfigurator $container): void {
     $container->import('services/routing.php');
 
     $container->services()
-        ->set(Generator::class)
+        ->set('openapi.generator', Generator::class)
             ->args([
                 service(AnalyserInterface::class),
                 tagged_iterator('openapi.processor', defaultPriorityMethod: 'priority'),
                 param('openapi_generator_scan_dirs'),
             ])
+
+        ->alias(Generator::class, 'openapi.generator')
     ;
 };

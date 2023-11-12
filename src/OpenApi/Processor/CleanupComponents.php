@@ -11,7 +11,11 @@ readonly class CleanupComponents implements ProcessorInterface
 {
     public function __invoke(Analysis $analysis): void
     {
-        if (Generator::isDefault($analysis->openapi->components)) {
+        if (null === $openapi = $analysis->openapi) {
+            return;
+        }
+
+        if (Generator::isDefault($openapi->components)) {
             return;
         }
 
@@ -26,21 +30,30 @@ readonly class CleanupComponents implements ProcessorInterface
 
     protected function removeDuplicatedResponses(Analysis $analysis): void
     {
-        foreach ($analysis->openapi->components->responses as $i => $response) {
+        if (null === $openapi = $analysis->openapi) {
+            return;
+        }
+
+        $responses = [];
+        foreach ($openapi->components->responses as $i => $response) {
             if (!isset($responses[$response->response])) {
                 $responses[$response->response] = true;
 
                 continue;
             }
 
-            unset($analysis->openapi->components->responses[$i]);
+            unset($openapi->components->responses[$i]);
             $this->detachAnnotationRecursively($response, $analysis);
         }
     }
 
     protected function removeUselessSchemas(Analysis $analysis): void
     {
-        foreach ($analysis->openapi->components->schemas as $i => $schema) {
+        if (null === $openapi = $analysis->openapi) {
+            return;
+        }
+
+        foreach ($openapi->components->schemas as $i => $schema) {
             foreach ($analysis->annotations as $annotation) {
                 if (property_exists($annotation, 'ref') && (string) $annotation->ref === '#/components/schemas/'.$schema->schema) {
                     continue 2;
@@ -48,21 +61,19 @@ readonly class CleanupComponents implements ProcessorInterface
             }
 
             $this->detachAnnotationRecursively($schema, $analysis);
-            unset($analysis->openapi->components->schemas[$i]);
+            unset($openapi->components->schemas[$i]);
         }
     }
 
-    protected function detachAnnotationRecursively($annotation, Analysis $analysis): void
+    protected function detachAnnotationRecursively(object|array $annotation, Analysis $analysis): void
     {
         if ($annotation instanceof AbstractAnnotation) {
             $analysis->annotations->detach($annotation);
         }
 
-        if (is_array($annotation) || is_object($annotation)) {
-            foreach ($annotation as $field) {
-                if (is_array($field) || $field instanceof AbstractAnnotation) {
-                    $this->detachAnnotationRecursively($field, $analysis);
-                }
+        foreach ($annotation as $field) {
+            if (is_array($field) || $field instanceof AbstractAnnotation) {
+                $this->detachAnnotationRecursively($field, $analysis);
             }
         }
     }

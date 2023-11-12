@@ -1,0 +1,2 @@
+openapi:
+    resource: '@OpenApiBundle/config/routes.php'

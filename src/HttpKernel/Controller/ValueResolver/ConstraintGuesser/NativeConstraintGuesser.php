@@ -15,7 +15,7 @@ class NativeConstraintGuesser implements ConstraintGuesserInterface
      */
     public function guess(ArgumentMetadata $argument, Path $attribute): array
     {
-        $constraints[] = match ($attribute->format) {
+        $constraints = [match ($attribute->format) {
             'uuid' => new Assert\Uuid(),
             'date' => new Assert\Date(),
             'datetime' => new Assert\DateTime(),
@@ -23,7 +23,7 @@ class NativeConstraintGuesser implements ConstraintGuesserInterface
             'currency' => new Assert\Currency(),
             'numeric' => new Assert\Type(type: 'numeric'),
             default => null,
-        };
+        }];
 
         $enum = $attribute->enum;
 
