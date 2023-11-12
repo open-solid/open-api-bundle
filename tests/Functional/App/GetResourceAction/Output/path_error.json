@@ -1,0 +1,1 @@
+{"type":"https:\/\/symfony.com\/errors\/validation","title":"Validation Failed","status":422,"detail":"This is not a valid UUID.","violations":[{"propertyPath":"","title":"This is not a valid UUID.","template":"This is not a valid UUID.","parameters":{"{{ value }}":"\"invalid-uuid\""},"type":"urn:uuid:51120b12-a2bc-41bf-aa53-cd73daf330d0"}]}

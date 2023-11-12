@@ -26,4 +26,16 @@ class GetResourceActionTest extends AbstractWebTestCase
         $this->assertJson($content);
         $this->assertApiResponse($content);
     }
+
+    public function testValidation(): void
+    {
+        $client = self::createClient();
+        $client->jsonRequest('GET', '/resources/invalid-uuid');
+
+        $content = $client->getResponse()->getContent();
+
+        self::assertResponseIsUnprocessable();
+        $this->assertJson($content);
+        $this->assertApiResponse($content, true, 'path_error.json');
+    }
 }
