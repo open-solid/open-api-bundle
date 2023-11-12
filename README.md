@@ -51,9 +51,6 @@ use Yceruto\OpenApiBundle\Attributes\Property;
 #[Schema]
 class PostProductBody
 {
-    #[Property(format: 'uuid')]
-    public string $id;
-
     #[Property(minLength: 3)]
     public string $name;
 }
@@ -80,9 +77,6 @@ readonly class ProductView
 
     #[Property]
     public DateTimeImmutable $createdAt;
-
-    #[Property]
-    public ?DateTimeImmutable $updatedAt;
 
     // ...
 }
