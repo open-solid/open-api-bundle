@@ -5,7 +5,7 @@ namespace Yceruto\OpenApiBundle\Tests\Functional\App\GetResourcesAction\Controll
 use Yceruto\OpenApiBundle\Routing\Attribute\Get;
 use Yceruto\OpenApiBundle\Tests\Functional\App\GetResourcesAction\Model\ResourceView;
 
-class GetResourceAction
+class GetResourcesAction
 {
     #[Get(
         path: '/resources',

@@ -6,25 +6,36 @@
     },
     "servers": [],
     "paths": {
-        "/resources": {
+        "/resources/{id}": {
             "get": {
-                "operationId": "cffcc5db760727f3649c17ece1322bf6",
+                "operationId": "f9b10b069003dd6a6eda85db5bd39385",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "format": "uuid"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/ResourceView"
-                                    }
+                                    "$ref": "#/components/schemas/ResourceView"
                                 }
                             }
                         }
                     },
                     "400": {
                         "$ref": "#/components/responses/400"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/404"
                     }
                 }
             }
