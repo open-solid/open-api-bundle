@@ -28,4 +28,18 @@ class PostResourceActionTest extends AbstractWebTestCase
         $this->assertJson($content);
         $this->assertApiResponse($content);
     }
+
+    public function testValidation(): void
+    {
+        $client = self::createClient();
+        $client->jsonRequest('POST', '/resources', [
+            'name' => null,
+        ]);
+
+        $content = $client->getResponse()->getContent();
+
+        self::assertResponseIsUnprocessable();
+        $this->assertJson($content);
+        $this->assertApiResponse($content, filename: 'validation_error.json');
+    }
 }
