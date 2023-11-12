@@ -1,0 +1,8 @@
+controllers:
+    resource:
+        path: ./Controller/
+        namespace: Yceruto\OpenApiBundle\Tests\Functional\App\GetResourcesAction\Controller
+    type: attribute
+
+openapi:
+    resource: '@OpenApiBundle/config/routes.php'
