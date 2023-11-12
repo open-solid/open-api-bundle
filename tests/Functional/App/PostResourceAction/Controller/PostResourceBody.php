@@ -8,6 +8,6 @@ use Yceruto\OpenApiBundle\Attribute\Property;
 #[Schema(writeOnly: true)]
 class PostResourceBody
 {
-    #[Property]
+    #[Property(minLength: 3)]
     public string $name;
 }

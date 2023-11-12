@@ -29,7 +29,7 @@ class PostResourceActionTest extends AbstractWebTestCase
         $this->assertApiResponse($content);
     }
 
-    public function testValidation(): void
+    public function testValidation1(): void
     {
         $client = self::createClient();
         $client->jsonRequest('POST', '/resources', [
@@ -40,6 +40,20 @@ class PostResourceActionTest extends AbstractWebTestCase
 
         self::assertResponseIsUnprocessable();
         $this->assertJson($content);
-        $this->assertApiResponse($content, filename: 'validation_error.json');
+        $this->assertApiResponse($content, filename: 'validation_error1.json');
+    }
+
+    public function testValidation2(): void
+    {
+        $client = self::createClient();
+        $client->jsonRequest('POST', '/resources', [
+            'name' => 'fo',
+        ]);
+
+        $content = $client->getResponse()->getContent();
+
+        self::assertResponseIsUnprocessable();
+        $this->assertJson($content);
+        $this->assertApiResponse($content, filename: 'validation_error2.json');
     }
 }
