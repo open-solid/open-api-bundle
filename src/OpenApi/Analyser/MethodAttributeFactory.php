@@ -6,7 +6,7 @@ use OpenApi\Annotations\Operation;
 use OpenApi\Attributes as OA;
 use OpenApi\Context;
 use OpenApi\Generator;
-use Yceruto\OpenApiBundle\Attribute\Payload;
+use Yceruto\OpenApiBundle\Attribute\Body;
 use Yceruto\OpenApiBundle\Attribute\Query;
 
 class MethodAttributeFactory implements AttributeFactoryInterface
@@ -43,7 +43,7 @@ class MethodAttributeFactory implements AttributeFactoryInterface
     protected function guessRequestBody(\ReflectionMethod $reflector, Context $context, Operation $annotation): void
     {
         foreach ($reflector->getParameters() as $rp) {
-            foreach ($rp->getAttributes(Payload::class, \ReflectionAttribute::IS_INSTANCEOF) as $_) {
+            foreach ($rp->getAttributes(Body::class, \ReflectionAttribute::IS_INSTANCEOF) as $_) {
                 $type = (($rnt = $rp->getType()) && $rnt instanceof \ReflectionNamedType) ? $rnt->getName() : null;
 
                 if (null === $type) {

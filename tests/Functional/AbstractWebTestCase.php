@@ -59,7 +59,7 @@ class AbstractWebTestCase extends WebTestCase
             $options['test_case'],
             $options['root_config'] ?? 'config.yaml',
             $options['environment'] ?? 'test',
-            $options['debug'] ?? false
+            $options['debug'] ?? true,
         );
     }
 
@@ -73,5 +73,21 @@ class AbstractWebTestCase extends WebTestCase
         $parts = explode('\\', static::class);
 
         return substr(end($parts), 0, -4);
+    }
+
+    protected function assertApiDoc(string $content, bool $save = false): void
+    {
+        if ($save) {
+            file_put_contents(__DIR__.'/App/'.self::getTestCase().'/Output/doc.json', $content);
+        }
+        $this->assertJsonStringEqualsJsonFile(__DIR__.'/App/'.self::getTestCase().'/Output/doc.json', $content);
+    }
+
+    protected function assertApiResponse(string $content, bool $save = false): void
+    {
+        if ($save) {
+            file_put_contents(__DIR__.'/App/'.self::getTestCase().'/Output/response.json', $content);
+        }
+        $this->assertJsonStringEqualsJsonFile(__DIR__.'/App/'.self::getTestCase().'/Output/response.json', $content);
     }
 }
