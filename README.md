@@ -19,6 +19,26 @@ openapi:
 
 ## Basic Usage
 
+Create a controller with `#[Post]` and a `#[Body]` attribute in the action method:
+```php
+<?php
+
+namespace App\Presentation\Controller\Post;
+
+use App\Domain\View\ProductView;
+use Yceruto\OpenApiBundle\Attributes\Body;
+use Yceruto\OpenApiBundle\Routing\Attribute\Post;
+
+class PostProductAction
+{
+    #[Post('/products')]
+    public function __invoke(#[Body] PostProductBody $body): ProductView
+    {
+        // TODO: Implement __invoke() method.
+    }
+}
+```
+
 Create a payload class with a `#[Schema]` attribute and `#[Property]` attributes in the properties:
 ```php
 <?php
@@ -29,7 +49,7 @@ use OpenApi\Attributes\Schema;
 use Yceruto\OpenApiBundle\Attributes\Property;
 
 #[Schema]
-class PostProductPayload
+class PostProductBody
 {
     #[Property(format: 'uuid')]
     public string $id;
@@ -68,28 +88,7 @@ readonly class ProductView
 }
 ```
 
-Create a controller with `#[Post]` and a `#[Payload]` attribute in the action method:
-```php
-<?php
-
-namespace App\Presentation\Controller\Post;
-
-use App\Domain\View\ProductView;
-use Yceruto\OpenApiBundle\Attributes\Payload;
-use Yceruto\OpenApiBundle\Routing\Attribute\Post;
-
-class PostProductAction
-{
-    #[Post('/products')]
-    public function __invoke(#[Payload] PostProductPayload $payload): ProductView
-    {
-        // TODO: Implement __invoke() method.
-    }
-}
-```
-
-Initialize the Web server and navigate to the `https://127.0.0.1:8000/` URL to see the generated documentation:
-![cover.png](cover.png)
+Initialize the Web server and navigate to the `https://127.0.0.1:8000/` URL to see the generated documentation.
 
 ## License
 
