@@ -15,6 +15,17 @@ class PostResourceActionTest extends AbstractWebTestCase
         $this->assertApiDoc($content);
     }
 
+    public function testDocSchema(): void
+    {
+        $client = self::createClient();
+        $client->request('GET', '/openapi/schema/PostResourceBody');
+        $content = $client->getResponse()->getContent();
+
+        self::assertResponseIsSuccessful();
+        $this->assertJson($content);
+        $this->assertApiDoc($content, filename: 'schema.json');
+    }
+
     public function testEndpoint(): void
     {
         $client = self::createClient();

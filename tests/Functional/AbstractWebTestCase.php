@@ -75,12 +75,12 @@ class AbstractWebTestCase extends WebTestCase
         return substr(end($parts), 0, -4);
     }
 
-    protected function assertApiDoc(string $content, bool $save = false): void
+    protected function assertApiDoc(string $content, bool $save = false, string $filename = 'doc.json'): void
     {
         if ($save) {
-            file_put_contents(__DIR__.'/App/'.self::getTestCase().'/Output/doc.json', $content);
+            file_put_contents(__DIR__.'/App/'.self::getTestCase().'/Output/'.$filename, $content);
         }
-        $this->assertJsonStringEqualsJsonFile(__DIR__.'/App/'.self::getTestCase().'/Output/doc.json', $content);
+        $this->assertJsonStringEqualsJsonFile(__DIR__.'/App/'.self::getTestCase().'/Output/'.$filename, $content);
     }
 
     protected function assertApiResponse(string $content, bool $save = false, string $filename = 'response.json'): void

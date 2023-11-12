@@ -1,0 +1,1 @@
+{"$schema":"https:\/\/json-schema.org\/draft\/2020-12\/schema","$id":"http:\/\/localhost\/openapi\/schema\/PostResourceBody","required":["name"],"properties":{"name":{"type":"string","minLength":3}},"type":"object","writeOnly":true}

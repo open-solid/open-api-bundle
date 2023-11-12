@@ -14,7 +14,7 @@ return static function (RoutingConfigurator $routes): void {
         ->methods(['GET'])
     ;
 
-    $routes->add('openapi_json_schema', '/{name}.schema.json')
+    $routes->add('openapi_json_schema', '/openapi/schema/{name}')
         ->controller([OpenApiController::class, 'jsonSchema'])
         ->methods(['GET'])
     ;
