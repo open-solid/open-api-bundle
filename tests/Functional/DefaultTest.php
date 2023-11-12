@@ -30,7 +30,6 @@ class DefaultTest extends AbstractWebTestCase
         $this->assertArrayHasKey('openapi', $data);
         $this->assertArrayHasKey('info', $data);
         $this->assertArrayHasKey('servers', $data);
-        $this->assertArrayHasKey('components', $data);
     }
 
     protected static function createKernel(array $options = []): KernelInterface

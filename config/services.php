@@ -20,6 +20,7 @@ return static function (ContainerConfigurator $container): void {
                 service(AnalyserInterface::class),
                 tagged_iterator('openapi.processor', defaultPriorityMethod: 'priority'),
                 param('openapi_generator_scan_dirs'),
+                param('openapi_spec'),
             ])
 
         ->alias(Generator::class, 'openapi.generator')
