@@ -90,7 +90,7 @@ class Path extends PathParameter
      *     x: array,
      *     attachables: array,
      *     format: string,
-     *     enum: class-string|array,
+     *     enum: class-string|array
      * }
      */
     public function defaults(): array
