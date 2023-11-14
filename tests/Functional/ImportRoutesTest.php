@@ -1,6 +1,6 @@
 <?php
 
-namespace Yceruto\OpenApiBundle\Tests\Functional;
+namespace Yceruto\Tests\OpenApiBundle\Functional;
 
 use Yceruto\OpenApiBundle\Generator;
 
@@ -19,7 +19,7 @@ class ImportRoutesTest extends AbstractWebTestCase
         $client->request('GET', '/');
         self::assertResponseIsSuccessful();
 
-        $client->request('GET', '/openapi.json');
+        $client->jsonRequest('GET', '/openapi.json');
         $content = $client->getResponse()->getContent();
         self::assertResponseIsSuccessful();
         $this->assertIsString($content);

@@ -1,13 +1,13 @@
 <?php
 
-namespace Yceruto\OpenApiBundle\Tests\Functional;
+namespace Yceruto\Tests\OpenApiBundle\Functional;
 
 class PutResourceActionTest extends AbstractWebTestCase
 {
     public function testDoc(): void
     {
         $client = self::createClient();
-        $client->request('GET', '/openapi.json');
+        $client->jsonRequest('GET', '/openapi.json');
         $content = $client->getResponse()->getContent();
 
         self::assertResponseIsSuccessful();

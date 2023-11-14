@@ -1,10 +1,10 @@
 <?php
 
-namespace Yceruto\OpenApiBundle\Tests\Functional\App\PostResourceAction\Controller;
+namespace Yceruto\Tests\OpenApiBundle\Functional\App\PostResourceAction\Controller;
 
 use Yceruto\OpenApiBundle\Attribute\Body;
 use Yceruto\OpenApiBundle\Routing\Attribute\Post;
-use Yceruto\OpenApiBundle\Tests\Functional\App\PostResourceAction\Model\ResourceView;
+use Yceruto\Tests\OpenApiBundle\Functional\App\PostResourceAction\Model\ResourceView;
 
 class PostResourceAction
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Yceruto\OpenApiBundle\Tests\Functional\App\GetResourceAction\Controller;
+namespace Yceruto\Tests\OpenApiBundle\Functional\App\GetResourceAction\Controller;
 
 use Yceruto\OpenApiBundle\Attribute\Path;
 use Yceruto\OpenApiBundle\Routing\Attribute\Get;
-use Yceruto\OpenApiBundle\Tests\Functional\App\GetResourceAction\Model\ResourceView;
+use Yceruto\Tests\OpenApiBundle\Functional\App\GetResourceAction\Model\ResourceView;
 
 class GetResourceAction
 {

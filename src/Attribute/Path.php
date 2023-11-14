@@ -9,11 +9,34 @@ use OpenApi\Attributes\Schema;
 use OpenApi\Attributes\XmlContent;
 use OpenApi\Generator;
 
+/**
+ * @property string $_parameter;
+ * @property string $_name;
+ * @property string $_description;
+ * @property string $_in;
+ * @property bool $_isRequired;
+ * @property bool $_deprecated;
+ * @property bool $_allowEmptyValue;
+ * @property object|string $_ref;
+ * @property Schema $_schema;
+ * @property mixed $_example;
+ * @property array $_examples;
+ * @property JsonContent|array|Attachable|XmlContent $_content;
+ * @property string $_style;
+ * @property bool $_explode;
+ * @property bool $_allowReserved;
+ * @property array $_spaceDelimited;
+ * @property array $_pipeDelimited;
+ * @property array $_x;
+ * @property array $_attachables;
+ * @property string $_format;
+ * @property array|string $_enum;
+ */
 #[\Attribute(\Attribute::TARGET_CLASS | \Attribute::TARGET_METHOD | \Attribute::TARGET_PROPERTY | \Attribute::TARGET_PARAMETER | \Attribute::IS_REPEATABLE)]
 class Path extends PathParameter
 {
     /**
-     * @param array|class-string|null $enum
+     * @param array|class-string $enum
      */
     public function __construct(
         // path properties
@@ -40,61 +63,61 @@ class Path extends PathParameter
         public ?string $format = null,
         public array|string|null $enum = null,
     ) {
-        $defaults = $this->defaults();
-
-        $this->format = $format ?? $defaults['format'] ?? Generator::UNDEFINED;
-        $this->enum = $enum ?? $defaults['enum'] ?? Generator::UNDEFINED;
-
         parent::__construct(
-            $parameter ?? $defaults['parameter'] ?? null,
-            $name ?? $defaults['name'] ?? null,
-            $description ?? $defaults['description'] ?? null,
-            $in ?? $defaults['in'] ?? null,
-            $required ?? $defaults['required'] ?? null,
-            $deprecated ?? $defaults['deprecated'] ?? null,
-            $allowEmptyValue ?? $defaults['allowEmptyValue'] ?? null,
-            $ref ?? $defaults['ref'] ?? null,
-            $schema ?? $defaults['schema'] ?? null,
-            $example ?? $defaults['example'] ?? Generator::UNDEFINED,
-            $examples ?? $defaults['examples'] ?? null,
-            $content ?? $defaults['content'] ?? null,
-            $style ?? $defaults['style'] ?? null,
-            $explode ?? $defaults['explode'] ?? null,
-            $allowReserved ?? $defaults['allowReserved'] ?? null,
-            $spaceDelimited ?? $defaults['spaceDelimited'] ?? null,
-            $pipeDelimited ?? $defaults['pipeDelimited'] ?? null,
-            $x ?? $defaults['x'] ?? null,
-            $attachables ?? $defaults['attachables'] ?? null,
+            $parameter ?? $this->_parameter ?? null,
+            $name ?? $this->_name ?? null,
+            $description ?? $this->_description ?? null,
+            $in ?? $this->_in ?? null,
+            $required ?? $this->_isRequired ?? null,
+            $deprecated ?? $this->_deprecated ?? null,
+            $allowEmptyValue ?? $this->_allowEmptyValue ?? null,
+            $ref ?? $this->_ref ?? null,
+            $schema ?? $this->_schema ?? null,
+            $example ?? $this->_example ?? Generator::UNDEFINED,
+            $examples ?? $this->_examples ?? null,
+            $content ?? $this->_content ?? null,
+            $style ?? $this->_style ?? null,
+            $explode ?? $this->_explode ?? null,
+            $allowReserved ?? $this->_allowReserved ?? null,
+            $spaceDelimited ?? $this->_spaceDelimited ?? null,
+            $pipeDelimited ?? $this->_pipeDelimited ?? null,
+            $x ?? $this->_x ?? null,
+            $attachables ?? $this->_attachables ?? null,
+        );
+        $this->format = $format ?? $this->_format ?? Generator::UNDEFINED;
+        $this->enum = $enum ?? $this->_enum ?? Generator::UNDEFINED;
+
+        unset(
+            $this->_parameter,
+            $this->_name,
+            $this->_description,
+            $this->_in,
+            $this->_isRequired,
+            $this->_deprecated,
+            $this->_allowEmptyValue,
+            $this->_ref,
+            $this->_schema,
+            $this->_example,
+            $this->_examples,
+            $this->_content,
+            $this->_style,
+            $this->_explode,
+            $this->_allowReserved,
+            $this->_spaceDelimited,
+            $this->_pipeDelimited,
+            $this->_x,
+            $this->_attachables,
+            $this->_format,
+            $this->_enum,
         );
     }
 
-    /**
-     * @return array{
-     *     parameter: string,
-     *     name: string,
-     *     description: string,
-     *     in: string,
-     *     required: bool,
-     *     deprecated: bool,
-     *     allowEmptyValue: bool,
-     *     ref: object|string,
-     *     schema: Schema,
-     *     example: mixed,
-     *     examples: array,
-     *     content: JsonContent|array|Attachable|XmlContent,
-     *     style: string,
-     *     explode: bool,
-     *     allowReserved: bool,
-     *     spaceDelimited: array,
-     *     pipeDelimited: array,
-     *     x: array,
-     *     attachables: array,
-     *     format: string,
-     *     enum: class-string|array,
-     * }
-     */
-    public function defaults(): array
+    public function __get(string $property)
     {
-        return [];
+        if (str_starts_with($property, '_')) {
+            return $this->{$property} ?? null;
+        }
+
+        return parent::__get($property);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Yceruto\OpenApiBundle\Tests\Functional\App\PatchResourceAction\Model;
+namespace Yceruto\Tests\OpenApiBundle\Functional\App\PatchResourceAction\Model;
 
 use OpenApi\Attributes\Schema;
 use Yceruto\OpenApiBundle\Attribute\Property;

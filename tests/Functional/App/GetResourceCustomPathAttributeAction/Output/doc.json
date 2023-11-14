@@ -7,8 +7,8 @@
     "servers": [],
     "paths": {
         "/resources/{id}": {
-            "delete": {
-                "operationId": "a606217f629230bc3e892390b9ff3502",
+            "get": {
+                "operationId": "75e15e4669e6da274bcb843698a5c6b4",
                 "parameters": [
                     {
                         "name": "id",
@@ -21,8 +21,15 @@
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "Successful"
+                    "200": {
+                        "description": "Successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResourceView"
+                                }
+                            }
+                        }
                     },
                     "400": {
                         "$ref": "#/components/responses/400"
@@ -36,6 +43,21 @@
     },
     "components": {
         "schemas": {
+            "ResourceView": {
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "readOnly": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "readOnly": true
+                    }
+                },
+                "type": "object",
+                "readOnly": true
+            },
             "BadRequestErrorView": {
                 "properties": {
                     "type": {

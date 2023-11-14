@@ -1,6 +1,6 @@
 <?php
 
-namespace Yceruto\OpenApiBundle\Tests\Functional;
+namespace Yceruto\Tests\OpenApiBundle\Functional;
 
 class ImportRoutesWithPrefixTest extends AbstractWebTestCase
 {

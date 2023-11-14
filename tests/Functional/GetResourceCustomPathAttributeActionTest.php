@@ -1,8 +1,10 @@
 <?php
 
-namespace Yceruto\Tests\OpenApiBundle\Functional;
+namespace Functional;
 
-class GetResourcesActionTest extends AbstractWebTestCase
+use Yceruto\Tests\OpenApiBundle\Functional\AbstractWebTestCase;
+
+class GetResourceCustomPathAttributeActionTest extends AbstractWebTestCase
 {
     public function testDoc(): void
     {
@@ -18,7 +20,7 @@ class GetResourcesActionTest extends AbstractWebTestCase
     public function testEndpoint(): void
     {
         $client = self::createClient();
-        $client->jsonRequest('GET', '/resources');
+        $client->jsonRequest('GET', '/resources/4f09d694-446a-4769-9929-dad96a071cad');
 
         $content = $client->getResponse()->getContent();
 

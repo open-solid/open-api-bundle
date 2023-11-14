@@ -1,7 +1,7 @@
 controllers:
     resource:
         path: ./Controller/
-        namespace: Yceruto\OpenApiBundle\Tests\Functional\App\DeleteResourceAction\Controller
+        namespace: Yceruto\Tests\OpenApiBundle\Functional\App\DeleteResourceAction\Controller
     type: attribute
 
 openapi:

@@ -1,6 +1,6 @@
 <?php
 
-namespace Yceruto\OpenApiBundle\Tests\Functional\App\DeleteResourceAction\Controller;
+namespace Yceruto\Tests\OpenApiBundle\Functional\App\DeleteResourceAction\Controller;
 
 use Yceruto\OpenApiBundle\Attribute\Path;
 use Yceruto\OpenApiBundle\Routing\Attribute\Delete;

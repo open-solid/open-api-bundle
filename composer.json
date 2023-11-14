@@ -20,7 +20,7 @@
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
-        "vimeo/psalm": "^6.0",
+        "vimeo/psalm": "^5.0",
         "phpunit/phpunit": "^10.0",
         "psalm/plugin-phpunit": "^0.18",
         "symfony/browser-kit": "^7.0"
@@ -32,7 +32,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Yceruto\\OpenApiBundle\\Tests\\": "tests/"
+            "Yceruto\\Tests\\OpenApiBundle\\": "tests/"
         }
     },
     "scripts": {

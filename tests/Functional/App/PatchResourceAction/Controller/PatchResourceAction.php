@@ -1,10 +1,10 @@
 <?php
 
-namespace Yceruto\OpenApiBundle\Tests\Functional\App\PatchResourceAction\Controller;
+namespace Yceruto\Tests\OpenApiBundle\Functional\App\PatchResourceAction\Controller;
 
 use Yceruto\OpenApiBundle\Attribute\Body;
 use Yceruto\OpenApiBundle\Routing\Attribute\Patch;
-use Yceruto\OpenApiBundle\Tests\Functional\App\PatchResourceAction\Model\ResourceView;
+use Yceruto\Tests\OpenApiBundle\Functional\App\PatchResourceAction\Model\ResourceView;
 
 class PatchResourceAction
 {

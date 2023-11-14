@@ -8,7 +8,7 @@
     "paths": {
         "/resources": {
             "put": {
-                "operationId": "1854735a690baf691e7e896f5494dab6",
+                "operationId": "7c611e75f5ed5d15cc91eb792869bbdb",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -25,7 +25,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "Yceruto\\OpenApiBundle\\Tests\\Functional\\App\\PostResourceAction\\Model\\ResourceView"
+                                    "$ref": "#/components/schemas/ResourceView"
                                 }
                             }
                         }
@@ -56,6 +56,21 @@
                 },
                 "type": "object",
                 "writeOnly": true
+            },
+            "ResourceView": {
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "readOnly": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "readOnly": true
+                    }
+                },
+                "type": "object",
+                "readOnly": true
             },
             "BadRequestErrorView": {
                 "properties": {
