@@ -68,31 +68,6 @@ class Path extends PathParameter
         );
     }
 
-    /**
-     * @return array{
-     *     parameter: string,
-     *     name: string,
-     *     description: string,
-     *     in: string,
-     *     required: bool,
-     *     deprecated: bool,
-     *     allowEmptyValue: bool,
-     *     ref: object|string,
-     *     schema: Schema,
-     *     example: mixed,
-     *     examples: array,
-     *     content: JsonContent|array|Attachable|XmlContent,
-     *     style: string,
-     *     explode: bool,
-     *     allowReserved: bool,
-     *     spaceDelimited: array,
-     *     pipeDelimited: array,
-     *     x: array,
-     *     attachables: array,
-     *     format: string,
-     *     enum: class-string|array,
-     * }
-     */
     public function defaults(): array
     {
         return [];
