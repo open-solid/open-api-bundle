@@ -49,7 +49,7 @@ class PropertyDefaults
     public AdditionalProperties|bool $additionalProperties;
     public array $x;
     public array $attachables;
-    public readonly array $groups;
+    public array $groups;
 
     public static function create(): self
     {
