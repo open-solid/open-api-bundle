@@ -18,8 +18,6 @@ class Property extends \OpenApi\Attributes\Property
      * @param string|class-string|object|null                 $ref
      * @param string[]                                        $required
      * @param \OpenApi\Attributes\Property[]                  $properties
-     * @param int|float                                       $maximum
-     * @param int|float                                       $minimum
      * @param string[]|int[]|float[]|\UnitEnum[]|class-string $enum
      * @param array<Schema|\OpenApi\Annotations\Schema>       $allOf
      * @param array<Schema|\OpenApi\Annotations\Schema>       $anyOf
@@ -42,10 +40,10 @@ class Property extends \OpenApi\Attributes\Property
         ?string $format = null,
         ?Items $items = null,
         ?string $collectionFormat = null,
-        mixed $default = Generator::UNDEFINED,
-        $maximum = null,
+        mixed $default = null,
+        float|int|null $maximum = null,
         ?bool $exclusiveMaximum = null,
-        $minimum = null,
+        float|int|null $minimum = null,
         ?bool $exclusiveMinimum = null,
         ?int $maxLength = null,
         ?int $minLength = null,
@@ -59,7 +57,7 @@ class Property extends \OpenApi\Attributes\Property
         ?bool $writeOnly = null,
         ?Xml $xml = null,
         ?ExternalDocumentation $externalDocs = null,
-        mixed $example = Generator::UNDEFINED,
+        mixed $example = null,
         ?bool $nullable = null,
         ?bool $deprecated = null,
         ?array $allOf = null,
@@ -70,50 +68,60 @@ class Property extends \OpenApi\Attributes\Property
         ?array $x = null,
         ?array $attachables = null,
         // custom properties
-        public readonly ?array $groups = null,
+        public ?array $groups = null,
     ) {
-        self::$_blacklist = array_unique(array_merge(self::$_blacklist, ['groups']));
+        if (!\in_array('groups', self::$_blacklist, true)) {
+            self::$_blacklist[] = 'groups';
+        }
+
+        $defaults = static::defaults();
+        $this->groups = $groups ?? $defaults->groups ?? null;
 
         parent::__construct(
-            $property,
-            $ref,
-            $schema,
-            $title,
-            $description,
-            $maxProperties,
-            $minProperties,
-            $required,
-            $properties,
-            $type,
-            $format,
-            $items,
-            $collectionFormat,
-            $default,
-            $maximum,
-            $exclusiveMaximum,
-            $minimum,
-            $exclusiveMinimum,
-            $maxLength,
-            $minLength,
-            $maxItems,
-            $minItems,
-            $uniqueItems,
-            $pattern,
-            $enum,
-            $discriminator,
-            $readOnly,
-            $writeOnly,
-            $xml,
-            $externalDocs,
-            $example,
-            $nullable,
-            $deprecated,
-            $allOf,
-            $anyOf,
-            $oneOf,
-            $additionalProperties,
-            $x,
-            $attachables
+            $property ?? $defaults->property ?? null,
+            $ref ?? $defaults->ref ?? null,
+            $schema ?? $defaults->schema ?? null,
+            $title ?? $defaults->title ?? null,
+            $description ?? $defaults->description ?? null,
+            $maxProperties ?? $defaults->maxProperties ?? null,
+            $minProperties ?? $defaults->minProperties ?? null,
+            $required ?? $defaults->required ?? null,
+            $properties ?? $defaults->properties ?? null,
+            $type ?? $defaults->type ?? null,
+            $format ?? $defaults->format ?? null,
+            $items ?? $defaults->items ?? null,
+            $collectionFormat ?? $defaults->collectionFormat ?? null,
+            $default ?? $defaults->default ?? Generator::UNDEFINED,
+            $maximum ?? $defaults->maximum ?? null,
+            $exclusiveMaximum ?? $defaults->exclusiveMaximum ?? null,
+            $minimum ?? $defaults->minimum ?? null,
+            $exclusiveMinimum ?? $defaults->exclusiveMinimum ?? null,
+            $maxLength ?? $defaults->maxLength ?? null,
+            $minLength ?? $defaults->minLength ?? null,
+            $maxItems ?? $defaults->maxItems ?? null,
+            $minItems ?? $defaults->minItems ?? null,
+            $uniqueItems ?? $defaults->uniqueItems ?? null,
+            $pattern ?? $defaults->pattern ?? null,
+            $enum ?? $defaults->enum ?? null,
+            $discriminator ?? $defaults->discriminator ?? null,
+            $readOnly ?? $defaults->readOnly ?? null,
+            $writeOnly ?? $defaults->writeOnly ?? null,
+            $xml ?? $defaults->xml ?? null,
+            $externalDocs ?? $defaults->externalDocs ?? null,
+            $example ?? $defaults->example ?? Generator::UNDEFINED,
+            $nullable ?? $defaults->nullable ?? null,
+            $deprecated ?? $defaults->deprecated ?? null,
+            $allOf ?? $defaults->allOf ?? null,
+            $anyOf ?? $defaults->anyOf ?? null,
+            $oneOf ?? $defaults->oneOf ?? null,
+            $additionalProperties ?? $defaults->additionalProperties ?? null,
+            $x ?? $defaults->x ?? null,
+            $attachables ?? $defaults->attachables ?? null,
         );
+    }
+
+    public static function defaults(): PropertyDefaults
+    {
+        return PropertyDefaults::create();
     }
 }

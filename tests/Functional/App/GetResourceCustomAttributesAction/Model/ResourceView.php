@@ -1,14 +1,15 @@
 <?php
 
-namespace Yceruto\Tests\OpenApiBundle\Functional\App\GetResourceCustomPathAttributeAction\Model;
+namespace Yceruto\Tests\OpenApiBundle\Functional\App\GetResourceCustomAttributesAction\Model;
 
 use OpenApi\Attributes\Schema;
 use Yceruto\OpenApiBundle\Attribute\Property;
+use Yceruto\Tests\OpenApiBundle\Functional\App\GetResourceCustomAttributesAction\Attribute\IdProperty;
 
 #[Schema]
 readonly class ResourceView
 {
-    #[Property(format: 'uuid')]
+    #[IdProperty]
     public string $id;
 
     #[Property]

@@ -4,7 +4,7 @@ namespace Functional;
 
 use Yceruto\Tests\OpenApiBundle\Functional\AbstractWebTestCase;
 
-class GetResourceCustomPathAttributeActionTest extends AbstractWebTestCase
+class GetResourceCustomAttributesActionTest extends AbstractWebTestCase
 {
     public function testDoc(): void
     {

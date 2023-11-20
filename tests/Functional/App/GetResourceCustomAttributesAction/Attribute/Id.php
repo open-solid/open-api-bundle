@@ -1,6 +1,6 @@
 <?php
 
-namespace Yceruto\Tests\OpenApiBundle\Functional\App\GetResourceCustomPathAttributeAction\Attribute;
+namespace Yceruto\Tests\OpenApiBundle\Functional\App\GetResourceCustomAttributesAction\Attribute;
 
 use Yceruto\OpenApiBundle\Attribute\Path;
 use Yceruto\OpenApiBundle\Attribute\PathDefaults;
