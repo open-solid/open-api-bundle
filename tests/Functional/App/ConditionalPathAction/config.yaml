@@ -1,0 +1,10 @@
+imports:
+    - { resource: '../config.yaml' }
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    Yceruto\Tests\OpenApiBundle\Functional\App\ConditionalPathAction\Decider\FoobarPathDecider: ~
+

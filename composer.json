@@ -16,7 +16,8 @@
         "symfony/property-access": "^7.0",
         "symfony/serializer": "^7.0",
         "symfony/validator": "^7.0",
-        "zircote/swagger-php": "^4.7"
+        "zircote/swagger-php": "^4.7",
+        "symfony/expression-language": "^7.0"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",

@@ -1,0 +1,8 @@
+controllers:
+    resource:
+        path: ./Controller/
+        namespace: Yceruto\Tests\OpenApiBundle\Functional\App\ConditionalPathAction\Controller
+    type: attribute
+
+openapi:
+    resource: '@OpenApiBundle/config/routes.php'

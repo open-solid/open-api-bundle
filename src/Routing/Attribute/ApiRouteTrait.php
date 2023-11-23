@@ -42,8 +42,9 @@ trait ApiRouteTrait
         string $env = null,
         // custom properties
         public ?string $itemsType = null,
+        public ?string $when = null,
     ) {
-        self::$_blacklist = array_unique(array_merge(self::$_blacklist, ['route', 'itemsType']));
+        self::$_blacklist = array_unique(array_merge(self::$_blacklist, ['route', 'itemsType', 'when']));
 
         parent::__construct(
             $path,
@@ -62,6 +63,12 @@ trait ApiRouteTrait
             $x,
             $attachables,
         );
+
+        if ($condition && $when) {
+            $condition .= ' and '.$when;
+        } else {
+            $condition = $when;
+        }
 
         $this->route = new Route(
             $path,

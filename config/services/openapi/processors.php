@@ -4,6 +4,8 @@ use OpenApi\Processors;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Yceruto\OpenApiBundle\OpenApi as OAB;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\param;
+use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
+use function Symfony\Component\DependencyInjection\Loader\Configurator\tagged_iterator;
 
 return static function (ContainerConfigurator $container): void {
     $container->services()
@@ -67,7 +69,14 @@ return static function (ContainerConfigurator $container): void {
         ->set(Processors\CleanUnmerged::class)
             ->tag('openapi.processor', ['priority' => 15])
 
-        ->set(OAB\Processor\CleanupComponents::class)
+        ->set(OAB\Processor\PathDeciderProcessor::class)
+            ->args([
+                tagged_iterator('routing.expression_language_provider'),
+                service('router.request_context'),
+            ])
             ->tag('openapi.processor', ['priority' => 10])
+
+        ->set(OAB\Processor\CleanupComponents::class)
+            ->tag('openapi.processor', ['priority' => 5])
     ;
 };

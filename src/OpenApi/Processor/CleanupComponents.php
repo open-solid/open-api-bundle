@@ -9,6 +9,8 @@ use OpenApi\Processors\ProcessorInterface;
 
 readonly class CleanupComponents implements ProcessorInterface
 {
+    use ProcessorTrait;
+
     public function __invoke(Analysis $analysis): void
     {
         if (null === $openapi = $analysis->openapi) {
@@ -62,19 +64,6 @@ readonly class CleanupComponents implements ProcessorInterface
 
             $this->detachAnnotationRecursively($schema, $analysis);
             unset($openapi->components->schemas[$i]);
-        }
-    }
-
-    protected function detachAnnotationRecursively(object|array $annotation, Analysis $analysis): void
-    {
-        if ($annotation instanceof AbstractAnnotation) {
-            $analysis->annotations->detach($annotation);
-        }
-
-        foreach ($annotation as $field) {
-            if (is_array($field) || $field instanceof AbstractAnnotation) {
-                $this->detachAnnotationRecursively($field, $analysis);
-            }
         }
     }
 }

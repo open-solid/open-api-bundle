@@ -85,7 +85,3 @@ Initialize the Web server and navigate to the `https://127.0.0.1:8000/` URL to s
 ## License
 
 This software is published under the [MIT License](LICENSE)
-
-## TODO
-
-- [ ] Add support for feature flags to conditionally enable/disable API endpoints routes/docs (check ApiRouteTrait::condition)
