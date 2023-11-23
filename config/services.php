@@ -10,6 +10,7 @@ use function Symfony\Component\DependencyInjection\Loader\Configurator\tagged_it
 return static function (ContainerConfigurator $container): void {
     $container->import('services/openapi/analysers.php');
     $container->import('services/openapi/processors.php');
+    $container->import('services/command.php');
     $container->import('services/controller.php');
     $container->import('services/mapping.php');
     $container->import('services/routing.php');

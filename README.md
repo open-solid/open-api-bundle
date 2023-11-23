@@ -11,7 +11,7 @@ This bundle is especially created for API-First development.
 composer require open-solid/open-api-bundle
 ```
 
-Import the Swagger controller routes in `config/routes.yaml`:
+Import the bundle's routes in `config/routes.yaml` to show the Swagger API documentation:
 ```yaml
 openapi:
     resource: '@OpenApiBundle/config/routes.php'

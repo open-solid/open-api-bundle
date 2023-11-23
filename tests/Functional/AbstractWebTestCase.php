@@ -2,8 +2,10 @@
 
 namespace OpenSolid\Tests\OpenApiBundle\Functional;
 
+use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Console\Tester\ApplicationTester;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\KernelInterface;
 use OpenSolid\Tests\OpenApiBundle\Functional\App\AppKernel;
@@ -73,6 +75,14 @@ class AbstractWebTestCase extends WebTestCase
         $parts = explode('\\', static::class);
 
         return substr(end($parts), 0, -4);
+    }
+
+    protected function getApplicationTester(): ApplicationTester
+    {
+        $application = new Application(self::bootKernel());
+        $application->setAutoExit(false);
+
+        return  new ApplicationTester($application);
     }
 
     protected function assertApiDoc(string $content, bool $save = false, string $filename = 'doc.json'): void

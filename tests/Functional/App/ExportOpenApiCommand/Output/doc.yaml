@@ -1,0 +1,111 @@
+openapi: 3.1.0
+info:
+  title: 'API Documentation'
+  version: 1.0.0
+servers: []
+paths:
+  '/resources/{id}':
+    delete:
+      operationId: fb278bcf037bfb54bd45ec2587992b8e
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          format: uuid
+      responses:
+        '204':
+          description: Successful
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+components:
+  schemas:
+    BadRequestErrorView:
+      properties:
+        type:
+          type: string
+          default: 'https://tools.ietf.org/html/rfc2616#section-10'
+        title:
+          type: string
+          default: 'Bad Request'
+        status:
+          type: integer
+          default: 400
+        detail:
+          type: string
+      type: object
+      readOnly: true
+    NotFoundErrorView:
+      properties:
+        type:
+          type: string
+          default: 'https://tools.ietf.org/html/rfc2616#section-10'
+        title:
+          type: string
+          default: 'Not Found'
+        status:
+          type: integer
+          default: 404
+        detail:
+          type: string
+      type: object
+      readOnly: true
+    ValidationErrorView:
+      properties:
+        type:
+          type: string
+          default: 'https://symfony.com/errors/validation'
+        title:
+          type: string
+          default: 'Validation Failed'
+        status:
+          type: integer
+          default: 422
+        detail:
+          type: string
+        violations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationViolationErrorView'
+      type: object
+      readOnly: true
+    ValidationViolationErrorView:
+      properties:
+        propertyPath:
+          type: string
+        title:
+          type: string
+        template:
+          type: string
+        parameters:
+          type: object
+          additionalProperties:
+            type: string
+        type:
+          type: string
+          example: 'urn:uuid:9ff3fdc4-b214-49db-8718-39c315e33d45'
+      type: object
+      readOnly: true
+  responses:
+    '400':
+      description: 'Bad request'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BadRequestErrorView'
+    '404':
+      description: 'Not found'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NotFoundErrorView'
+    '422':
+      description: 'Validation error'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ValidationErrorView'
