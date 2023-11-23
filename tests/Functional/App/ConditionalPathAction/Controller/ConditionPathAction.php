@@ -1,8 +1,8 @@
 <?php
 
-namespace Yceruto\Tests\OpenApiBundle\Functional\App\ConditionalPathAction\Controller;
+namespace OpenSolid\Tests\OpenApiBundle\Functional\App\ConditionalPathAction\Controller;
 
-use Yceruto\OpenApiBundle\Routing\Attribute\Get;
+use OpenSolid\OpenApiBundle\Routing\Attribute\Get;
 
 class ConditionPathAction
 {

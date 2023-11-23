@@ -6,5 +6,5 @@ services:
         autowire: true
         autoconfigure: true
 
-    Yceruto\Tests\OpenApiBundle\Functional\App\ConditionalPathAction\Decider\FoobarPathDecider: ~
+    OpenSolid\Tests\OpenApiBundle\Functional\App\ConditionalPathAction\Decider\FoobarPathDecider: ~
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace Yceruto\Tests\OpenApiBundle\Functional;
+namespace OpenSolid\Tests\OpenApiBundle\Functional;
 
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\KernelInterface;
-use Yceruto\Tests\OpenApiBundle\Functional\App\AppKernel;
+use OpenSolid\Tests\OpenApiBundle\Functional\App\AppKernel;
 
 class AbstractWebTestCase extends WebTestCase
 {

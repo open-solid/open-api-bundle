@@ -8,7 +8,7 @@
     "paths": {
         "/resources": {
             "put": {
-                "operationId": "7c611e75f5ed5d15cc91eb792869bbdb",
+                "operationId": "dff5e7b93751d658f91b8afa0383c32a",
                 "requestBody": {
                     "required": true,
                     "content": {

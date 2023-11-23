@@ -26,8 +26,8 @@ Create a controller with `#[Post]` and a `#[Body]` attribute in the action metho
 namespace App\Presentation\Controller\Post;
 
 use App\Domain\View\ProductView;
-use Yceruto\OpenApiBundle\Attributes\Body;
-use Yceruto\OpenApiBundle\Routing\Attribute\Post;
+use OpenSolid\OpenApiBundle\Attributes\Body;
+use OpenSolid\OpenApiBundle\Routing\Attribute\Post;
 
 class PostProductAction
 {
@@ -46,7 +46,7 @@ Create a payload class with a `#[Schema]` attribute and `#[Property]` attributes
 namespace App\Presentation\Controller\Post;
 
 use OpenApi\Attributes\Schema;
-use Yceruto\OpenApiBundle\Attributes\Property;
+use OpenSolid\OpenApiBundle\Attributes\Property;
 
 #[Schema]
 class PostProductBody
@@ -64,7 +64,7 @@ namespace App\Domain\View;
 
 use DateTimeImmutable;
 use OpenApi\Attributes\Schema;
-use Yceruto\OpenApiBundle\Attributes\Property;
+use OpenSolid\OpenApiBundle\Attributes\Property;
 
 #[Schema]
 readonly class ProductView

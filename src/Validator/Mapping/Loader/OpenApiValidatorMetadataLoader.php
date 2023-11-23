@@ -1,10 +1,10 @@
 <?php
 
-namespace Yceruto\OpenApiBundle\Validator\Mapping\Loader;
+namespace OpenSolid\OpenApiBundle\Validator\Mapping\Loader;
 
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Mapping\Loader\LoaderInterface;
-use Yceruto\OpenApiBundle\Attribute\Property;
+use OpenSolid\OpenApiBundle\Attribute\Property;
 
 readonly class OpenApiValidatorMetadataLoader implements LoaderInterface
 {

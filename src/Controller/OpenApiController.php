@@ -1,13 +1,13 @@
 <?php
 
-namespace Yceruto\OpenApiBundle\Controller;
+namespace OpenSolid\OpenApiBundle\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Yceruto\OpenApiBundle\Generator;
+use OpenSolid\OpenApiBundle\Generator;
 
 readonly class OpenApiController
 {

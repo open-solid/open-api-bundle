@@ -1,6 +1,6 @@
 <?php
 
-namespace Yceruto\OpenApiBundle\Routing\Attribute;
+namespace OpenSolid\OpenApiBundle\Routing\Attribute;
 
 use OpenApi\Attributes\ExternalDocumentation;
 use OpenApi\Attributes\RequestBody;

@@ -1,8 +1,8 @@
 <?php
 
-namespace Yceruto\Tests\OpenApiBundle\Functional;
+namespace OpenSolid\Tests\OpenApiBundle\Functional;
 
-use Yceruto\OpenApiBundle\Generator;
+use OpenSolid\OpenApiBundle\Generator;
 
 class ImportRoutesTest extends AbstractWebTestCase
 {

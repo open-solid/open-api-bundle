@@ -1,6 +1,6 @@
 <?php
 
-namespace Yceruto\OpenApiBundle;
+namespace OpenSolid\OpenApiBundle;
 
 use ErrorException;
 use OpenApi\Analysers\AnalyserInterface;

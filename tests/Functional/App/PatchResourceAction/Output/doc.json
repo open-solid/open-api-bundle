@@ -8,7 +8,7 @@
     "paths": {
         "/resources": {
             "patch": {
-                "operationId": "ebfee4ea75d126be731492376ab4f748",
+                "operationId": "ed44005630cd65fad2f6e3426888d240",
                 "requestBody": {
                     "required": true,
                     "content": {

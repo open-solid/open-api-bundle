@@ -1,5 +1,5 @@
 {
-    "name": "yceruto/open-api-bundle",
+    "name": "open-solid/open-api-bundle",
     "type": "symfony-bundle",
     "description": "Provides a tight integration of OpenApi into the Symfony full-stack framework",
     "keywords": ["openapi", "swagger", "symfony", "bundle"],
@@ -28,12 +28,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Yceruto\\OpenApiBundle\\": "src/"
+            "OpenSolid\\OpenApiBundle\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Yceruto\\Tests\\OpenApiBundle\\": "tests/"
+            "OpenSolid\\Tests\\OpenApiBundle\\": "tests/"
         }
     },
     "scripts": {

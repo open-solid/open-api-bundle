@@ -8,7 +8,7 @@
     "paths": {
         "/resources/{id}": {
             "get": {
-                "operationId": "1a3d0aa29fd08b18716657263fddeff0",
+                "operationId": "4c1a4296be5ca1f2824606ce2a9537b8",
                 "parameters": [
                     {
                         "name": "id",

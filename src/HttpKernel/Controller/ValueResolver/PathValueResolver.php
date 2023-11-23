@@ -1,6 +1,6 @@
 <?php
 
-namespace Yceruto\OpenApiBundle\HttpKernel\Controller\ValueResolver;
+namespace OpenSolid\OpenApiBundle\HttpKernel\Controller\ValueResolver;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestAttributeValueResolver;
@@ -9,8 +9,8 @@ use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\ValidationFailedException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Yceruto\OpenApiBundle\Attribute\Path;
-use Yceruto\OpenApiBundle\HttpKernel\Controller\ValueResolver\ConstraintGuesser\ConstraintGuesserInterface;
+use OpenSolid\OpenApiBundle\Attribute\Path;
+use OpenSolid\OpenApiBundle\HttpKernel\Controller\ValueResolver\ConstraintGuesser\ConstraintGuesserInterface;
 
 readonly class PathValueResolver implements ValueResolverInterface
 {

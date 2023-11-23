@@ -1,14 +1,14 @@
 <?php
 
-namespace Yceruto\OpenApiBundle;
+namespace OpenSolid\OpenApiBundle;
 
 use Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
 use Symfony\Component\Validator\Exception\ValidationFailedException;
-use Yceruto\OpenApiBundle\DependencyInjection\Compiler\SerializerMappingPass;
-use Yceruto\OpenApiBundle\DependencyInjection\Compiler\ValidatorMappingPass;
+use OpenSolid\OpenApiBundle\DependencyInjection\Compiler\SerializerMappingPass;
+use OpenSolid\OpenApiBundle\DependencyInjection\Compiler\ValidatorMappingPass;
 
 class OpenApiBundle extends AbstractBundle
 {

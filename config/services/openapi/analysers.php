@@ -3,15 +3,15 @@
 use OpenApi\Analysers;
 use OpenApi\Analysers\AnnotationFactoryInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Yceruto\OpenApiBundle\OpenApi\Analyser\AttributeFactoryChain;
-use Yceruto\OpenApiBundle\OpenApi\Analyser\AttributeFactoryInterface;
-use Yceruto\OpenApiBundle\OpenApi\Analyser\MethodAttributeFactory;
+use OpenSolid\OpenApiBundle\OpenApi\Analyser\AttributeFactoryChain;
+use OpenSolid\OpenApiBundle\OpenApi\Analyser\AttributeFactoryInterface;
+use OpenSolid\OpenApiBundle\OpenApi\Analyser\MethodAttributeFactory;
 
-use Yceruto\OpenApiBundle\OpenApi\Analyser\PropertyAttributeFactory;
+use OpenSolid\OpenApiBundle\OpenApi\Analyser\PropertyAttributeFactory;
 
-use Yceruto\OpenApiBundle\OpenApi\Analyser\ReflectionAnalyserFactory;
+use OpenSolid\OpenApiBundle\OpenApi\Analyser\ReflectionAnalyserFactory;
 
-use Yceruto\OpenApiBundle\OpenApi\Analyser\SchemaAttributeFactory;
+use OpenSolid\OpenApiBundle\OpenApi\Analyser\SchemaAttributeFactory;
 
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\tagged_iterator;

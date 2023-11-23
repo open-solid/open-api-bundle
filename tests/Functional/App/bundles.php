@@ -1,7 +1,7 @@
 <?php
 
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
-use Yceruto\OpenApiBundle\OpenApiBundle;
+use OpenSolid\OpenApiBundle\OpenApiBundle;
 
 return [
     new FrameworkBundle(),

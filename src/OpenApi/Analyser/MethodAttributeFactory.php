@@ -1,13 +1,13 @@
 <?php
 
-namespace Yceruto\OpenApiBundle\OpenApi\Analyser;
+namespace OpenSolid\OpenApiBundle\OpenApi\Analyser;
 
 use OpenApi\Annotations\Operation;
 use OpenApi\Attributes as OA;
 use OpenApi\Context;
 use OpenApi\Generator;
-use Yceruto\OpenApiBundle\Attribute\Body;
-use Yceruto\OpenApiBundle\Attribute\Query;
+use OpenSolid\OpenApiBundle\Attribute\Body;
+use OpenSolid\OpenApiBundle\Attribute\Query;
 
 class MethodAttributeFactory implements AttributeFactoryInterface
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Yceruto\Tests\OpenApiBundle\Functional\App\PatchResourceAction\Controller;
+namespace OpenSolid\Tests\OpenApiBundle\Functional\App\PatchResourceAction\Controller;
 
-use Yceruto\OpenApiBundle\Attribute\Body;
-use Yceruto\OpenApiBundle\Routing\Attribute\Patch;
-use Yceruto\Tests\OpenApiBundle\Functional\App\PatchResourceAction\Model\ResourceView;
+use OpenSolid\OpenApiBundle\Attribute\Body;
+use OpenSolid\OpenApiBundle\Routing\Attribute\Patch;
+use OpenSolid\Tests\OpenApiBundle\Functional\App\PatchResourceAction\Model\ResourceView;
 
 class PatchResourceAction
 {

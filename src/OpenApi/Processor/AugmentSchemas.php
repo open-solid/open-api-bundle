@@ -1,6 +1,6 @@
 <?php
 
-namespace Yceruto\OpenApiBundle\OpenApi\Processor;
+namespace OpenSolid\OpenApiBundle\OpenApi\Processor;
 
 use OpenApi\Analysis;
 use OpenApi\Annotations as OA;

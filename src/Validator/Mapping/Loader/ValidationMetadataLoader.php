@@ -1,6 +1,6 @@
 <?php
 
-namespace Yceruto\OpenApiBundle\Validator\Mapping\Loader;
+namespace OpenSolid\OpenApiBundle\Validator\Mapping\Loader;
 
 use OpenApi\Generator;
 use ReflectionProperty;
@@ -8,7 +8,7 @@ use ReflectionType;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use UnitEnum;
-use Yceruto\OpenApiBundle\Attribute\Property;
+use OpenSolid\OpenApiBundle\Attribute\Property;
 
 class ValidationMetadataLoader implements ValidatorMetadataLoaderInterface
 {

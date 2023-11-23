@@ -1,10 +1,10 @@
 <?php
 
-namespace Yceruto\Tests\OpenApiBundle\Functional\App\GetResourceCustomAttributesAction\Model;
+namespace OpenSolid\Tests\OpenApiBundle\Functional\App\GetResourceCustomAttributesAction\Model;
 
 use OpenApi\Attributes\Schema;
-use Yceruto\OpenApiBundle\Attribute\Property;
-use Yceruto\Tests\OpenApiBundle\Functional\App\GetResourceCustomAttributesAction\Attribute\IdProperty;
+use OpenSolid\OpenApiBundle\Attribute\Property;
+use OpenSolid\Tests\OpenApiBundle\Functional\App\GetResourceCustomAttributesAction\Attribute\IdProperty;
 
 #[Schema]
 readonly class ResourceView

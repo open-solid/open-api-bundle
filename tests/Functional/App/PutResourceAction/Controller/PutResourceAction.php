@@ -1,10 +1,10 @@
 <?php
 
-namespace Yceruto\Tests\OpenApiBundle\Functional\App\PutResourceAction\Controller;
+namespace OpenSolid\Tests\OpenApiBundle\Functional\App\PutResourceAction\Controller;
 
-use Yceruto\OpenApiBundle\Attribute\Body;
-use Yceruto\OpenApiBundle\Routing\Attribute\Put;
-use Yceruto\Tests\OpenApiBundle\Functional\App\PutResourceAction\Model\ResourceView;
+use OpenSolid\OpenApiBundle\Attribute\Body;
+use OpenSolid\OpenApiBundle\Routing\Attribute\Put;
+use OpenSolid\Tests\OpenApiBundle\Functional\App\PutResourceAction\Model\ResourceView;
 
 class PutResourceAction
 {

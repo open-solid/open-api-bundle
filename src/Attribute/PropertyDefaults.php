@@ -1,6 +1,6 @@
 <?php
 
-namespace Yceruto\OpenApiBundle\Attribute;
+namespace OpenSolid\OpenApiBundle\Attribute;
 
 use OpenApi\Attributes\AdditionalProperties;
 use OpenApi\Attributes\Discriminator;

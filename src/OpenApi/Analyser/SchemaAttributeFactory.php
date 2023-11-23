@@ -1,6 +1,6 @@
 <?php
 
-namespace Yceruto\OpenApiBundle\OpenApi\Analyser;
+namespace OpenSolid\OpenApiBundle\OpenApi\Analyser;
 
 use OpenApi\Attributes\Schema;
 use OpenApi\Context;

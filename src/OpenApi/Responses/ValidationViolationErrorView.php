@@ -1,10 +1,10 @@
 <?php
 
-namespace Yceruto\OpenApiBundle\OpenApi\Responses;
+namespace OpenSolid\OpenApiBundle\OpenApi\Responses;
 
 use OpenApi\Attributes\AdditionalProperties;
 use OpenApi\Attributes\Schema;
-use Yceruto\OpenApiBundle\Attribute\Property;
+use OpenSolid\OpenApiBundle\Attribute\Property;
 
 #[Schema(readOnly: true)]
 class ValidationViolationErrorView

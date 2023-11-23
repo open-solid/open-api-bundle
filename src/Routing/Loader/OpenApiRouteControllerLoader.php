@@ -1,6 +1,6 @@
 <?php
 
-namespace Yceruto\OpenApiBundle\Routing\Loader;
+namespace OpenSolid\OpenApiBundle\Routing\Loader;
 
 use Symfony\Bundle\FrameworkBundle\Routing\AttributeRouteControllerLoader;
 

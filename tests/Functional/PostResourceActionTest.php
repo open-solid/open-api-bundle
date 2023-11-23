@@ -1,6 +1,6 @@
 <?php
 
-namespace Yceruto\Tests\OpenApiBundle\Functional;
+namespace OpenSolid\Tests\OpenApiBundle\Functional;
 
 class PostResourceActionTest extends AbstractWebTestCase
 {

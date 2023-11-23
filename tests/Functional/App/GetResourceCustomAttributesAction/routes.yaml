@@ -1,7 +1,7 @@
 controllers:
     resource:
         path: ./Controller/
-        namespace: Yceruto\Tests\OpenApiBundle\Functional\App\GetResourceCustomAttributesAction\Controller
+        namespace: OpenSolid\Tests\OpenApiBundle\Functional\App\GetResourceCustomAttributesAction\Controller
     type: attribute
 
 openapi:

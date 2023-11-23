@@ -3,11 +3,11 @@
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Yceruto\OpenApiBundle\Controller\OpenApiController;
-use Yceruto\OpenApiBundle\Generator;
-use Yceruto\OpenApiBundle\HttpKernel\Controller\ControllerResultSubscriber;
-use Yceruto\OpenApiBundle\HttpKernel\Controller\ValueResolver\ConstraintGuesser\NativeConstraintGuesser;
-use Yceruto\OpenApiBundle\HttpKernel\Controller\ValueResolver\PathValueResolver;
+use OpenSolid\OpenApiBundle\Controller\OpenApiController;
+use OpenSolid\OpenApiBundle\Generator;
+use OpenSolid\OpenApiBundle\HttpKernel\Controller\ControllerResultSubscriber;
+use OpenSolid\OpenApiBundle\HttpKernel\Controller\ValueResolver\ConstraintGuesser\NativeConstraintGuesser;
+use OpenSolid\OpenApiBundle\HttpKernel\Controller\ValueResolver\PathValueResolver;
 
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\tagged_iterator;

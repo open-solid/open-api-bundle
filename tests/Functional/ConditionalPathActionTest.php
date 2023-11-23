@@ -1,8 +1,6 @@
 <?php
 
-namespace Functional;
-
-use Yceruto\Tests\OpenApiBundle\Functional\AbstractWebTestCase;
+namespace OpenSolid\Tests\OpenApiBundle\Functional;
 
 class ConditionalPathActionTest extends AbstractWebTestCase
 {

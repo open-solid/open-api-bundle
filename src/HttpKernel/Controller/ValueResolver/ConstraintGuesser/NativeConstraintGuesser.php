@@ -1,12 +1,12 @@
 <?php
 
-namespace Yceruto\OpenApiBundle\HttpKernel\Controller\ValueResolver\ConstraintGuesser;
+namespace OpenSolid\OpenApiBundle\HttpKernel\Controller\ValueResolver\ConstraintGuesser;
 
 use BackedEnum;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 use UnitEnum;
-use Yceruto\OpenApiBundle\Attribute\Path;
+use OpenSolid\OpenApiBundle\Attribute\Path;
 
 class NativeConstraintGuesser implements ConstraintGuesserInterface
 {

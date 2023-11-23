@@ -1,11 +1,11 @@
 <?php
 
-namespace Yceruto\OpenApiBundle\OpenApi\Responses;
+namespace OpenSolid\OpenApiBundle\OpenApi\Responses;
 
 use OpenApi\Attributes\JsonContent;
 use OpenApi\Attributes\Response;
 use OpenApi\Attributes\Schema;
-use Yceruto\OpenApiBundle\Attribute\Property;
+use OpenSolid\OpenApiBundle\Attribute\Property;
 
 #[Response(
     response: 400,

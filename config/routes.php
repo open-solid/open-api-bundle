@@ -1,7 +1,7 @@
 <?php
 
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
-use Yceruto\OpenApiBundle\Controller\OpenApiController;
+use OpenSolid\OpenApiBundle\Controller\OpenApiController;
 
 return static function (RoutingConfigurator $routes): void {
     $routes->add('openapi', '/')

@@ -1,9 +1,9 @@
 <?php
 
-namespace Yceruto\Tests\OpenApiBundle\Functional\App\PatchResourceAction\Controller;
+namespace OpenSolid\Tests\OpenApiBundle\Functional\App\PatchResourceAction\Controller;
 
 use OpenApi\Attributes\Schema;
-use Yceruto\OpenApiBundle\Attribute\Property;
+use OpenSolid\OpenApiBundle\Attribute\Property;
 
 #[Schema(writeOnly: true)]
 class PatchResourceBody

@@ -1,6 +1,6 @@
 <?php
 
-namespace Yceruto\OpenApiBundle\OpenApi\Processor;
+namespace OpenSolid\OpenApiBundle\OpenApi\Processor;
 
 use OpenApi\Analysis;
 use OpenApi\Annotations\Operation;
@@ -9,11 +9,11 @@ use OpenApi\Processors\ProcessorInterface;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\Component\Routing\RequestContext;
-use Yceruto\OpenApiBundle\Routing\Attribute\Delete;
-use Yceruto\OpenApiBundle\Routing\Attribute\Get;
-use Yceruto\OpenApiBundle\Routing\Attribute\Patch;
-use Yceruto\OpenApiBundle\Routing\Attribute\Post;
-use Yceruto\OpenApiBundle\Routing\Attribute\Put;
+use OpenSolid\OpenApiBundle\Routing\Attribute\Delete;
+use OpenSolid\OpenApiBundle\Routing\Attribute\Get;
+use OpenSolid\OpenApiBundle\Routing\Attribute\Patch;
+use OpenSolid\OpenApiBundle\Routing\Attribute\Post;
+use OpenSolid\OpenApiBundle\Routing\Attribute\Put;
 
 readonly class PathDeciderProcessor implements ProcessorInterface
 {

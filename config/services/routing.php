@@ -1,12 +1,12 @@
 <?php
 
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Yceruto\OpenApiBundle\Routing\Attribute\Delete;
-use Yceruto\OpenApiBundle\Routing\Attribute\Get;
-use Yceruto\OpenApiBundle\Routing\Attribute\Patch;
-use Yceruto\OpenApiBundle\Routing\Attribute\Post;
-use Yceruto\OpenApiBundle\Routing\Attribute\Put;
-use Yceruto\OpenApiBundle\Routing\Loader\OpenApiRouteControllerLoader;
+use OpenSolid\OpenApiBundle\Routing\Attribute\Delete;
+use OpenSolid\OpenApiBundle\Routing\Attribute\Get;
+use OpenSolid\OpenApiBundle\Routing\Attribute\Patch;
+use OpenSolid\OpenApiBundle\Routing\Attribute\Post;
+use OpenSolid\OpenApiBundle\Routing\Attribute\Put;
+use OpenSolid\OpenApiBundle\Routing\Loader\OpenApiRouteControllerLoader;
 
 return static function (ContainerConfigurator $container): void {
     $container->services()

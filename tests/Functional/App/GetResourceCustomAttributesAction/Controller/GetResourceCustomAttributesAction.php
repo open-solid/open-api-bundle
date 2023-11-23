@@ -1,10 +1,10 @@
 <?php
 
-namespace Yceruto\Tests\OpenApiBundle\Functional\App\GetResourceCustomAttributesAction\Controller;
+namespace OpenSolid\Tests\OpenApiBundle\Functional\App\GetResourceCustomAttributesAction\Controller;
 
-use Yceruto\OpenApiBundle\Routing\Attribute\Get;
-use Yceruto\Tests\OpenApiBundle\Functional\App\GetResourceCustomAttributesAction\Attribute\Id;
-use Yceruto\Tests\OpenApiBundle\Functional\App\GetResourceCustomAttributesAction\Model\ResourceView;
+use OpenSolid\OpenApiBundle\Routing\Attribute\Get;
+use OpenSolid\Tests\OpenApiBundle\Functional\App\GetResourceCustomAttributesAction\Attribute\Id;
+use OpenSolid\Tests\OpenApiBundle\Functional\App\GetResourceCustomAttributesAction\Model\ResourceView;
 
 class GetResourceCustomAttributesAction
 {

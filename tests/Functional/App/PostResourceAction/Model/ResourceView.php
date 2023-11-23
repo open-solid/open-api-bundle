@@ -1,9 +1,9 @@
 <?php
 
-namespace Yceruto\Tests\OpenApiBundle\Functional\App\PostResourceAction\Model;
+namespace OpenSolid\Tests\OpenApiBundle\Functional\App\PostResourceAction\Model;
 
 use OpenApi\Attributes\Schema;
-use Yceruto\OpenApiBundle\Attribute\Property;
+use OpenSolid\OpenApiBundle\Attribute\Property;
 
 #[Schema]
 readonly class ResourceView

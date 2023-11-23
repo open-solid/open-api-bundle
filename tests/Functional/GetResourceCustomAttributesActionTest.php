@@ -2,7 +2,7 @@
 
 namespace Functional;
 
-use Yceruto\Tests\OpenApiBundle\Functional\AbstractWebTestCase;
+use OpenSolid\Tests\OpenApiBundle\Functional\AbstractWebTestCase;
 
 class GetResourceCustomAttributesActionTest extends AbstractWebTestCase
 {

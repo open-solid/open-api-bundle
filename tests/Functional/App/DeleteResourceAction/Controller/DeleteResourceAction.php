@@ -1,9 +1,9 @@
 <?php
 
-namespace Yceruto\Tests\OpenApiBundle\Functional\App\DeleteResourceAction\Controller;
+namespace OpenSolid\Tests\OpenApiBundle\Functional\App\DeleteResourceAction\Controller;
 
-use Yceruto\OpenApiBundle\Attribute\Path;
-use Yceruto\OpenApiBundle\Routing\Attribute\Delete;
+use OpenSolid\OpenApiBundle\Attribute\Path;
+use OpenSolid\OpenApiBundle\Routing\Attribute\Delete;
 
 class DeleteResourceAction
 {

@@ -8,7 +8,7 @@
     "paths": {
         "/resources/{id}": {
             "delete": {
-                "operationId": "a606217f629230bc3e892390b9ff3502",
+                "operationId": "6e6ec0302ddb6a71a84d006f0fc2a2d7",
                 "parameters": [
                     {
                         "name": "id",

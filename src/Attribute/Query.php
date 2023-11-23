@@ -1,6 +1,6 @@
 <?php
 
-namespace Yceruto\OpenApiBundle\Attribute;
+namespace OpenSolid\OpenApiBundle\Attribute;
 
 use Symfony\Component\HttpKernel\Attribute\MapQueryString;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Yceruto\Tests\OpenApiBundle\Functional\App\ConditionalPathAction\Decider;
+namespace OpenSolid\Tests\OpenApiBundle\Functional\App\ConditionalPathAction\Decider;
 
 use Symfony\Bundle\FrameworkBundle\Routing\Attribute\AsRoutingConditionService;
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace Yceruto\Tests\OpenApiBundle\Functional\App\GetResourcesAction\Controller;
+namespace OpenSolid\Tests\OpenApiBundle\Functional\App\GetResourcesAction\Controller;
 
-use Yceruto\OpenApiBundle\Routing\Attribute\Get;
-use Yceruto\Tests\OpenApiBundle\Functional\App\GetResourcesAction\Model\ResourceView;
+use OpenSolid\OpenApiBundle\Routing\Attribute\Get;
+use OpenSolid\Tests\OpenApiBundle\Functional\App\GetResourcesAction\Model\ResourceView;
 
 class GetResourcesAction
 {

@@ -2,7 +2,7 @@
 
 use OpenApi\Analysers\AnalyserInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Yceruto\OpenApiBundle\Generator;
+use OpenSolid\OpenApiBundle\Generator;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\param;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\tagged_iterator;
