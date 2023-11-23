@@ -8,7 +8,7 @@ This bundle is especially created for API-First development.
 ## Installation
 
 ```bash
-composer require yceruto/open-api-bundle
+composer require open-solid/open-api-bundle
 ```
 
 Import the Swagger controller routes in `config/routes.yaml`:
