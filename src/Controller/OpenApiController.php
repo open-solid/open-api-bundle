@@ -15,7 +15,7 @@ readonly class OpenApiController
     {
     }
 
-    public function __invoke(UrlGeneratorInterface $urlGenerator): Response
+    public function index(UrlGeneratorInterface $urlGenerator): Response
     {
         $filename = \dirname(__DIR__, 2).'/templates/openapi_ui.html';
 
@@ -27,6 +27,15 @@ readonly class OpenApiController
         $content = str_replace('{{ openapi_url }}', $openapiUrl, $content);
 
         return new Response($content);
+    }
+
+    public function yaml(): Response
+    {
+        $openapi = $this->generator->generate();
+
+        return new Response($openapi->toYaml(), 200, [
+            'Content-Type' => 'application/x-yaml',
+        ]);
     }
 
     public function json(): JsonResponse
