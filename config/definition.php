@@ -8,7 +8,6 @@ return static function (DefinitionConfigurator $configurator): void {
         ->children()
             ->arrayNode('paths')
                 ->defaultValue([
-                    '%kernel.project_dir%/config/openapi.yaml',
                     '%kernel.project_dir%/src/',
                 ])
                 ->scalarPrototype()->end()
