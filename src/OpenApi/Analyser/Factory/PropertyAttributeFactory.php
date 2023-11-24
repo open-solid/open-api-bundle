@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenSolid\OpenApiBundle\OpenApi\Analyser;
+namespace OpenSolid\OpenApiBundle\OpenApi\Analyser\Factory;
 
 use IntBackedEnum;
 use OpenApi\Attributes\Property;
@@ -10,10 +10,10 @@ use UnitEnum;
 
 class PropertyAttributeFactory implements AttributeFactoryInterface
 {
-    public function build(\Reflector $reflector, array $annotations, Context $context): array
+    public function build(\Reflector $reflector, array $annotations, Context $context): iterable
     {
         if (!$reflector instanceof \ReflectionProperty || !$type = $reflector->getType()) {
-            return $annotations;
+            return [];
         }
 
         foreach ($annotations as $annotation) {
@@ -35,6 +35,6 @@ class PropertyAttributeFactory implements AttributeFactoryInterface
             }
         }
 
-        return $annotations;
+        return [];
     }
 }

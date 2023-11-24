@@ -1,9 +1,9 @@
 <?php
 
 use OpenApi\Processors;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use OpenSolid\OpenApiBundle\OpenApi as OAB;
-use function Symfony\Component\DependencyInjection\Loader\Configurator\param;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\tagged_iterator;
 
@@ -18,32 +18,26 @@ return static function (ContainerConfigurator $container): void {
         ->set(Processors\MergeIntoOpenApi::class)
             ->tag('openapi.processor', ['priority' => 95])
 
-        ->set(OAB\Processor\MergeConfigIntoOpenApi::class)
-            ->args([
-                param('openapi_spec'),
-            ])
+        ->set(Processors\MergeIntoComponents::class)
             ->tag('openapi.processor', ['priority' => 90])
 
-        ->set(Processors\MergeIntoComponents::class)
+        ->set(Processors\ExpandClasses::class)
             ->tag('openapi.processor', ['priority' => 85])
 
-        ->set(Processors\ExpandClasses::class)
+        ->set(Processors\ExpandInterfaces::class)
             ->tag('openapi.processor', ['priority' => 80])
 
-        ->set(Processors\ExpandInterfaces::class)
+        ->set(Processors\ExpandTraits::class)
             ->tag('openapi.processor', ['priority' => 75])
 
-        ->set(Processors\ExpandTraits::class)
+        ->set(Processors\ExpandEnums::class)
             ->tag('openapi.processor', ['priority' => 70])
 
-        ->set(Processors\ExpandEnums::class)
+        ->set(Processors\AugmentSchemas::class)
             ->tag('openapi.processor', ['priority' => 65])
 
-        ->set(Processors\AugmentSchemas::class)
-            ->tag('openapi.processor', ['priority' => 60])
-
         ->set(Processors\AugmentProperties::class)
-            ->tag('openapi.processor', ['priority' => 55])
+            ->tag('openapi.processor', ['priority' => 60])
 
         ->set(Processors\BuildPaths::class)
             ->tag('openapi.processor', ['priority' => 50])

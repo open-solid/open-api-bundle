@@ -3,12 +3,12 @@
 namespace OpenSolid\OpenApiBundle\Validator\Mapping\Loader;
 
 use OpenApi\Generator;
+use OpenSolid\OpenApiBundle\Attribute\Property;
 use ReflectionProperty;
 use ReflectionType;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use UnitEnum;
-use OpenSolid\OpenApiBundle\Attribute\Property;
 
 class ValidationMetadataLoader implements ValidatorMetadataLoaderInterface
 {

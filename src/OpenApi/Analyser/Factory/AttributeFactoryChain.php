@@ -1,10 +1,9 @@
 <?php
 
-namespace OpenSolid\OpenApiBundle\OpenApi\Analyser;
+namespace OpenSolid\OpenApiBundle\OpenApi\Analyser\Factory;
 
 use OpenApi\Analysers\AttributeAnnotationFactory;
 use OpenApi\Context;
-use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
 
 class AttributeFactoryChain extends AttributeAnnotationFactory
 {
@@ -20,7 +19,9 @@ class AttributeFactoryChain extends AttributeAnnotationFactory
         $annotations = parent::build($reflector, $context);
 
         foreach ($this->factories as $factory) {
-            $annotations = $factory->build($reflector, $annotations, $context);
+            foreach ($factory->build($reflector, $annotations, $context) as $annotation) {
+                $annotations[] = $annotation;
+            }
         }
 
         return $annotations;

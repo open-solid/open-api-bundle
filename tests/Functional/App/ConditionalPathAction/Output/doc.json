@@ -4,7 +4,11 @@
         "title": "API Documentation",
         "version": "1.0.0"
     },
-    "servers": [],
+    "servers": [
+        {
+            "url": "/"
+        }
+    ],
     "paths": {},
     "components": {
         "schemas": {

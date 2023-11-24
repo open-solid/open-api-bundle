@@ -2,10 +2,10 @@
 
 namespace OpenSolid\OpenApiBundle\DependencyInjection\Compiler;
 
+use OpenSolid\OpenApiBundle\Serializer\Mapping\Loader\OpenApiSerializerMetadataLoader;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
-use OpenSolid\OpenApiBundle\Serializer\Mapping\Loader\OpenApiSerializerMetadataLoader;
 
 class SerializerMappingPass implements CompilerPassInterface
 {

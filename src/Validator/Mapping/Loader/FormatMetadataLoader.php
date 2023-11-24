@@ -2,10 +2,10 @@
 
 namespace OpenSolid\OpenApiBundle\Validator\Mapping\Loader;
 
+use OpenSolid\OpenApiBundle\Attribute\Property;
 use ReflectionProperty;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
-use OpenSolid\OpenApiBundle\Attribute\Property;
 
 readonly class FormatMetadataLoader implements ValidatorMetadataLoaderInterface
 {

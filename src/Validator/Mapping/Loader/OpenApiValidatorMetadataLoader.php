@@ -2,9 +2,9 @@
 
 namespace OpenSolid\OpenApiBundle\Validator\Mapping\Loader;
 
+use OpenSolid\OpenApiBundle\Attribute\Property;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Mapping\Loader\LoaderInterface;
-use OpenSolid\OpenApiBundle\Attribute\Property;
 
 readonly class OpenApiValidatorMetadataLoader implements LoaderInterface
 {

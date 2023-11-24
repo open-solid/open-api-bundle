@@ -1,8 +1,9 @@
 <?php
 
 use OpenApi\Analysers\AnalyserInterface;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use OpenSolid\OpenApiBundle\Generator;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
 use function Symfony\Component\DependencyInjection\Loader\Configurator\param;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\tagged_iterator;
@@ -20,8 +21,7 @@ return static function (ContainerConfigurator $container): void {
             ->args([
                 service(AnalyserInterface::class),
                 tagged_iterator('openapi.processor', defaultPriorityMethod: 'priority'),
-                param('openapi_generator_scan_dirs'),
-                param('openapi_spec'),
+                param('openapi_paths'),
             ])
 
         ->alias(Generator::class, 'openapi.generator')

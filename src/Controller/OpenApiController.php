@@ -2,12 +2,12 @@
 
 namespace OpenSolid\OpenApiBundle\Controller;
 
+use OpenSolid\OpenApiBundle\Generator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use OpenSolid\OpenApiBundle\Generator;
 
 readonly class OpenApiController
 {

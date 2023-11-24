@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenSolid\OpenApiBundle\OpenApi\Analyser;
+namespace OpenSolid\OpenApiBundle\OpenApi\Analyser\Factory;
 
 use OpenApi\Attributes\Schema;
 use OpenApi\Context;
@@ -8,10 +8,10 @@ use OpenApi\Generator;
 
 class SchemaAttributeFactory implements AttributeFactoryInterface
 {
-    public function build(\Reflector $reflector, array $annotations, Context $context): array
+    public function build(\Reflector $reflector, array $annotations, Context $context): iterable
     {
         if (!$reflector instanceof \ReflectionClass) {
-            return $annotations;
+            return [];
         }
 
         foreach ($annotations as $annotation) {
@@ -24,6 +24,6 @@ class SchemaAttributeFactory implements AttributeFactoryInterface
             }
         }
 
-        return $annotations;
+        return [];
     }
 }

@@ -4,7 +4,11 @@
         "title": "API Documentation",
         "version": "1.0.0"
     },
-    "servers": [],
+    "servers": [
+        {
+            "url": "/"
+        }
+    ],
     "paths": {
         "/resources": {
             "put": {
@@ -45,33 +49,6 @@
     },
     "components": {
         "schemas": {
-            "PutResourceBody": {
-                "required": [
-                    "name"
-                ],
-                "properties": {
-                    "name": {
-                        "type": "string"
-                    }
-                },
-                "type": "object",
-                "writeOnly": true
-            },
-            "ResourceView": {
-                "properties": {
-                    "id": {
-                        "type": "string",
-                        "format": "uuid",
-                        "readOnly": true
-                    },
-                    "name": {
-                        "type": "string",
-                        "readOnly": true
-                    }
-                },
-                "type": "object",
-                "readOnly": true
-            },
             "BadRequestErrorView": {
                 "properties": {
                     "type": {
@@ -161,6 +138,33 @@
                     "type": {
                         "type": "string",
                         "example": "urn:uuid:9ff3fdc4-b214-49db-8718-39c315e33d45"
+                    }
+                },
+                "type": "object",
+                "readOnly": true
+            },
+            "PutResourceBody": {
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "writeOnly": true
+            },
+            "ResourceView": {
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "readOnly": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "readOnly": true
                     }
                 },
                 "type": "object",

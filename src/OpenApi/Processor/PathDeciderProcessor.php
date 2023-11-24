@@ -6,14 +6,14 @@ use OpenApi\Analysis;
 use OpenApi\Annotations\Operation;
 use OpenApi\Generator;
 use OpenApi\Processors\ProcessorInterface;
-use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
-use Symfony\Component\Routing\Exception\ResourceNotFoundException;
-use Symfony\Component\Routing\RequestContext;
 use OpenSolid\OpenApiBundle\Routing\Attribute\Delete;
 use OpenSolid\OpenApiBundle\Routing\Attribute\Get;
 use OpenSolid\OpenApiBundle\Routing\Attribute\Patch;
 use OpenSolid\OpenApiBundle\Routing\Attribute\Post;
 use OpenSolid\OpenApiBundle\Routing\Attribute\Put;
+use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+use Symfony\Component\Routing\RequestContext;
 
 readonly class PathDeciderProcessor implements ProcessorInterface
 {

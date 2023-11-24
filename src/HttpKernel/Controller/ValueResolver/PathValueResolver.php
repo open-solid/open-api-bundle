@@ -2,6 +2,8 @@
 
 namespace OpenSolid\OpenApiBundle\HttpKernel\Controller\ValueResolver;
 
+use OpenSolid\OpenApiBundle\Attribute\Path;
+use OpenSolid\OpenApiBundle\HttpKernel\Controller\ValueResolver\ConstraintGuesser\ConstraintGuesserInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestAttributeValueResolver;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
@@ -9,8 +11,6 @@ use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\ValidationFailedException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use OpenSolid\OpenApiBundle\Attribute\Path;
-use OpenSolid\OpenApiBundle\HttpKernel\Controller\ValueResolver\ConstraintGuesser\ConstraintGuesserInterface;
 
 readonly class PathValueResolver implements ValueResolverInterface
 {

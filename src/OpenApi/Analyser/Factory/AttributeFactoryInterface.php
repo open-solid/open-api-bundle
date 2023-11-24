@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenSolid\OpenApiBundle\OpenApi\Analyser;
+namespace OpenSolid\OpenApiBundle\OpenApi\Analyser\Factory;
 
 use OpenApi\Annotations\AbstractAnnotation;
 use OpenApi\Context;
@@ -12,5 +12,5 @@ interface AttributeFactoryInterface
      *
      * @return array<AbstractAnnotation>
      */
-    public function build(\Reflector $reflector, array $annotations, Context $context): array;
+    public function build(\Reflector $reflector, array $annotations, Context $context): iterable;
 }

@@ -3,10 +3,10 @@
 namespace OpenSolid\OpenApiBundle\HttpKernel\Controller\ValueResolver\ConstraintGuesser;
 
 use BackedEnum;
+use OpenSolid\OpenApiBundle\Attribute\Path;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 use UnitEnum;
-use OpenSolid\OpenApiBundle\Attribute\Path;
 
 class NativeConstraintGuesser implements ConstraintGuesserInterface
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenSolid\OpenApiBundle\OpenApi\Analyser;
+namespace OpenSolid\OpenApiBundle\OpenApi\Analyser\Factory;
 
 use OpenApi\Annotations\Operation;
 use OpenApi\Attributes as OA;
@@ -11,10 +11,10 @@ use OpenSolid\OpenApiBundle\Attribute\Query;
 
 class MethodAttributeFactory implements AttributeFactoryInterface
 {
-    public function build(\Reflector $reflector, array $annotations, Context $context): array
+    public function build(\Reflector $reflector, array $annotations, Context $context): iterable
     {
         if (!$reflector instanceof \ReflectionMethod) {
-            return $annotations;
+            return [];
         }
 
         foreach ($annotations as $annotation) {
@@ -37,7 +37,7 @@ class MethodAttributeFactory implements AttributeFactoryInterface
             }
         }
 
-        return $annotations;
+        return [];
     }
 
     protected function guessRequestBody(\ReflectionMethod $reflector, Context $context, Operation $annotation): void

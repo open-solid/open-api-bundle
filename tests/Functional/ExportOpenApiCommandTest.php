@@ -16,8 +16,7 @@ class ExportOpenApiCommandTest extends AbstractWebTestCase
         $this->assertStringContainsString('OpenAPI documentation exported successfully.', $tester->getDisplay());
 
         $actual = trim(file_get_contents($filename));
-        $expected = trim(file_get_contents(__DIR__.'/App/ExportOpenApiCommand/Output/doc.json'));
-        $this->assertSame($expected, $actual);
+        $this->assertSameFileResponseContent($actual, 'doc.json');
     }
 
     public function testExportToYaml(): void

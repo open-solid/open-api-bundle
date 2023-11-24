@@ -2,13 +2,13 @@
 
 namespace OpenSolid\OpenApiBundle;
 
+use OpenSolid\OpenApiBundle\DependencyInjection\Compiler\SerializerMappingPass;
+use OpenSolid\OpenApiBundle\DependencyInjection\Compiler\ValidatorMappingPass;
 use Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
 use Symfony\Component\Validator\Exception\ValidationFailedException;
-use OpenSolid\OpenApiBundle\DependencyInjection\Compiler\SerializerMappingPass;
-use OpenSolid\OpenApiBundle\DependencyInjection\Compiler\ValidatorMappingPass;
 
 class OpenApiBundle extends AbstractBundle
 {
@@ -36,12 +36,10 @@ class OpenApiBundle extends AbstractBundle
 
     public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
     {
-        $scanDirs = $config['generator']['scan_dirs'];
-        $scanDirs[] = __DIR__.'/OpenApi/Responses';
+        $paths = array_merge([dirname(__DIR__).'/config/openapi/default.yaml'], $config['paths']);
 
         $container->parameters()
-            ->set('openapi_generator_scan_dirs', $scanDirs)
-            ->set('openapi_spec', $config['spec'])
+            ->set('openapi_paths', $paths)
         ;
 
         $container->import('../config/services.php');

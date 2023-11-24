@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenSolid\OpenApiBundle\OpenApi\Analyser;
+namespace OpenSolid\OpenApiBundle\OpenApi\Analyser\Factory;
 
 use OpenApi\Analysers\AnnotationFactoryInterface;
 use OpenApi\Analysers\ReflectionAnalyser;

@@ -22,9 +22,8 @@ framework:
         log: true
 
 openapi:
-    generator:
-        scan_dirs:
-            - '%kernel.project_dir%/%kernel.test_case%/'
+    paths:
+        - '%kernel.project_dir%/%kernel.test_case%/'
 
 services:
     logger:
