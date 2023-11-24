@@ -7,7 +7,7 @@ use OpenApi\Attributes as OA;
 use OpenApi\Context;
 use OpenApi\Generator;
 use OpenSolid\OpenApiBundle\Attribute\Body;
-use OpenSolid\OpenApiBundle\Attribute\Query;
+use OpenSolid\OpenApiBundle\Attribute\Filter;
 
 class MethodAttributeFactory implements AttributeFactoryInterface
 {
@@ -63,7 +63,7 @@ class MethodAttributeFactory implements AttributeFactoryInterface
     {
         $parameters = [];
         foreach ($reflector->getParameters() as $rp) {
-            foreach ($rp->getAttributes(Query::class, \ReflectionAttribute::IS_INSTANCEOF) as $_) {
+            foreach ($rp->getAttributes(Filter::class, \ReflectionAttribute::IS_INSTANCEOF) as $_) {
                 if ((null === $rnt = $rp->getType()) || !$rnt instanceof \ReflectionNamedType || $rnt->isBuiltin() || !class_exists($rnt->getName())) {
                     continue;
                 }
