@@ -9,6 +9,12 @@
         "/resources": {
             "get": {
                 "operationId": "54dc66cace0345df01577de4f43a2910",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful",
