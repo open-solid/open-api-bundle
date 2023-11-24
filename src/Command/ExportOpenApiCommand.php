@@ -7,6 +7,7 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
@@ -24,14 +25,14 @@ class ExportOpenApiCommand extends Command
     protected function configure(): void
     {
         $this
-            ->addArgument('output', InputArgument::REQUIRED, 'The output file path.')
+            ->addOption('output', 'o', InputOption::VALUE_REQUIRED, 'The output file path.', 'openapi.yaml', ['openapi.yaml', 'openapi.json'])
             ->addUsage('openapi.yaml')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $filename = $input->getArgument('output');
+        $filename = $input->getOption('output');
 
         $this->generator->generate()
             ->saveAs($filename)

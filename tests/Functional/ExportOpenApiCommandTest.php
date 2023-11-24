@@ -9,7 +9,7 @@ class ExportOpenApiCommandTest extends AbstractWebTestCase
         $tester = $this->getApplicationTester();
         $tester->run([
             'command' => 'openapi:export',
-            'output' => $filename = sys_get_temp_dir().'/oab-export-command-openapi.json',
+            '--output' => $filename = sys_get_temp_dir().'/oab-export-command-openapi.json',
         ]);
 
         $tester->assertCommandIsSuccessful();
@@ -25,7 +25,7 @@ class ExportOpenApiCommandTest extends AbstractWebTestCase
         $tester = $this->getApplicationTester();
         $tester->run([
             'command' => 'openapi:export',
-            'output' => $filename = sys_get_temp_dir().'/oab-export-command-openapi.yaml',
+            '--output' => $filename = sys_get_temp_dir().'/oab-export-command-openapi.yaml',
         ]);
 
         $tester->assertCommandIsSuccessful();
