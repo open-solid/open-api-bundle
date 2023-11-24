@@ -2,7 +2,7 @@
 
 namespace OpenSolid\Tests\OpenApiBundle\Functional\App\GetResourcesAction\Controller;
 
-use OpenSolid\OpenApiBundle\Attribute\Filter;
+use OpenSolid\OpenApiBundle\Attribute\Query;
 use OpenSolid\OpenApiBundle\Routing\Attribute\Get;
 use OpenSolid\Tests\OpenApiBundle\Functional\App\GetResourcesAction\Model\ResourceView;
 
@@ -12,7 +12,7 @@ class GetResourcesAction
         path: '/resources',
         itemsType: ResourceView::class,
     )]
-    public function __invoke(#[Filter] GetResourcesFilter $filter = null): array
+    public function __invoke(#[Query] GetResourcesParams $params = null): array
     {
         return [
             ResourceView::from('4f09d694-446a-4769-9929-dad96a071cad', 'foo'),

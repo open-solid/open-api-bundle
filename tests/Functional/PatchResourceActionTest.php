@@ -12,7 +12,7 @@ class PatchResourceActionTest extends AbstractWebTestCase
 
         self::assertResponseIsSuccessful();
         $this->assertJson($content);
-        $this->assertApiDoc($content);
+        $this->assertSameFileResponseContent($content, 'doc.json');
     }
 
     public function testEndpoint(): void
@@ -26,6 +26,6 @@ class PatchResourceActionTest extends AbstractWebTestCase
 
         self::assertResponseIsSuccessful();
         $this->assertJson($content);
-        $this->assertApiResponse($content);
+        $this->assertSameFileResponseContent($content, 'response.json');
     }
 }

@@ -12,7 +12,7 @@ class DeleteResourceActionTest extends AbstractWebTestCase
 
         self::assertResponseIsSuccessful();
         $this->assertJson($content);
-        $this->assertApiDoc($content);
+        $this->assertSameFileResponseContent($content, 'doc.json');
     }
 
     public function testEndpoint(): void

@@ -1,2 +1,8 @@
+controllers:
+    resource:
+        path: ./Controller/
+        namespace: OpenSolid\Tests\OpenApiBundle\Functional\App\ImportRoutes\Controller
+    type: attribute
+
 openapi:
     resource: '@OpenApiBundle/config/routes.php'

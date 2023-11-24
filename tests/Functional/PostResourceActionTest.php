@@ -12,7 +12,7 @@ class PostResourceActionTest extends AbstractWebTestCase
 
         self::assertResponseIsSuccessful();
         $this->assertJson($content);
-        $this->assertApiDoc($content);
+        $this->assertSameFileResponseContent($content, 'doc.json');
     }
 
     public function testDocSchema(): void
@@ -23,7 +23,7 @@ class PostResourceActionTest extends AbstractWebTestCase
 
         self::assertResponseIsSuccessful();
         $this->assertJson($content);
-        $this->assertApiDoc($content, filename: 'schema.json');
+        $this->assertSameFileResponseContent($content, 'schema.json');
     }
 
     public function testEndpoint(): void
@@ -37,7 +37,7 @@ class PostResourceActionTest extends AbstractWebTestCase
 
         self::assertResponseIsSuccessful();
         $this->assertJson($content);
-        $this->assertApiResponse($content);
+        $this->assertSameFileResponseContent($content, 'response.json');
     }
 
     public function testValidation1(): void
@@ -51,7 +51,7 @@ class PostResourceActionTest extends AbstractWebTestCase
 
         self::assertResponseIsUnprocessable();
         $this->assertJson($content);
-        $this->assertApiResponse($content, filename: 'validation_error1.json');
+        $this->assertSameFileResponseContent($content, 'validation_error1.json');
     }
 
     public function testValidation2(): void
@@ -65,6 +65,6 @@ class PostResourceActionTest extends AbstractWebTestCase
 
         self::assertResponseIsUnprocessable();
         $this->assertJson($content);
-        $this->assertApiResponse($content, filename: 'validation_error2.json');
+        $this->assertSameFileResponseContent($content, 'validation_error2.json');
     }
 }

@@ -85,15 +85,7 @@ class AbstractWebTestCase extends WebTestCase
         return  new ApplicationTester($application);
     }
 
-    protected function assertApiDoc(string $content, bool $save = false, string $filename = 'doc.json'): void
-    {
-        if ($save) {
-            file_put_contents(__DIR__.'/App/'.self::getTestCase().'/Output/'.$filename, $content);
-        }
-        $this->assertJsonStringEqualsJsonFile(__DIR__.'/App/'.self::getTestCase().'/Output/'.$filename, $content);
-    }
-
-    protected function assertApiResponse(string $content, bool $save = false, string $filename = 'response.json'): void
+    protected function assertSameFileResponseContent(string $content, string $filename, bool $save = false): void
     {
         if ($save) {
             file_put_contents(__DIR__.'/App/'.self::getTestCase().'/Output/'.$filename, $content);

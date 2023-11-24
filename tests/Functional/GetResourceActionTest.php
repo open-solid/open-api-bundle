@@ -12,7 +12,7 @@ class GetResourceActionTest extends AbstractWebTestCase
 
         self::assertResponseIsSuccessful();
         $this->assertJson($content);
-        $this->assertApiDoc($content);
+        $this->assertSameFileResponseContent($content, 'doc.json');
     }
 
     public function testEndpoint(): void
@@ -24,7 +24,7 @@ class GetResourceActionTest extends AbstractWebTestCase
 
         self::assertResponseIsSuccessful();
         $this->assertJson($content);
-        $this->assertApiResponse($content);
+        $this->assertSameFileResponseContent($content, 'response.json');
     }
 
     public function testValidation(): void
@@ -36,6 +36,6 @@ class GetResourceActionTest extends AbstractWebTestCase
 
         self::assertResponseIsUnprocessable();
         $this->assertJson($content);
-        $this->assertApiResponse($content, true, 'path_error.json');
+        $this->assertSameFileResponseContent($content, 'path_error.json');
     }
 }

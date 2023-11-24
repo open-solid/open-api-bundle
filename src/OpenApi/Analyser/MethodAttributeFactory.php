@@ -7,7 +7,7 @@ use OpenApi\Attributes as OA;
 use OpenApi\Context;
 use OpenApi\Generator;
 use OpenSolid\OpenApiBundle\Attribute\Body;
-use OpenSolid\OpenApiBundle\Attribute\Filter;
+use OpenSolid\OpenApiBundle\Attribute\Query;
 
 class MethodAttributeFactory implements AttributeFactoryInterface
 {
@@ -63,15 +63,18 @@ class MethodAttributeFactory implements AttributeFactoryInterface
     {
         $parameters = [];
         foreach ($reflector->getParameters() as $rp) {
-            foreach ($rp->getAttributes(Filter::class, \ReflectionAttribute::IS_INSTANCEOF) as $_) {
+            foreach ($rp->getAttributes(Query::class, \ReflectionAttribute::IS_INSTANCEOF) as $_) {
                 if ((null === $rnt = $rp->getType()) || !$rnt instanceof \ReflectionNamedType || $rnt->isBuiltin() || !class_exists($rnt->getName())) {
                     continue;
                 }
 
-                $parameterReflector = new \ReflectionClass($rnt->getName());
+                $reflectionClass = new \ReflectionClass($rnt->getName());
 
-                foreach ($parameterReflector->getProperties(\ReflectionProperty::IS_PUBLIC) as $propertyReflector) {
-                    $parameter = new OA\QueryParameter(name: $propertyReflector->getName());
+                foreach ($reflectionClass->getProperties(\ReflectionProperty::IS_PUBLIC) as $propertyReflector) {
+                    $parameter = new OA\QueryParameter(
+                        name: $propertyReflector->getName(),
+
+                    );
 
                     if ($propertyReflector->isDefault()) {
                         $defaultValue = $propertyReflector->getDefaultValue();

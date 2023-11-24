@@ -1,0 +1,1 @@
+{"$schema":"https:\/\/json-schema.org\/draft\/2020-12\/schema","$id":"http:\/\/localhost\/schema\/ResourceView","properties":{"id":{"type":"string","format":"uuid","readOnly":true},"name":{"type":"string","readOnly":true}},"type":"object","readOnly":true}
