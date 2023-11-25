@@ -31,7 +31,7 @@ readonly class Generator
                 'validate' => true,
             ]) ?? new OA\OpenApi(['openapi' => $this->defaultVersion]);
         } catch (ErrorException $e) {
-            if (!str_starts_with($e->getMessage(), 'User Warning: Required')) {
+            if ($e->getMessage() !== 'User Warning: Required @OA\PathItem() not found') {
                 throw $e;
             }
 
