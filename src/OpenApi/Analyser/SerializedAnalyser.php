@@ -37,7 +37,6 @@ readonly class SerializedAnalyser implements AnalyserInterface
         $openapi = $this->serializer->deserializeFile($filename, $format);
 
         $this->prepareOpenapiForMerging($openapi, $context);
-        $this->prepareComponentsForMerging($openapi, $context);
 
         return new Analysis([$openapi], $context);
     }
@@ -58,25 +57,5 @@ readonly class SerializedAnalyser implements AnalyserInterface
                 $annotation->_context = new Context(['nested' => $openapi], $openapi->_context);
             }
         }
-    }
-
-    protected function prepareComponentsForMerging(OpenApi $openapi, Context $context): void
-    {
-        $annotations = $openapi->_context?->annotations ?? [];
-
-        $components = $openapi->components;
-        if (Generator::isDefault($components)) {
-            $components = new OA\Components(['_context' => new Context(['generated' => true], $context)]);
-        }
-
-        foreach ($annotations as $annotation) {
-            if ($annotation instanceof OA\AbstractAnnotation
-                && in_array(OA\Components::class, $annotation::$_parents, true)
-                && false === $annotation->_context->is('nested')) {
-                $annotation->_context = new Context(['nested' => $components], $components->_context);
-            }
-        }
-
-        $openapi->components = $components;
     }
 }

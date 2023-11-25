@@ -22,8 +22,9 @@ framework:
         log: true
 
 openapi:
+    default_path: '%kernel.project_dir%/%kernel.test_case%/'
     paths:
-        - '%kernel.project_dir%/%kernel.test_case%/'
+        - '%kernel.project_dir%/openapi.yaml'
 
 services:
     logger:

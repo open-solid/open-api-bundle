@@ -36,7 +36,11 @@ class OpenApiBundle extends AbstractBundle
 
     public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
     {
-        $paths = array_merge([dirname(__DIR__).'/config/openapi/default.yaml'], $config['paths']);
+        $paths = array_merge(
+            [$config['default_path']],
+            $config['paths'],
+            [dirname(__DIR__).'/config/openapi/default.yaml'],
+        );
 
         $container->parameters()
             ->set('openapi_paths', $paths)

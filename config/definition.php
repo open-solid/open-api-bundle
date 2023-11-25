@@ -6,10 +6,11 @@ return static function (DefinitionConfigurator $configurator): void {
     $configurator->rootNode()
         ->addDefaultsIfNotSet()
         ->children()
+            ->scalarNode('default_path')
+                ->defaultValue('%kernel.project_dir%/src/')
+            ->end()
             ->arrayNode('paths')
-                ->defaultValue([
-                    '%kernel.project_dir%/src/',
-                ])
+                ->defaultValue([])
                 ->scalarPrototype()->end()
             ->end()
         ->end()
