@@ -30,11 +30,15 @@ readonly class SerializedAnalyser implements AnalyserInterface
         $format = pathinfo($filename, PATHINFO_EXTENSION);
 
         if (!in_array($format, ['json', 'yaml'], true)) {
-            throw new \InvalidArgumentException('Only JSON or YAML files are supported');
+            throw new \InvalidArgumentException('Only JSON or YAML files are supported.');
         }
 
         /** @var OpenApi $openapi */
         $openapi = $this->serializer->deserializeFile($filename, $format);
+
+        if (!Generator::isDefault($openapi->paths)) {
+            throw new \InvalidArgumentException('Only OpenAPI files with no paths are supported.');
+        }
 
         $annotations = [];
         foreach ($openapi->_context?->annotations ?? [] as $annotation) {
