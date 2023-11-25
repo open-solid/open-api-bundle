@@ -1,0 +1,24 @@
+components:
+    schemas:
+        CustomBadRequestErrorView:
+            properties:
+                type:
+                    type: string
+                    default: 'https://tools.ietf.org/html/rfc2616#section-10'
+                title:
+                    type: string
+                    default: 'Custom Bad Request'
+                status:
+                    type: integer
+                    default: 400
+                detail:
+                    type: string
+            type: object
+            readOnly: true
+    responses:
+        '400':
+            description: 'Custom Bad request'
+            content:
+                application/json:
+                    schema:
+                        $ref: '#/components/schemas/CustomBadRequestErrorView'

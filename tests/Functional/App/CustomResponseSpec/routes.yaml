@@ -1,0 +1,8 @@
+controllers:
+    resource:
+        path: ./Controller/
+        namespace: OpenSolid\Tests\OpenApiBundle\Functional\App\CustomResponseSpec\Controller
+    type: attribute
+
+openapi:
+    resource: '@OpenApiBundle/config/routes.php'

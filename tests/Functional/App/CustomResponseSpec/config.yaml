@@ -1,0 +1,6 @@
+imports:
+    - { resource: '../config.yaml' }
+
+openapi:
+    paths:
+        - '%kernel.project_dir%/%kernel.test_case%/custom_openapi.yaml'

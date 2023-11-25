@@ -1,0 +1,183 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "API Documentation",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "/"
+        }
+    ],
+    "paths": {
+        "/resources": {
+            "post": {
+                "operationId": "4caf5b26b99e6a346ff9bac4f7521d24",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PostResourceBody"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "Successful"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "CustomBadRequestErrorView": {
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "default": "https://tools.ietf.org/html/rfc2616#section-10"
+                    },
+                    "title": {
+                        "type": "string",
+                        "default": "Custom Bad Request"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "default": 400
+                    },
+                    "detail": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "readOnly": true
+            },
+            "PostResourceBody": {
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "minLength": 3
+                    }
+                },
+                "type": "object",
+                "writeOnly": true
+            },
+            "NotFoundErrorView": {
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "default": "https://tools.ietf.org/html/rfc2616#section-10"
+                    },
+                    "title": {
+                        "type": "string",
+                        "default": "Not Found"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "default": 404
+                    },
+                    "detail": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "readOnly": true
+            },
+            "ValidationErrorView": {
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "default": "https://symfony.com/errors/validation"
+                    },
+                    "title": {
+                        "type": "string",
+                        "default": "Validation Failed"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "default": 422
+                    },
+                    "detail": {
+                        "type": "string"
+                    },
+                    "violations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationViolationErrorView"
+                        }
+                    }
+                },
+                "type": "object",
+                "readOnly": true
+            },
+            "ValidationViolationErrorView": {
+                "properties": {
+                    "propertyPath": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "template": {
+                        "type": "string"
+                    },
+                    "parameters": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
+                    },
+                    "type": {
+                        "type": "string",
+                        "example": "urn:uuid:9ff3fdc4-b214-49db-8718-39c315e33d45"
+                    }
+                },
+                "type": "object",
+                "readOnly": true
+            }
+        },
+        "responses": {
+            "400": {
+                "description": "Custom Bad request",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/CustomBadRequestErrorView"
+                        }
+                    }
+                }
+            },
+            "404": {
+                "description": "Not found",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/NotFoundErrorView"
+                        }
+                    }
+                }
+            },
+            "422": {
+                "description": "Validation error",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/ValidationErrorView"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
