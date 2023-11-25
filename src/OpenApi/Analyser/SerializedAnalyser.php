@@ -36,26 +36,22 @@ readonly class SerializedAnalyser implements AnalyserInterface
         /** @var OpenApi $openapi */
         $openapi = $this->serializer->deserializeFile($filename, $format);
 
-        $this->prepareOpenapiForMerging($openapi, $context);
-
-        return new Analysis([$openapi], $context);
-    }
-
-    protected function prepareOpenapiForMerging(OpenApi $openapi, Context $context): void
-    {
-        $annotations = $openapi->_context?->annotations ?? [];
-
-        foreach ($annotations as $annotation) {
-            if ($annotation === $openapi || $annotation instanceof OA\OpenApi) {
-                continue;
-            }
-
+        $annotations = [];
+        foreach ($openapi->_context?->annotations ?? [] as $annotation) {
             if ($annotation instanceof OA\AbstractAnnotation
-                && in_array(OA\OpenApi::class, $annotation::$_parents, true)
-                && property_exists($annotation, '_context')
-                && false === $annotation->_context->is('nested')) {
-                $annotation->_context = new Context(['nested' => $openapi], $openapi->_context);
+                && in_array(OA\OpenApi::class, $annotation::$_parents, true)) {
+                // A top level annotation.
+                $annotations[] = $annotation;
             }
         }
+
+        if ($openapi->openapi !== OpenApi::DEFAULT_VERSION) {
+            $annotations[] = new OpenApi([
+                'openapi' => $openapi->openapi,
+                '_context' => $openapi->_context,
+            ]);
+        }
+
+        return new Analysis($annotations, $context);
     }
 }
