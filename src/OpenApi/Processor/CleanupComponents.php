@@ -3,7 +3,6 @@
 namespace OpenSolid\OpenApiBundle\OpenApi\Processor;
 
 use OpenApi\Analysis;
-use OpenApi\Annotations\Components;
 use OpenApi\Generator;
 use OpenApi\Processors\ProcessorInterface;
 
@@ -47,14 +46,6 @@ readonly class CleanupComponents implements ProcessorInterface
             unset($openapi->components->responses[$i]);
             if ($responses[$response->response] !== $response) {
                 $this->detachAnnotationRecursively($response, $analysis);
-            }
-        }
-
-        if (isset($openapi->_unmerged)) {
-            foreach ($openapi->_unmerged as $i => $annotation) {
-                if ($annotation instanceof Components) {
-                    unset($openapi->_unmerged[$i]);
-                }
             }
         }
     }

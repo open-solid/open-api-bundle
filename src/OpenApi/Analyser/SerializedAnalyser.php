@@ -42,9 +42,12 @@ readonly class SerializedAnalyser implements AnalyserInterface
 
         $annotations = [];
         foreach ($openapi->_context?->annotations ?? [] as $annotation) {
+            if ($annotation instanceof OA\Components) {
+                continue;
+            }
             if ($annotation instanceof OA\AbstractAnnotation
-                && in_array(OA\OpenApi::class, $annotation::$_parents, true)) {
-                // A top level annotation.
+                && (in_array(OA\OpenApi::class, $annotation::$_parents, true)
+                    || in_array(OA\Components::class, $annotation::$_parents, true))) {
                 $annotations[] = $annotation;
             }
         }
