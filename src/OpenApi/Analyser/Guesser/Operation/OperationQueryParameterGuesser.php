@@ -64,6 +64,7 @@ class OperationQueryParameterGuesser implements AnalyserGuesserInterface
                     $parameter->name = $parent ? $parent.'[' : '';
                     $parameter->name .= $propertyReflector->getName();
                     $parameter->name .= $parent ? ']' : '';
+                    $parameter->parameter = $parameter->name;
                 }
 
                 if ($propertyReflector->isDefault()) {

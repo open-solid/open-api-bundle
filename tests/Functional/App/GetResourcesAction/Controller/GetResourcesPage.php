@@ -7,8 +7,8 @@ use OpenSolid\OpenApiBundle\Attribute\Param;
 class GetResourcesPage
 {
     #[Param]
-    public int $offset = 0;
+    public ?int $offset = 0;
 
     #[Param]
-    public int $limit = 10;
+    public ?int $limit = 10;
 }

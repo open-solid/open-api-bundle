@@ -20,6 +20,7 @@ framework:
         cookie_samesite: lax
     php_errors:
         log: true
+        throw: true
 
 openapi:
     default_path: '%kernel.project_dir%/%kernel.test_case%/'

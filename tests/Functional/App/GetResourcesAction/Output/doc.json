@@ -15,22 +15,24 @@
                 "operationId": "54dc66cace0345df01577de4f43a2910",
                 "parameters": [
                     {
+                        "parameter": "sort",
                         "name": "sort",
                         "in": "query"
                     },
                     {
+                        "parameter": "page[offset]",
                         "name": "page[offset]",
                         "in": "query",
-                        "required": true,
                         "example": 0
                     },
                     {
+                        "parameter": "page[limit]",
                         "name": "page[limit]",
                         "in": "query",
-                        "required": true,
                         "example": 10
                     },
                     {
+                        "parameter": "filter[name]",
                         "name": "filter[name]",
                         "in": "query"
                     }
