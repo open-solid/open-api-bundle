@@ -48,12 +48,20 @@
         "schemas": {
             "PostResourceBody": {
                 "required": [
-                    "name"
+                    "name",
+                    "status"
                 ],
                 "properties": {
                     "name": {
                         "type": "string",
                         "minLength": 3
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "draft",
+                            "published"
+                        ]
                     }
                 },
                 "type": "object",

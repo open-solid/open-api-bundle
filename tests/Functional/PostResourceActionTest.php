@@ -31,6 +31,7 @@ class PostResourceActionTest extends AbstractWebTestCase
         $client = self::createClient();
         $client->jsonRequest('POST', '/resources', [
             'name' => 'foo',
+            'status' => 'draft',
         ]);
 
         $content = $client->getResponse()->getContent();
@@ -43,9 +44,7 @@ class PostResourceActionTest extends AbstractWebTestCase
     public function testValidation1(): void
     {
         $client = self::createClient();
-        $client->jsonRequest('POST', '/resources', [
-            'name' => null,
-        ]);
+        $client->jsonRequest('POST', '/resources');
 
         $content = $client->getResponse()->getContent();
 
@@ -59,6 +58,7 @@ class PostResourceActionTest extends AbstractWebTestCase
         $client = self::createClient();
         $client->jsonRequest('POST', '/resources', [
             'name' => 'fo',
+            'status' => 'dra',
         ]);
 
         $content = $client->getResponse()->getContent();

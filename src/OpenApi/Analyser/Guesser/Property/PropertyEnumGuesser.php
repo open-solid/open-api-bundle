@@ -24,7 +24,7 @@ class PropertyEnumGuesser implements AnalyserGuesserInterface
         if ($type instanceof \ReflectionNamedType && !$type->isBuiltin() && is_subclass_of($type->getName(), BackedEnum::class)) {
             $enumType = new \ReflectionEnum($type->getName());
             $annotation->enum = array_map(static fn (ReflectionEnumBackedCase $case) => $case->getValue(), $enumType->getCases());
-            $annotation->type = $enumType->getBackingType();
+            $annotation->type = $enumType->getBackingType()?->getName();
         }
     }
 }
