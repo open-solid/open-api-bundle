@@ -1,7 +1,6 @@
 <?php
 
 use OpenApi\Analysers;
-use OpenApi\Analysers\AnnotationFactoryInterface;
 use OpenSolid\OpenApiBundle\OpenApi\Analyser as OABAnalyser;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
@@ -10,27 +9,30 @@ use function Symfony\Component\DependencyInjection\Loader\Configurator\tagged_it
 
 return static function (ContainerConfigurator $container): void {
     $container->services()
-        ->instanceof(OABAnalyser\Factory\AttributeFactoryInterface::class)
-            ->tag('openapi.attribute_factory')
+        ->set(OABAnalyser\Guesser\Operation\OperationRequestBodyGuesser::class)
+            ->tag('openapi.analyser_guesser')
 
-        ->instanceof(AnnotationFactoryInterface::class)
-           ->tag('openapi.annotation_factory')
+        ->set(OABAnalyser\Guesser\Operation\OperationQueryParameterGuesser::class)
+            ->tag('openapi.analyser_guesser')
 
-        ->set(OABAnalyser\Factory\SchemaAttributeFactory::class)
-            ->tag('openapi.attribute_factory')
+        ->set(OABAnalyser\Guesser\Operation\OperationResponseGuesser::class)
+            ->tag('openapi.analyser_guesser')
 
-        ->set(OABAnalyser\Factory\MethodAttributeFactory::class)
-            ->tag('openapi.attribute_factory')
+        ->set(OABAnalyser\Guesser\Property\PropertyDefaultGuesser::class)
+            ->tag('openapi.analyser_guesser')
 
-        ->set(OABAnalyser\Factory\PropertyAttributeFactory::class)
-            ->tag('openapi.attribute_factory')
+        ->set(OABAnalyser\Guesser\Property\PropertyEnumGuesser::class)
+            ->tag('openapi.analyser_guesser')
+
+        ->set(OABAnalyser\Guesser\Schema\SchemaDefaultGuesser::class)
+            ->tag('openapi.analyser_guesser')
 
         ->set(Analysers\DocBlockAnnotationFactory::class)
             ->tag('openapi.annotation_factory')
 
-        ->set(OABAnalyser\Factory\AttributeFactoryChain::class)
+        ->set(OABAnalyser\Factory\AttributeFactory::class)
             ->args([
-                tagged_iterator('openapi.attribute_factory'),
+                tagged_iterator('openapi.analyser_guesser'),
             ])
             ->tag('openapi.annotation_factory')
 
@@ -56,16 +58,9 @@ return static function (ContainerConfigurator $container): void {
             ])
             ->tag('openapi.analyser_resolver')
 
-        ->set(OABAnalyser\Resolver\AnalyserResolverChain::class)
-            ->args([
-                tagged_iterator('openapi.analyser_resolver'),
-            ])
-
-        ->alias(OABAnalyser\Resolver\AnalyserResolverInterface::class, OABAnalyser\Resolver\AnalyserResolverChain::class)
-
         ->set(OABAnalyser\ResolvableAnalyser::class)
             ->args([
-                service(OABAnalyser\Resolver\AnalyserResolverInterface::class),
+                tagged_iterator('openapi.analyser_resolver'),
             ])
 
         ->alias(Analysers\AnalyserInterface::class, OABAnalyser\ResolvableAnalyser::class)

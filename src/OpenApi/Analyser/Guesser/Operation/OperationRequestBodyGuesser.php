@@ -1,0 +1,45 @@
+<?php
+
+namespace OpenSolid\OpenApiBundle\OpenApi\Analyser\Guesser\Operation;
+
+use OpenApi\Annotations\AbstractAnnotation;
+use OpenApi\Annotations\Operation;
+use OpenApi\Attributes as OA;
+use OpenApi\Context;
+use OpenApi\Generator;
+use OpenSolid\OpenApiBundle\Attribute\Body;
+use OpenSolid\OpenApiBundle\OpenApi\Analyser\Guesser\AnalyserGuesserInterface;
+
+class OperationRequestBodyGuesser implements AnalyserGuesserInterface
+{
+    public function guess(\Reflector $reflector, AbstractAnnotation $annotation, Context $context): void
+    {
+        if (!$reflector instanceof \ReflectionMethod || !$annotation instanceof Operation) {
+            return;
+        }
+
+        if (!Generator::isDefault($annotation->requestBody)) {
+            return;
+        }
+
+        if (!$annotation instanceof OA\Post && !$annotation instanceof OA\Put && !$annotation instanceof OA\Patch) {
+            return;
+        }
+
+        foreach ($reflector->getParameters() as $rp) {
+            foreach ($rp->getAttributes(Body::class, \ReflectionAttribute::IS_INSTANCEOF) as $_) {
+                $type = (($rnt = $rp->getType()) && $rnt instanceof \ReflectionNamedType) ? $rnt->getName() : null;
+
+                if (null === $type) {
+                    continue;
+                }
+
+                $annotation->requestBody = new OA\RequestBody(required: !$rnt->allowsNull());
+                $annotation->requestBody->_context = new Context(['nested' => $annotation], $context);
+                $jsonContent = new OA\JsonContent(type: $type);
+                $jsonContent->_context = new Context(['nested' => $annotation->requestBody], $context);
+                $annotation->requestBody->merge([$jsonContent]);
+            }
+        }
+    }
+}

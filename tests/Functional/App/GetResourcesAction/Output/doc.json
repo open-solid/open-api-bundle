@@ -19,11 +19,19 @@
                         "in": "query"
                     },
                     {
-                        "name": "page",
-                        "in": "query"
+                        "name": "page[offset]",
+                        "in": "query",
+                        "required": true,
+                        "example": 0
                     },
                     {
-                        "name": "filter",
+                        "name": "page[limit]",
+                        "in": "query",
+                        "required": true,
+                        "example": 10
+                    },
+                    {
+                        "name": "filter[name]",
                         "in": "query"
                     }
                 ],
@@ -50,6 +58,21 @@
     },
     "components": {
         "schemas": {
+            "ResourceView": {
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "readOnly": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "readOnly": true
+                    }
+                },
+                "type": "object",
+                "readOnly": true
+            },
             "BadRequestErrorView": {
                 "properties": {
                     "type": {
@@ -139,21 +162,6 @@
                     "type": {
                         "type": "string",
                         "example": "urn:uuid:9ff3fdc4-b214-49db-8718-39c315e33d45"
-                    }
-                },
-                "type": "object",
-                "readOnly": true
-            },
-            "ResourceView": {
-                "properties": {
-                    "id": {
-                        "type": "string",
-                        "format": "uuid",
-                        "readOnly": true
-                    },
-                    "name": {
-                        "type": "string",
-                        "readOnly": true
                     }
                 },
                 "type": "object",

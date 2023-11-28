@@ -4,12 +4,8 @@ namespace OpenSolid\Tests\OpenApiBundle\Functional\App\GetResourcesAction\Contro
 
 use OpenSolid\OpenApiBundle\Attribute\Param;
 
-class GetResourcesParams
+class GetResourcesFilter
 {
     #[Param]
-    public ?string $sort = null;
-
-    public ?GetResourcesPage $page = null;
-
-    public ?GetResourcesFilter $filter = null;
+    public ?string $name = null;
 }

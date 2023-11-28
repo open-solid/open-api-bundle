@@ -18,7 +18,7 @@ class GetResourcesActionTest extends AbstractWebTestCase
     public function testEndpoint(): void
     {
         $client = self::createClient();
-        $client->jsonRequest('GET', '/resources');
+        $client->jsonRequest('GET', '/resources?sort=author&page[limit]=5&page[offset]=5&filter[name]=John%20Doe');
 
         $content = $client->getResponse()->getContent();
 

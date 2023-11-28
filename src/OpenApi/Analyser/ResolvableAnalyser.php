@@ -12,7 +12,10 @@ class ResolvableAnalyser implements AnalyserInterface
 {
     private Generator $generator;
 
-    public function __construct(private readonly AnalyserResolverInterface $resolver)
+    /**
+     * @param iterable<AnalyserResolverInterface> $resolvers
+     */
+    public function __construct(private readonly iterable $resolvers)
     {
     }
 
@@ -23,14 +26,21 @@ class ResolvableAnalyser implements AnalyserInterface
 
     public function fromFile(string $filename, Context $context): Analysis
     {
-        $analyser = $this->resolver->resolve($filename, pathinfo($filename, PATHINFO_EXTENSION));
+        return $this->resolve($filename)->fromFile($filename, $context);
+    }
 
-        if (null === $analyser) {
-            throw new \InvalidArgumentException(sprintf('No analyser found for file "%s".', $filename));
+    protected function resolve(string $filename): AnalyserInterface
+    {
+        $format = pathinfo($filename, PATHINFO_EXTENSION);
+
+        foreach ($this->resolvers as $resolver) {
+            if (null !== $analyser = $resolver->resolve($filename, $format)) {
+                $analyser->setGenerator($this->generator);
+
+                return $analyser;
+            }
         }
 
-        $analyser->setGenerator($this->generator);
-
-        return $analyser->fromFile($filename, $context);
+        throw new \InvalidArgumentException(sprintf('No analyser found for file "%s".', $filename));
     }
 }
