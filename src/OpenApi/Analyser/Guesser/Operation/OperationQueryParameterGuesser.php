@@ -58,7 +58,6 @@ class OperationQueryParameterGuesser implements AnalyserGuesserInterface
             }
 
             foreach ($propertyReflector->getAttributes(Param::class, \ReflectionAttribute::IS_INSTANCEOF) as $attribute) {
-                /** @var Param $parameter */
                 $parameter = $attribute->newInstance();
 
                 if (Generator::isDefault($parameter->name)) {
