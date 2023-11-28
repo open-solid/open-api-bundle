@@ -70,7 +70,7 @@ return static function (ContainerConfigurator $container): void {
             ])
             ->tag('openapi.processor', ['priority' => 10])
 
-        ->set(OAB\Processor\CleanupComponents::class)
+        ->set(OAB\Processor\CleanupAnnotations::class)
             ->tag('openapi.processor', ['priority' => 5])
     ;
 };

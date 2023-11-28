@@ -6,32 +6,24 @@ use OpenApi\Analysis;
 use OpenApi\Generator;
 use OpenApi\Processors\ProcessorInterface;
 
-readonly class CleanupComponents implements ProcessorInterface
+readonly class CleanupAnnotations implements ProcessorInterface
 {
     use ProcessorTrait;
 
     public function __invoke(Analysis $analysis): void
+    {
+        $this->removeComponentsDuplicatedResponses($analysis);
+        $this->removeComponentsUselessParameters($analysis);
+        $this->removeComponentsUselessSchemas($analysis);
+    }
+
+    protected function removeComponentsDuplicatedResponses(Analysis $analysis): void
     {
         if (null === $openapi = $analysis->openapi) {
             return;
         }
 
         if (Generator::isDefault($openapi->components)) {
-            return;
-        }
-
-        $this->removeDuplicatedResponses($analysis);
-        $this->removeUselessSchemas($analysis);
-    }
-
-    public static function priority(): int
-    {
-        return -100;
-    }
-
-    protected function removeDuplicatedResponses(Analysis $analysis): void
-    {
-        if (null === $openapi = $analysis->openapi) {
             return;
         }
 
@@ -50,9 +42,37 @@ readonly class CleanupComponents implements ProcessorInterface
         }
     }
 
-    protected function removeUselessSchemas(Analysis $analysis): void
+    protected function removeComponentsUselessParameters(Analysis $analysis): void
     {
         if (null === $openapi = $analysis->openapi) {
+            return;
+        }
+
+        if (Generator::isDefault($openapi->components) || Generator::isDefault($openapi->components->parameters)) {
+            return;
+        }
+
+        foreach ($openapi->components->parameters as $i => $parameter) {
+            if (!Generator::isDefault($parameter->name) && !Generator::isDefault($parameter->parameter)) {
+                continue;
+            }
+
+            $this->detachAnnotationRecursively($parameter, $analysis);
+            unset($openapi->components->parameters[$i]);
+        }
+
+        if ([] === $openapi->components->parameters) {
+            $openapi->components->parameters = Generator::UNDEFINED;
+        }
+    }
+
+    protected function removeComponentsUselessSchemas(Analysis $analysis): void
+    {
+        if (null === $openapi = $analysis->openapi) {
+            return;
+        }
+
+        if (Generator::isDefault($openapi->components)) {
             return;
         }
 
