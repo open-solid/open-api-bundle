@@ -39,6 +39,5 @@
     "scripts": {
         "test": "vendor/bin/phpunit tests",
         "psalm": "vendor/bin/psalm --no-cache"
-    },
-    "minimum-stability": "dev"
+    }
 }
