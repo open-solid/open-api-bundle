@@ -27,6 +27,10 @@ readonly class PathDeciderProcessor implements ProcessorInterface
 
     public function __invoke(Analysis $analysis): void
     {
+        if (Generator::isDefault($analysis->openapi->paths)) {
+            return;
+        }
+
         $el = new ExpressionLanguage(null, iterator_to_array($this->expressionLanguageProviders));
 
         foreach ($analysis->openapi->paths as $index => $pathItem) {
