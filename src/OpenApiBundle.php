@@ -3,8 +3,10 @@
 namespace OpenSolid\OpenApiBundle;
 
 use OpenSolid\OpenApiBundle\DependencyInjection\Compiler\SerializerMappingPass;
+use OpenSolid\OpenApiBundle\DependencyInjection\Compiler\TrackPathsPass;
 use OpenSolid\OpenApiBundle\DependencyInjection\Compiler\ValidatorMappingPass;
 use Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
+use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
@@ -23,6 +25,7 @@ class OpenApiBundle extends AbstractBundle
     {
         $container->addCompilerPass(new ValidatorMappingPass());
         $container->addCompilerPass(new SerializerMappingPass());
+        $container->addCompilerPass(new TrackPathsPass(), PassConfig::TYPE_AFTER_REMOVING);
     }
 
     public function prependExtension(ContainerConfigurator $container, ContainerBuilder $builder): void
