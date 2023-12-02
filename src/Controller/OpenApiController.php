@@ -11,27 +11,43 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 readonly class OpenApiController
 {
-    public function __construct(private Generator $generator)
-    {
+    private string $template;
+
+    public function __construct(
+        private Generator $generator,
+        string $template = null,
+    ) {
+        $this->template = $template ?? \dirname(__DIR__, 2).'/templates/openapi_ui.html.php';
     }
 
     public function index(UrlGeneratorInterface $urlGenerator): Response
     {
-        $filename = \dirname(__DIR__, 2).'/templates/openapi_ui.html';
-
-        if (false === $content = file_get_contents($filename)) {
-            throw new \RuntimeException('Unable to read the OpenAPI UI template file.');
+        if (null === $openapi = $this->generator->generate()) {
+            throw new NotFoundHttpException('OpenAPI documentation not found.');
         }
 
-        $openapiUrl = $urlGenerator->generate('openapi_json', [], UrlGeneratorInterface::RELATIVE_PATH);
-        $content = str_replace('{{ openapi_url }}', $openapiUrl, $content);
+        $validationErrors = '';
+        try {
+            if (!$openapi->validate()) {
+                throw new \ErrorException('OpenAPI documentation is invalid.');
+            }
+        } catch (\ErrorException $e) {
+            $validationErrors = $e->getMessage();
+        }
+
+        $content = $this->render($this->template, [
+            'url' => $urlGenerator->generate('openapi_json', [], UrlGeneratorInterface::RELATIVE_PATH),
+            'validation_errors' => $validationErrors,
+        ]);
 
         return new Response($content);
     }
 
     public function yaml(): Response
     {
-        $openapi = $this->generator->generate();
+        if (null === $openapi = $this->generator->generate()) {
+            throw new NotFoundHttpException('OpenAPI documentation not found.');
+        }
 
         return new Response($openapi->toYaml(), 200, [
             'Content-Type' => 'application/x-yaml',
@@ -40,14 +56,20 @@ readonly class OpenApiController
 
     public function json(): JsonResponse
     {
-        $openapi = $this->generator->generate();
+        if (null === $openapi = $this->generator->generate()) {
+            throw new NotFoundHttpException('OpenAPI documentation not found.');
+        }
 
         return new JsonResponse($openapi->toJson(), json: true);
     }
 
     public function jsonSchema(Request $request, string $name): JsonResponse
     {
-        $openapi = json_decode($this->generator->generate()->toJson(JSON_THROW_ON_ERROR), true, 512, JSON_THROW_ON_ERROR);
+        if (null === $openapi = $this->generator->generate()) {
+            throw new NotFoundHttpException('OpenAPI documentation not found.');
+        }
+
+        $openapi = json_decode($openapi->toJson(JSON_THROW_ON_ERROR), true, 512, JSON_THROW_ON_ERROR);
         $schema = $openapi['components']['schemas'][$name] ?? throw new NotFoundHttpException(sprintf('Schema "%s" not found.', $name));
 
         $data = [
@@ -56,5 +78,15 @@ readonly class OpenApiController
         ] + $schema;
 
         return new JsonResponse($data);
+    }
+
+    private function render(string $name, array $context = []): string
+    {
+        extract($context, \EXTR_SKIP);
+        ob_start();
+
+        include is_file(\dirname(__DIR__).'/Resources/'.$name) ? \dirname(__DIR__).'/Resources/'.$name : $name;
+
+        return trim(ob_get_clean());
     }
 }

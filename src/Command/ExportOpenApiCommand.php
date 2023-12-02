@@ -31,14 +31,18 @@ class ExportOpenApiCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $filename = $input->getOption('output');
-
-        $this->generator->generate()
-            ->saveAs($filename)
-        ;
-
         $io = new SymfonyStyle($input, $output);
-        $io->success('OpenAPI documentation exported successfully.');
+
+        if (null === $openapi = $this->generator->generate()) {
+            $io->error('OpenAPI documentation not found.');
+
+            return self::FAILURE;
+        }
+
+        $filename = $input->getOption('output');
+        $openapi->saveAs($filename);
+
+        $io->success('OpenAPI documentation has been exported successfully.');
 
         return self::SUCCESS;
     }
