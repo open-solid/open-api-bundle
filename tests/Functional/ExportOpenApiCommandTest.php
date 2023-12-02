@@ -13,7 +13,7 @@ class ExportOpenApiCommandTest extends AbstractWebTestCase
         ]);
 
         $tester->assertCommandIsSuccessful();
-        $this->assertStringContainsString('OpenAPI documentation exported successfully.', $tester->getDisplay());
+        $this->assertStringContainsString('OpenAPI documentation has been exported successfully.', $tester->getDisplay());
 
         $actual = trim(file_get_contents($filename));
         $this->assertSameFileResponseContent($actual, 'doc.json');
@@ -28,7 +28,7 @@ class ExportOpenApiCommandTest extends AbstractWebTestCase
         ]);
 
         $tester->assertCommandIsSuccessful();
-        $this->assertStringContainsString('OpenAPI documentation exported successfully.', $tester->getDisplay());
+        $this->assertStringContainsString('OpenAPI documentation has been exported successfully.', $tester->getDisplay());
 
         $actual = trim(file_get_contents($filename));
         $expected = trim(file_get_contents(__DIR__.'/App/ExportOpenApiCommand/Output/doc.yaml'));
