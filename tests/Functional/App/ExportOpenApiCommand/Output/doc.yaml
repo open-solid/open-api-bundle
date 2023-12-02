@@ -56,42 +56,6 @@ components:
           type: string
       type: object
       readOnly: true
-    ValidationErrorView:
-      properties:
-        type:
-          type: string
-          default: 'https://symfony.com/errors/validation'
-        title:
-          type: string
-          default: 'Validation Failed'
-        status:
-          type: integer
-          default: 422
-        detail:
-          type: string
-        violations:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationViolationErrorView'
-      type: object
-      readOnly: true
-    ValidationViolationErrorView:
-      properties:
-        propertyPath:
-          type: string
-        title:
-          type: string
-        template:
-          type: string
-        parameters:
-          type: object
-          additionalProperties:
-            type: string
-        type:
-          type: string
-          example: 'urn:uuid:9ff3fdc4-b214-49db-8718-39c315e33d45'
-      type: object
-      readOnly: true
   responses:
     '400':
       description: 'Bad request'
@@ -105,9 +69,3 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/NotFoundErrorView'
-    '422':
-      description: 'Validation error'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ValidationErrorView'

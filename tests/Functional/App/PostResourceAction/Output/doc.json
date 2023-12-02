@@ -103,27 +103,6 @@
                 "type": "object",
                 "readOnly": true
             },
-            "NotFoundErrorView": {
-                "properties": {
-                    "type": {
-                        "type": "string",
-                        "default": "https://tools.ietf.org/html/rfc2616#section-10"
-                    },
-                    "title": {
-                        "type": "string",
-                        "default": "Not Found"
-                    },
-                    "status": {
-                        "type": "integer",
-                        "default": 404
-                    },
-                    "detail": {
-                        "type": "string"
-                    }
-                },
-                "type": "object",
-                "readOnly": true
-            },
             "ValidationErrorView": {
                 "properties": {
                     "type": {
@@ -184,16 +163,6 @@
                     "application/json": {
                         "schema": {
                             "$ref": "#/components/schemas/BadRequestErrorView"
-                        }
-                    }
-                }
-            },
-            "404": {
-                "description": "Not found",
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "$ref": "#/components/schemas/NotFoundErrorView"
                         }
                     }
                 }

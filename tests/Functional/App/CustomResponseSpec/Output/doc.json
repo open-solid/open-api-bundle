@@ -39,27 +39,6 @@
     },
     "components": {
         "schemas": {
-            "CustomBadRequestErrorView": {
-                "properties": {
-                    "type": {
-                        "type": "string",
-                        "default": "https://tools.ietf.org/html/rfc2616#section-10"
-                    },
-                    "title": {
-                        "type": "string",
-                        "default": "Custom Bad Request"
-                    },
-                    "status": {
-                        "type": "integer",
-                        "default": 400
-                    },
-                    "detail": {
-                        "type": "string"
-                    }
-                },
-                "type": "object",
-                "readOnly": true
-            },
             "PostResourceBody": {
                 "required": [
                     "name"
@@ -73,7 +52,7 @@
                 "type": "object",
                 "writeOnly": true
             },
-            "NotFoundErrorView": {
+            "CustomBadRequestErrorView": {
                 "properties": {
                     "type": {
                         "type": "string",
@@ -81,11 +60,11 @@
                     },
                     "title": {
                         "type": "string",
-                        "default": "Not Found"
+                        "default": "Custom Bad Request"
                     },
                     "status": {
                         "type": "integer",
-                        "default": 404
+                        "default": 400
                     },
                     "detail": {
                         "type": "string"
@@ -154,16 +133,6 @@
                     "application/json": {
                         "schema": {
                             "$ref": "#/components/schemas/CustomBadRequestErrorView"
-                        }
-                    }
-                }
-            },
-            "404": {
-                "description": "Not found",
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "$ref": "#/components/schemas/NotFoundErrorView"
                         }
                     }
                 }

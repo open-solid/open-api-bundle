@@ -49,6 +49,33 @@
     },
     "components": {
         "schemas": {
+            "PatchResourceBody": {
+                "properties": {
+                    "name": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    }
+                },
+                "type": "object",
+                "writeOnly": true
+            },
+            "ResourceView": {
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "readOnly": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "readOnly": true
+                    }
+                },
+                "type": "object",
+                "readOnly": true
+            },
             "BadRequestErrorView": {
                 "properties": {
                     "type": {
@@ -138,33 +165,6 @@
                     "type": {
                         "type": "string",
                         "example": "urn:uuid:9ff3fdc4-b214-49db-8718-39c315e33d45"
-                    }
-                },
-                "type": "object",
-                "readOnly": true
-            },
-            "PatchResourceBody": {
-                "properties": {
-                    "name": {
-                        "type": [
-                            "string",
-                            "null"
-                        ]
-                    }
-                },
-                "type": "object",
-                "writeOnly": true
-            },
-            "ResourceView": {
-                "properties": {
-                    "id": {
-                        "type": "string",
-                        "format": "uuid",
-                        "readOnly": true
-                    },
-                    "name": {
-                        "type": "string",
-                        "readOnly": true
                     }
                 },
                 "type": "object",
