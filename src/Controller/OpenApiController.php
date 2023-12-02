@@ -23,13 +23,13 @@ readonly class OpenApiController
     public function index(UrlGeneratorInterface $urlGenerator): Response
     {
         if (null === $openapi = $this->generator->generate()) {
-            throw new NotFoundHttpException('OpenAPI documentation not found.');
+            throw new NotFoundHttpException('OpenAPI spec not found.');
         }
 
         $validationErrors = '';
         try {
             if (!$openapi->validate()) {
-                throw new \ErrorException('OpenAPI documentation is invalid.');
+                throw new \ErrorException('OpenAPI spec is invalid.');
             }
         } catch (\ErrorException $e) {
             $validationErrors = $e->getMessage();
@@ -46,7 +46,7 @@ readonly class OpenApiController
     public function yaml(): Response
     {
         if (null === $openapi = $this->generator->generate()) {
-            throw new NotFoundHttpException('OpenAPI documentation not found.');
+            throw new NotFoundHttpException('OpenAPI spec not found.');
         }
 
         return new Response($openapi->toYaml(), 200, [
@@ -57,7 +57,7 @@ readonly class OpenApiController
     public function json(): JsonResponse
     {
         if (null === $openapi = $this->generator->generate()) {
-            throw new NotFoundHttpException('OpenAPI documentation not found.');
+            throw new NotFoundHttpException('OpenAPI spec not found.');
         }
 
         return new JsonResponse($openapi->toJson(), json: true);
@@ -66,7 +66,7 @@ readonly class OpenApiController
     public function jsonSchema(Request $request, string $name): JsonResponse
     {
         if (null === $openapi = $this->generator->generate()) {
-            throw new NotFoundHttpException('OpenAPI documentation not found.');
+            throw new NotFoundHttpException('OpenAPI spec not found.');
         }
 
         $openapi = json_decode($openapi->toJson(JSON_THROW_ON_ERROR), true, 512, JSON_THROW_ON_ERROR);

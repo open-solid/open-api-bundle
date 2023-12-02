@@ -12,7 +12,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
     name: 'openapi:export',
-    description: 'Export the OpenAPI documentation to a formatted file.',
+    description: 'Export the OpenAPI spec to a formatted file.',
 )]
 class ExportOpenApiCommand extends Command
 {
@@ -34,7 +34,7 @@ class ExportOpenApiCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         if (null === $openapi = $this->generator->generate()) {
-            $io->error('OpenAPI documentation not found.');
+            $io->error('OpenAPI spec not found.');
 
             return self::FAILURE;
         }
@@ -42,7 +42,7 @@ class ExportOpenApiCommand extends Command
         $filename = $input->getOption('output');
         $openapi->saveAs($filename);
 
-        $io->success('OpenAPI documentation has been exported successfully.');
+        $io->success('OpenAPI spec has been exported successfully.');
 
         return self::SUCCESS;
     }
