@@ -17,6 +17,27 @@ openapi:
     resource: '@OpenApiBundle/config/routes.php'
 ```
 
+## Features
+
+- [x] Generate OpenAPI spec from PHP attributes
+  - Operation, Schema and Property guessers from PHP classes and methods
+- [x] Expose Swagger UI to explore the OpenAPI spec and test API endpoints
+- [x] Export OpenAPI spec in JSON and YAML format (via HTTP and console command)
+- [x] Import OpenAPI spec in JSON and YAML format (via config file)
+- [x] Define Symfony routes and OpenAPI Paths using the same attributes: 
+  - `#[Post]`, `#[Get]`, `#[Put]`, `#[Patch]`, `#[Delete]`
+- [x] Conditional OpenAPI Path/Route definition:
+  - Example: `#[Get('/me', when: 'service("me_feature").isEnabled()')]` 
+- [x] Symfony attributes abbreviation:
+  - `#[Body]` instead of `#[MapRequestPayload]`
+  - `#[Query]` instead of `#[MapQueryString]`
+- [x] OpenAPI attributes abbreviations:
+  - `#[Path]` instead of `#[PathParameter]`
+  - `#[Param]` instead of `#[QueryParameter]`
+- [x] Symfony's validation constraints definition using OpenAPI attributes:
+  - Example: `#[Property(minLength: 3, maxLength: 255)]`
+- [x] Serialize controller response (JSON format by default)
+
 ## License
 
 This software is published under the [MIT License](LICENSE)
