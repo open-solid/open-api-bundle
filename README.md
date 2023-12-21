@@ -38,6 +38,29 @@ openapi:
   - Example: `#[Property(minLength: 3, maxLength: 255)]`
 - [x] Serialize controller response (JSON format by default)
 
+## Basic Sample
+
+Define your OpenAPI spec and endpoint at the same time:
+
+```php
+<?php
+
+namespace App\Controller;
+
+use App\Model\Product;
+use OpenSolid\OpenApiBundle\Attribute\Body;
+use OpenSolid\OpenApiBundle\Routing\Attribute\Post;
+
+class PostProductEndpoint
+{
+    #[Post('/products')]
+    public function handle(#[Body] PostProductBody $body): Product
+    {
+        return new Product($body->name);
+    }
+}
+```
+
 ## License
 
 This software is published under the [MIT License](LICENSE)
