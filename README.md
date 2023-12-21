@@ -43,10 +43,10 @@ class PostProductEndpoint
 ## Main Features
 
 - [x] Generate OpenAPI spec from PHP attributes
-  - Operation, Schema and Property guessers from PHP classes and methods
+  - Automatic `Operation`, `Schema` and `Property` guessing from PHP classes and methods
 - [x] Expose Swagger UI to explore the OpenAPI spec and test API endpoints
-- [x] Export OpenAPI spec in JSON and YAML format (via HTTP and console command)
-- [x] Import OpenAPI spec in JSON and YAML format (via config file)
+- [x] Export OpenAPI spec in JSON or YAML format (via HTTP and console command)
+- [x] Import OpenAPI spec in JSON or YAML format (via config file)
 - [x] Define Symfony routes and OpenAPI Paths using the same attributes:
   - `#[Post]`, `#[Get]`, `#[Put]`, `#[Patch]`, `#[Delete]`
 - [x] Conditional OpenAPI Path/Route definition:
@@ -59,7 +59,7 @@ class PostProductEndpoint
   - `#[Param]` instead of `#[QueryParameter]`
 - [x] Symfony's validation constraints definition using OpenAPI attributes:
   - Example: `#[Property(minLength: 3, maxLength: 255)]`
-- [x] Serialize controller response (JSON format by default)
+- [x] Automatic controller response serialization (JSON format by default)
 
 ## License
 
