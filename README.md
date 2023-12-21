@@ -24,9 +24,9 @@ Define your OpenAPI spec and endpoint at the same time:
 ```php
 <?php
 
-namespace App\Controller;
+namespace Api\Catalog\Endpoint;
 
-use App\Model\Product;
+use Api\Catalog\Model\Product;
 use OpenSolid\OpenApiBundle\Attribute\Body;
 use OpenSolid\OpenApiBundle\Routing\Attribute\Post;
 
