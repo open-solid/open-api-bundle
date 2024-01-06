@@ -42,7 +42,7 @@ class PostProductAction
 
 ## Main Features
 
-- [x] Generate OpenAPI spec from PHP attributes
+- [x] Generate OpenAPI spec from PHP attributes (Mainly based on `zircote/swagger-php`)
   - Automatic `Operation`, `Schema` and `Property` guessing from PHP classes and methods
 - [x] Expose Swagger UI to explore the OpenAPI spec and test API endpoints
 - [x] Export OpenAPI spec in JSON or YAML format (via HTTP and console command)
@@ -50,8 +50,8 @@ class PostProductAction
 - [x] Define Symfony routes and OpenAPI Paths using the same attributes:
   - `#[Post]`, `#[Get]`, `#[Put]`, `#[Patch]`, `#[Delete]`
 - [x] Conditional OpenAPI Path/Route definition:
-  - Example: `#[Get('/me', when: 'service("me_feature").isEnabled()')]`
-- [x] Symfony attributes abbreviation:
+  - Example: `#[Get('/me', when: 'service("toggle_me").isEnabled()')]`
+- [x] Symfony attributes abbreviations:
   - `#[Body]` instead of `#[MapRequestPayload]`
   - `#[Query]` instead of `#[MapQueryString]`
 - [x] OpenAPI attributes abbreviations:
