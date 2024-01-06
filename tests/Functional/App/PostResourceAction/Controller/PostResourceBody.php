@@ -12,6 +12,6 @@ class PostResourceBody
     #[Property(minLength: 3)]
     public string $name;
 
-    #[Property]
-    public ResourceStatus $status;
+    #[Property(enum: ResourceStatus::class)]
+    public string $status;
 }
