@@ -24,7 +24,7 @@ Define your OpenAPI spec and endpoint at the same time:
 ```php
 <?php
 
-namespace Api\Catalog\Controller;
+namespace Api\Catalog\Controller\Post;
 
 use Api\Catalog\Model\Product;
 use OpenSolid\OpenApiBundle\Attribute\Body;
@@ -35,7 +35,7 @@ class PostProductAction
     #[Post('/products')]
     public function __invoke(#[Body] PostProductBody $body): Product
     {
-        return new Product($body->name);
+        return new Product($body->name, $body->price);
     }
 }
 ```
