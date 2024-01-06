@@ -60,6 +60,7 @@ class PostProductAction
 - [x] Symfony's validation constraints definition using OpenAPI attributes:
   - Example: `#[Property(minLength: 3, maxLength: 255)]`
 - [x] Automatic controller response serialization (JSON format by default)
+- [ ] Generate new endpoints from API spec (WIP) (based on `open-solid/open-api-assistant-bundle`)
 
 ## License
 
