@@ -14,7 +14,7 @@ class PostResourcesActionTest extends AbstractWebTestCase
 
         self::assertResponseIsSuccessful();
         $this->assertJson($content);
-        $this->assertSameFileResponseContent($content, 'doc.json', true);
+        $this->assertSameFileResponseContent($content, 'doc.json');
     }
 
     public function testDocSchema(): void
@@ -30,7 +30,7 @@ class PostResourcesActionTest extends AbstractWebTestCase
 
     public function testEndpoint(): void
     {
-        $client = self::createClient(['debug' => true]);
+        $client = self::createClient();
         $client->jsonRequest('POST', '/resources', [
             [
                 'name' => 'foo',
@@ -42,6 +42,6 @@ class PostResourcesActionTest extends AbstractWebTestCase
 
         self::assertResponseIsSuccessful();
         $this->assertJson($content);
-        $this->assertSameFileResponseContent($content, 'response.json', true);
+        $this->assertSameFileResponseContent($content, 'response.json');
     }
 }
