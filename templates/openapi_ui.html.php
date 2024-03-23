@@ -9,6 +9,7 @@
             background-color: white;
         }
     </style>
+    <title>Swagger API Doc</title>
 </head>
 <body>
 <?php

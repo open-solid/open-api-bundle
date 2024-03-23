@@ -27,16 +27,22 @@ class OperationRequestBodyGuesser implements AnalyserGuesserInterface
         }
 
         foreach ($reflector->getParameters() as $rp) {
-            foreach ($rp->getAttributes(Body::class, \ReflectionAttribute::IS_INSTANCEOF) as $_) {
+            foreach ($rp->getAttributes(Body::class, \ReflectionAttribute::IS_INSTANCEOF) as $attribute) {
                 $type = (($rnt = $rp->getType()) && $rnt instanceof \ReflectionNamedType) ? $rnt->getName() : null;
 
                 if (null === $type) {
                     continue;
                 }
 
+                /** @var Body $bodyAttribute */
+                $bodyAttribute = $attribute->newInstance();
+
                 $annotation->requestBody = new OA\RequestBody(required: !$rnt->allowsNull());
                 $annotation->requestBody->_context = new Context(['nested' => $annotation], $context);
                 $jsonContent = new OA\JsonContent(type: $type);
+                if ('array' === $type && null !== $bodyAttribute->itemsType) {
+                    $jsonContent->items = new OA\Items(type: $bodyAttribute->itemsType);
+                }
                 $jsonContent->_context = new Context(['nested' => $annotation->requestBody], $context);
                 $annotation->requestBody->merge([$jsonContent]);
             }
