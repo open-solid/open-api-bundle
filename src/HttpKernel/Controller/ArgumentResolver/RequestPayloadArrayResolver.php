@@ -63,6 +63,8 @@ class RequestPayloadArrayResolver implements ValueResolverInterface, EventSubscr
             throw new \LogicException(sprintf('Mapping variadic argument "$%s" is not supported.', $argument->getName()));
         }
 
+        $attribute->metadata = $argument;
+
         if ('array' !== $argument->getType()) {
             return [$attribute];
         }
@@ -77,8 +79,6 @@ class RequestPayloadArrayResolver implements ValueResolverInterface, EventSubscr
                 $argument->isNullable(),
                 $argument->getAttributes(),
             );
-        } else {
-            $attribute->metadata = $argument;
         }
 
         return [$attribute];
