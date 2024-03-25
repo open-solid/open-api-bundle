@@ -34,7 +34,6 @@ class OperationRequestBodyGuesser implements AnalyserGuesserInterface
                     continue;
                 }
 
-                /** @var Body $bodyAttribute */
                 $bodyAttribute = $attribute->newInstance();
 
                 $annotation->requestBody = new OA\RequestBody(required: !$rnt->allowsNull());

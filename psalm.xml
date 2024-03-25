@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <psalm
     findUnusedPsalmSuppress="true"
+    findUnusedBaselineEntry="false"
+    findUnusedCode="false"
     findUnusedVariablesAndParams="true"
     strictBinaryOperands="true"
     errorLevel="7"
