@@ -1,18 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of OpenSolid package.
+ *
+ * (c) Yonel Ceruto <open@yceruto.dev>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace OpenSolid\OpenApiBundle\Validator\Mapping\Loader;
 
 use OpenApi\Generator;
 use OpenSolid\OpenApiBundle\Attribute\Property;
-use ReflectionProperty;
-use ReflectionType;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
-use UnitEnum;
 
 class ValidationMetadataLoader implements ValidatorMetadataLoaderInterface
 {
-    public function load(ClassMetadata $metadata, ReflectionProperty $reflectionProperty, Property $property): bool
+    public function load(ClassMetadata $metadata, \ReflectionProperty $reflectionProperty, Property $property): bool
     {
         $groups = $property->groups;
         $loaded = false;
@@ -65,7 +73,7 @@ class ValidationMetadataLoader implements ValidatorMetadataLoaderInterface
             $enum = $property->enum;
             $choices = [];
 
-            if (is_string($enum) && is_subclass_of($enum, UnitEnum::class)) {
+            if (is_string($enum) && is_subclass_of($enum, \UnitEnum::class)) {
                 $enum = $enum::cases();
             }
 
@@ -98,7 +106,7 @@ class ValidationMetadataLoader implements ValidatorMetadataLoaderInterface
 
         $type = $reflectionProperty->getType();
 
-        if (!$type instanceof ReflectionType) {
+        if (!$type instanceof \ReflectionType) {
             return $loaded;
         }
 

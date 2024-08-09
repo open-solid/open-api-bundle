@@ -1,13 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of OpenSolid package.
+ *
+ * (c) Yonel Ceruto <open@yceruto.dev>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace OpenSolid\OpenApiBundle\OpenApi\Analyser\Guesser\Property;
 
-use BackedEnum;
 use OpenApi\Annotations\AbstractAnnotation;
 use OpenApi\Attributes\Property;
 use OpenApi\Context;
 use OpenSolid\OpenApiBundle\OpenApi\Analyser\Guesser\AnalyserGuesserInterface;
-use ReflectionEnumBackedCase;
 
 class PropertyEnumGuesser implements AnalyserGuesserInterface
 {
@@ -21,9 +30,9 @@ class PropertyEnumGuesser implements AnalyserGuesserInterface
             return;
         }
 
-        if ($type instanceof \ReflectionNamedType && !$type->isBuiltin() && is_subclass_of($type->getName(), BackedEnum::class)) {
+        if ($type instanceof \ReflectionNamedType && !$type->isBuiltin() && is_subclass_of($type->getName(), \BackedEnum::class)) {
             $enumType = new \ReflectionEnum($type->getName());
-            $annotation->enum = array_map(static fn (ReflectionEnumBackedCase $case) => $case->getValue(), $enumType->getCases());
+            $annotation->enum = array_map(static fn (\ReflectionEnumBackedCase $case) => $case->getValue(), $enumType->getCases());
             $annotation->type = $enumType->getBackingType()?->getName();
         }
     }

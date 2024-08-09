@@ -1,5 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of OpenSolid package.
+ *
+ * (c) Yonel Ceruto <open@yceruto.dev>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace OpenSolid\OpenApiBundle\Controller;
 
 use OpenSolid\OpenApiBundle\Generator;
@@ -15,7 +26,7 @@ readonly class OpenApiController
 
     public function __construct(
         private Generator $generator,
-        string $template = null,
+        ?string $template = null,
     ) {
         $this->template = $template ?? \dirname(__DIR__, 2).'/templates/openapi_ui.html.php';
     }

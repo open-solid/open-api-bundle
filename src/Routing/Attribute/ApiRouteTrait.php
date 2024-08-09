@@ -1,5 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of OpenSolid package.
+ *
+ * (c) Yonel Ceruto <open@yceruto.dev>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace OpenSolid\OpenApiBundle\Routing\Attribute;
 
 use OpenApi\Attributes\ExternalDocumentation;
@@ -13,33 +24,33 @@ trait ApiRouteTrait
     public function __construct(
         // OpenAPI Path properties
         string $path,
-        string $description = null,
-        string $summary = null,
-        array $security = null,
-        array $servers = null,
-        RequestBody $requestBody = null,
-        array $tags = null,
-        array $parameters = null,
-        array $responses = null,
-        array $callbacks = null,
-        ExternalDocumentation $externalDocs = null,
-        bool $deprecated = null,
-        array $x = null,
-        array $attachables = null,
+        ?string $description = null,
+        ?string $summary = null,
+        ?array $security = null,
+        ?array $servers = null,
+        ?RequestBody $requestBody = null,
+        ?array $tags = null,
+        ?array $parameters = null,
+        ?array $responses = null,
+        ?array $callbacks = null,
+        ?ExternalDocumentation $externalDocs = null,
+        ?bool $deprecated = null,
+        ?array $x = null,
+        ?array $attachables = null,
         // Symfony Route properties
-        string $name = null,
+        ?string $name = null,
         array $requirements = [],
         array $options = [],
         array $defaults = [],
-        string $host = null,
+        ?string $host = null,
         array|string $schemes = [],
-        string $condition = null,
-        int $priority = null,
-        string $locale = null,
-        string $format = null,
-        bool $utf8 = null,
-        bool $stateless = null,
-        string $env = null,
+        ?string $condition = null,
+        ?int $priority = null,
+        ?string $locale = null,
+        ?string $format = null,
+        ?bool $utf8 = null,
+        ?bool $stateless = null,
+        ?string $env = null,
         // custom properties
         public ?string $itemsType = null,
         public ?string $when = null,

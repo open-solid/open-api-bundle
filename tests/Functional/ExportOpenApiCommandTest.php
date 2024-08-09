@@ -1,5 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of OpenSolid package.
+ *
+ * (c) Yonel Ceruto <open@yceruto.dev>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace OpenSolid\Tests\OpenApiBundle\Functional;
 
 class ExportOpenApiCommandTest extends AbstractWebTestCase
@@ -31,7 +42,7 @@ class ExportOpenApiCommandTest extends AbstractWebTestCase
         $this->assertStringContainsString('OpenAPI spec has been exported successfully.', $tester->getDisplay());
 
         $actual = trim(file_get_contents($filename));
-        //file_put_contents(__DIR__.'/App/ExportOpenApiCommand/Output/doc.yaml', $actual);
+        // file_put_contents(__DIR__.'/App/ExportOpenApiCommand/Output/doc.yaml', $actual);
         $expected = trim(file_get_contents(__DIR__.'/App/ExportOpenApiCommand/Output/doc.yaml'));
         $this->assertSame($expected, $actual);
     }

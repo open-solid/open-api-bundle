@@ -12,19 +12,20 @@
     ],
     "require": {
         "php": ">=8.2",
-        "symfony/framework-bundle": "^7.0",
-        "symfony/property-access": "^7.0",
-        "symfony/serializer": "^7.0",
-        "symfony/validator": "^7.0",
+        "symfony/framework-bundle": "^7.1",
+        "symfony/property-access": "^7.1",
+        "symfony/serializer": "^7.1",
+        "symfony/validator": "^7.1",
         "zircote/swagger-php": "^4.7",
-        "symfony/expression-language": "^7.0"
+        "symfony/expression-language": "^7.1"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
         "vimeo/psalm": "^5.0",
         "phpunit/phpunit": "^10.0",
         "psalm/plugin-phpunit": "^0.18",
-        "symfony/browser-kit": "^7.0"
+        "symfony/browser-kit": "^7.1",
+        "friendsofphp/php-cs-fixer": "^3.54"
     },
     "conflict": {
         "zircote/swagger-php": "=4.8.7"
@@ -41,6 +42,7 @@
     },
     "scripts": {
         "test": "vendor/bin/phpunit tests",
-        "psalm": "vendor/bin/psalm --no-cache"
+        "psalm": "vendor/bin/psalm --no-cache",
+        "cs": "vendor/bin/php-cs-fixer fix --allow-risky=yes"
     }
 }

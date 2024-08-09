@@ -1,14 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of OpenSolid package.
+ *
+ * (c) Yonel Ceruto <open@yceruto.dev>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace OpenSolid\Tests\OpenApiBundle\Functional;
 
+use OpenSolid\Tests\OpenApiBundle\Functional\App\AppKernel;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Console\Tester\ApplicationTester;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\KernelInterface;
-use OpenSolid\Tests\OpenApiBundle\Functional\App\AppKernel;
 
 class AbstractWebTestCase extends WebTestCase
 {
@@ -82,7 +93,7 @@ class AbstractWebTestCase extends WebTestCase
         $application = new Application(self::bootKernel());
         $application->setAutoExit(false);
 
-        return  new ApplicationTester($application);
+        return new ApplicationTester($application);
     }
 
     protected function assertSameFileResponseContent(string $content, string $filename, bool $save = false): void

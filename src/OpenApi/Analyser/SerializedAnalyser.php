@@ -1,8 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of OpenSolid package.
+ *
+ * (c) Yonel Ceruto <open@yceruto.dev>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace OpenSolid\OpenApiBundle\OpenApi\Analyser;
 
-use Exception;
 use OpenApi\Analysers\AnalyserInterface;
 use OpenApi\Analysis;
 use OpenApi\Annotations as OA;
@@ -23,7 +33,7 @@ readonly class SerializedAnalyser implements AnalyserInterface
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function fromFile(string $filename, Context $context): Analysis
     {
@@ -46,13 +56,13 @@ readonly class SerializedAnalyser implements AnalyserInterface
                 continue;
             }
             if ($annotation instanceof OA\AbstractAnnotation
-                && (in_array(OA\OpenApi::class, $annotation::$_parents, true)
+                && (in_array(OpenApi::class, $annotation::$_parents, true)
                     || in_array(OA\Components::class, $annotation::$_parents, true))) {
                 $annotations[] = $annotation;
             }
         }
 
-        if ($openapi->openapi !== OpenApi::DEFAULT_VERSION) {
+        if (OpenApi::DEFAULT_VERSION !== $openapi->openapi) {
             $annotations[] = new OpenApi([
                 'openapi' => $openapi->openapi,
                 '_context' => $openapi->_context,
