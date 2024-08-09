@@ -1,1 +1,1 @@
-{"$schema":"https:\/\/json-schema.org\/draft\/2020-12\/schema","$id":"http:\/\/localhost\/schema\/PostResourceBody","required":["name","status"],"properties":{"name":{"type":"string","minLength":3},"status":{"type":"string","enum":["draft","published"]}},"type":"object","writeOnly":true}
+{"$schema":"https:\/\/json-schema.org\/draft\/2020-12\/schema","$id":"http:\/\/localhost\/schema\/PostResourcePayload","required":["name","status"],"properties":{"name":{"type":"string","minLength":3},"status":{"type":"string","enum":["draft","published"]}},"type":"object","writeOnly":true}

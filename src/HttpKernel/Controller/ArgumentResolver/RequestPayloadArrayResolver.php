@@ -2,7 +2,7 @@
 
 namespace OpenSolid\OpenApiBundle\HttpKernel\Controller\ArgumentResolver;
 
-use OpenSolid\OpenApiBundle\Attribute\Body;
+use OpenSolid\OpenApiBundle\Attribute\Payload;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -69,7 +69,7 @@ class RequestPayloadArrayResolver implements ValueResolverInterface, EventSubscr
             return [$attribute];
         }
 
-        if ($attribute instanceof Body && null !== $attribute->itemsType) {
+        if ($attribute instanceof Payload && null !== $attribute->itemsType) {
             $attribute->metadata = new ArgumentMetadata(
                 $argument->getName(),
                 $attribute->itemsType.'[]',

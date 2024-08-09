@@ -18,7 +18,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/PostResourceBody"
+                                "$ref": "#/components/schemas/PostResourcePayload"
                             }
                         }
                     }
@@ -39,7 +39,7 @@
     },
     "components": {
         "schemas": {
-            "PostResourceBody": {
+            "PostResourcePayload": {
                 "required": [
                     "name"
                 ],

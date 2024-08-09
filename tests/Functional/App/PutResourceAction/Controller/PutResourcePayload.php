@@ -6,7 +6,7 @@ use OpenApi\Attributes\Schema;
 use OpenSolid\OpenApiBundle\Attribute\Property;
 
 #[Schema(writeOnly: true)]
-class PutResourceBody
+class PutResourcePayload
 {
     #[Property]
     public string $name;

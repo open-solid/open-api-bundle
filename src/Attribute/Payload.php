@@ -8,7 +8,7 @@ use Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestPayloadValue
 use Symfony\Component\Validator\Constraints\GroupSequence;
 
 #[\Attribute(\Attribute::TARGET_PARAMETER)]
-class Body extends MapRequestPayload
+class Payload extends MapRequestPayload
 {
     public function __construct(
         array|string|null $acceptFormat = null,

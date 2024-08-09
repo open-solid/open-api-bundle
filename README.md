@@ -27,15 +27,15 @@ Define your OpenAPI spec and endpoint at the same time:
 namespace Api\Catalog\Controller\Post;
 
 use Api\Catalog\Model\Product;
-use OpenSolid\OpenApiBundle\Attribute\Body;
+use OpenSolid\OpenApiBundle\Attribute\Payload;
 use OpenSolid\OpenApiBundle\Routing\Attribute\Post;
 
 class PostProductAction
 {
     #[Post('/products')]
-    public function __invoke(#[Body] PostProductBody $body): Product
+    public function __invoke(#[Payload] PostProductPayload $Payload): Product
     {
-        return new Product($body->name, $body->price);
+        return new Product($body->name, $Payload->price);
     }
 }
 ```
@@ -52,7 +52,7 @@ class PostProductAction
 - [x] Conditional OpenAPI Path/Route definition:
   - Example: `#[Get('/me', when: 'service("toggle_me").isEnabled()')]`
 - [x] Symfony attributes abbreviations:
-  - `#[Body]` instead of `#[MapRequestPayload]`
+  - `#[Payload]` instead of `#[MapRequestPayload]`
   - `#[Query]` instead of `#[MapQueryString]`
 - [x] OpenAPI attributes abbreviations:
   - `#[Path]` instead of `#[PathParameter]`

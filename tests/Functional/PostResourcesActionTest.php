@@ -20,7 +20,7 @@ class PostResourcesActionTest extends AbstractWebTestCase
     public function testDocSchema(): void
     {
         $client = self::createClient();
-        $client->request('GET', '/schema/PostResourceBody');
+        $client->request('GET', '/schema/PostResourcePayload');
         $content = $client->getResponse()->getContent();
 
         self::assertResponseIsSuccessful();

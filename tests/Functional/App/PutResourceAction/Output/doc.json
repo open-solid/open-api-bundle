@@ -18,7 +18,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/PutResourceBody"
+                                "$ref": "#/components/schemas/PutResourcePayload"
                             }
                         }
                     }
@@ -49,7 +49,7 @@
     },
     "components": {
         "schemas": {
-            "PutResourceBody": {
+            "PutResourcePayload": {
                 "required": [
                     "name"
                 ],

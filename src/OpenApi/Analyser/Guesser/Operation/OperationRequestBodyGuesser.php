@@ -7,7 +7,7 @@ use OpenApi\Annotations\Operation;
 use OpenApi\Attributes as OA;
 use OpenApi\Context;
 use OpenApi\Generator;
-use OpenSolid\OpenApiBundle\Attribute\Body;
+use OpenSolid\OpenApiBundle\Attribute\Payload;
 use OpenSolid\OpenApiBundle\OpenApi\Analyser\Guesser\AnalyserGuesserInterface;
 
 class OperationRequestBodyGuesser implements AnalyserGuesserInterface
@@ -27,7 +27,7 @@ class OperationRequestBodyGuesser implements AnalyserGuesserInterface
         }
 
         foreach ($reflector->getParameters() as $rp) {
-            foreach ($rp->getAttributes(Body::class, \ReflectionAttribute::IS_INSTANCEOF) as $attribute) {
+            foreach ($rp->getAttributes(Payload::class, \ReflectionAttribute::IS_INSTANCEOF) as $attribute) {
                 $type = (($rnt = $rp->getType()) && $rnt instanceof \ReflectionNamedType) ? $rnt->getName() : null;
 
                 if (null === $type) {

@@ -18,7 +18,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/PatchResourceBody"
+                                "$ref": "#/components/schemas/PatchResourcePayload"
                             }
                         }
                     }
@@ -49,7 +49,7 @@
     },
     "components": {
         "schemas": {
-            "PatchResourceBody": {
+            "PatchResourcePayload": {
                 "properties": {
                     "name": {
                         "type": [
