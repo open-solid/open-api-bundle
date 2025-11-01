@@ -4,6 +4,8 @@
     "description": "Provides a tight integration of OpenApi into the Symfony full-stack framework",
     "keywords": ["openapi", "swagger", "symfony", "bundle"],
     "license": "MIT",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "authors": [
         {
             "name": "Yonel Ceruto",
@@ -12,17 +14,17 @@
     ],
     "require": {
         "php": ">=8.2",
-        "symfony/framework-bundle": "^7.0",
-        "symfony/property-access": "^7.0",
-        "symfony/serializer": "^7.0",
-        "symfony/validator": "^7.0",
+        "symfony/framework-bundle": "^7.0|^8.0",
+        "symfony/property-access": "^7.0|^8.0",
+        "symfony/serializer": "^7.0|^8.0",
+        "symfony/validator": "^7.0|^8.0",
         "zircote/swagger-php": "^4.7",
-        "symfony/expression-language": "^7.0"
+        "symfony/expression-language": "^7.0|^8.0"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
         "phpunit/phpunit": "^10.0",
-        "symfony/browser-kit": "^7.0",
+        "symfony/browser-kit": "^8.0",
         "friendsofphp/php-cs-fixer": "^3.54"
     },
     "autoload": {
