@@ -14,12 +14,12 @@
     ],
     "require": {
         "php": ">=8.2",
-        "symfony/framework-bundle": "^7.0|^8.0",
-        "symfony/property-access": "^7.0|^8.0",
-        "symfony/serializer": "^7.0|^8.0",
-        "symfony/validator": "^7.0|^8.0",
+        "symfony/framework-bundle": "^7.4|^8.0",
+        "symfony/property-access": "^7.4|^8.0",
+        "symfony/serializer": "^7.4|^8.0",
+        "symfony/validator": "^7.4|^8.0",
         "zircote/swagger-php": "^4.7",
-        "symfony/expression-language": "^7.0|^8.0"
+        "symfony/expression-language": "^7.4|^8.0"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",

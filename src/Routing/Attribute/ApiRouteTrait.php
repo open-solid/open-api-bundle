@@ -105,5 +105,16 @@ trait ApiRouteTrait
         return $this->route->{$name}(...$arguments);
     }
 
+    public function __get(string $name): mixed
+    {
+        if (property_exists($this->route, $name)) {
+            return $this->route->{$name};
+        }
+
+        parent::__get($name);
+
+        return null;
+    }
+
     abstract public function getMethod(): string;
 }

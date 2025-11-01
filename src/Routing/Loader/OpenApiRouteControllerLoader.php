@@ -17,9 +17,18 @@ use Symfony\Bundle\FrameworkBundle\Routing\AttributeRouteControllerLoader;
 
 class OpenApiRouteControllerLoader extends AttributeRouteControllerLoader
 {
+    private string $routeAttributeClass;
+
     public function supports(mixed $resource, ?string $type = null): bool
     {
         return parent::supports($resource, $type) && $this->isOpenApiController($resource);
+    }
+
+    public function setRouteAttributeClass(string $class): void
+    {
+        $this->routeAttributeClass = $class;
+
+        parent::setRouteAttributeClass($class);
     }
 
     private function isOpenApiController(mixed $resource): bool
@@ -27,7 +36,7 @@ class OpenApiRouteControllerLoader extends AttributeRouteControllerLoader
         $reflection = new \ReflectionClass($resource);
 
         foreach ($reflection->getMethods(\ReflectionMethod::IS_PUBLIC) as $reflectionMethod) {
-            if ($reflectionMethod->getAttributes($this->routeAnnotationClass, \ReflectionAttribute::IS_INSTANCEOF)) {
+            if ($reflectionMethod->getAttributes($this->routeAttributeClass, \ReflectionAttribute::IS_INSTANCEOF)) {
                 return true;
             }
         }

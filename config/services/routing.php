@@ -13,31 +13,31 @@ return static function (ContainerConfigurator $container): void {
         ->set('routing.loader.attribute.post')
             ->class(OpenApiRouteControllerLoader::class)
             ->args(['%kernel.environment%'])
-            ->call('setRouteAnnotationClass', [Post::class])
+            ->call('setRouteAttributeClass', [Post::class])
             ->tag('routing.loader', ['priority' => -5])
 
         ->set('routing.loader.attribute.get')
             ->class(OpenApiRouteControllerLoader::class)
             ->args(['%kernel.environment%'])
-            ->call('setRouteAnnotationClass', [Get::class])
+            ->call('setRouteAttributeClass', [Get::class])
             ->tag('routing.loader', ['priority' => -5])
 
         ->set('routing.loader.attribute.put')
             ->class(OpenApiRouteControllerLoader::class)
             ->args(['%kernel.environment%'])
-            ->call('setRouteAnnotationClass', [Put::class])
+            ->call('setRouteAttributeClass', [Put::class])
             ->tag('routing.loader', ['priority' => -5])
 
         ->set('routing.loader.attribute.patch')
             ->class(OpenApiRouteControllerLoader::class)
             ->args(['%kernel.environment%'])
-            ->call('setRouteAnnotationClass', [Patch::class])
+            ->call('setRouteAttributeClass', [Patch::class])
             ->tag('routing.loader', ['priority' => -5])
 
         ->set('routing.loader.attribute.delete')
             ->class(OpenApiRouteControllerLoader::class)
             ->args(['%kernel.environment%'])
-            ->call('setRouteAnnotationClass', [Delete::class])
+            ->call('setRouteAttributeClass', [Delete::class])
             ->tag('routing.loader', ['priority' => -5])
     ;
 };
