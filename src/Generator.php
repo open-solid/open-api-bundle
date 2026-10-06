@@ -16,27 +16,28 @@ namespace OpenSolid\OpenApiBundle;
 use OpenApi\Analysers\AnalyserInterface;
 use OpenApi\Annotations as OA;
 use OpenApi\Generator as OpenApiGenerator;
-use OpenApi\Processors;
+use OpenApi\Utils\Pipeline;
+use Psr\Log\LoggerInterface;
 
 readonly class Generator
 {
     /**
-     * @param array<Processors\ProcessorInterface> $processors
-     * @param string[]                             $paths
+     * @param iterable<callable> $processors
+     * @param string[]           $paths
      */
     public function __construct(
         private AnalyserInterface $analyser,
         private iterable $processors,
         private array $paths,
+        private ?LoggerInterface $logger = null,
     ) {
     }
 
     public function generate(): ?OA\OpenApi
     {
-        return OpenApiGenerator::scan($this->paths, [
-            'analyser' => $this->analyser,
-            'processors' => iterator_to_array($this->processors),
-            'validate' => false,
-        ]);
+        return (new OpenApiGenerator($this->logger))
+            ->setAnalyser($this->analyser)
+            ->setProcessorPipeline(new Pipeline(iterator_to_array($this->processors, false)))
+            ->generate($this->paths, validate: false);
     }
 }

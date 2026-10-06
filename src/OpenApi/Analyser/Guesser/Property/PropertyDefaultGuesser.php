@@ -16,7 +16,7 @@ namespace OpenSolid\OpenApiBundle\OpenApi\Analyser\Guesser\Property;
 use OpenApi\Annotations\AbstractAnnotation;
 use OpenApi\Attributes\Property;
 use OpenApi\Context;
-use OpenApi\Generator;
+use OpenApi\Undefined;
 use OpenSolid\OpenApiBundle\OpenApi\Analyser\Guesser\AnalyserGuesserInterface;
 
 class PropertyDefaultGuesser implements AnalyserGuesserInterface
@@ -27,11 +27,11 @@ class PropertyDefaultGuesser implements AnalyserGuesserInterface
             return;
         }
 
-        if (Generator::isDefault($annotation->default) && $reflector->hasDefaultValue() && null !== $default = $reflector->getDefaultValue()) {
+        if (Undefined::isDefault($annotation->default) && $reflector->hasDefaultValue() && null !== $default = $reflector->getDefaultValue()) {
             $annotation->default = $default;
         }
 
-        if (Generator::isDefault($annotation->readOnly) && $reflector->isReadOnly()) {
+        if (Undefined::isDefault($annotation->readOnly) && $reflector->isReadOnly()) {
             $annotation->readOnly = true;
         }
     }

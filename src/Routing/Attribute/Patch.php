@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace OpenSolid\OpenApiBundle\Routing\Attribute;
 
 #[\Attribute(\Attribute::IS_REPEATABLE | \Attribute::TARGET_CLASS | \Attribute::TARGET_METHOD)]
-class Patch extends \OpenApi\Attributes\Patch
+class Patch extends \OpenApi\Attributes\Patch implements ApiRouteInterface
 {
     use ApiRouteTrait;
 

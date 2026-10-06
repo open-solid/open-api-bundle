@@ -20,6 +20,7 @@ use OpenApi\Annotations\OpenApi;
 use OpenApi\Context;
 use OpenApi\Generator;
 use OpenApi\Serializer;
+use OpenApi\Undefined;
 
 readonly class SerializedAnalyser implements AnalyserInterface
 {
@@ -27,9 +28,10 @@ readonly class SerializedAnalyser implements AnalyserInterface
     {
     }
 
-    public function setGenerator(Generator $generator): void
+    public function setGenerator(Generator $generator): static
     {
         // no-op
+        return $this;
     }
 
     /**
@@ -46,7 +48,7 @@ readonly class SerializedAnalyser implements AnalyserInterface
         /** @var OpenApi $openapi */
         $openapi = $this->serializer->deserializeFile($filename, $format);
 
-        if (!Generator::isDefault($openapi->paths)) {
+        if (!Undefined::isDefault($openapi->paths)) {
             throw new \InvalidArgumentException('Only OpenAPI files with no paths are supported.');
         }
 

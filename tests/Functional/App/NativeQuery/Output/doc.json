@@ -1,0 +1,232 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "API Documentation",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "/"
+        }
+    ],
+    "paths": {
+        "/stores/{store}/items": {
+            "get": {
+                "operationId": "42758c239168d79097123ff861a6d770",
+                "parameters": [
+                    {
+                        "name": "store",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Explicit description",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filter[name]",
+                        "in": "query",
+                        "description": "Filter by name.",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 20
+                        }
+                    },
+                    {
+                        "name": "filter[tags]",
+                        "in": "query",
+                        "description": "Filter by tags",
+                        "required": false,
+                        "style": "form",
+                        "explode": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "default": []
+                        }
+                    },
+                    {
+                        "name": "filter[kind]",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "Physical",
+                                "Digital"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "filter[status]",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "active",
+                                "archived"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "filter[currency]",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "USD",
+                            "minLength": 1
+                        }
+                    },
+                    {
+                        "name": "filter[since]",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time"
+                        }
+                    },
+                    {
+                        "name": "min_price",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "number",
+                            "format": "float"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "The page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Filter by status",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "active",
+                                "archived"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ItemView"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ItemView": {
+                "required": [
+                    "store",
+                    "name",
+                    "page"
+                ],
+                "properties": {
+                    "store": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "page": {
+                        "type": "integer"
+                    },
+                    "status": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "enum": [
+                            "active",
+                            "archived",
+                            null
+                        ]
+                    }
+                },
+                "type": "object",
+                "readOnly": true
+            },
+            "BadRequestErrorView": {
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "default": "https://tools.ietf.org/html/rfc2616#section-10"
+                    },
+                    "title": {
+                        "type": "string",
+                        "default": "Bad Request"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "default": 400
+                    },
+                    "detail": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "readOnly": true
+            }
+        },
+        "responses": {
+            "400": {
+                "description": "Bad request",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/BadRequestErrorView"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

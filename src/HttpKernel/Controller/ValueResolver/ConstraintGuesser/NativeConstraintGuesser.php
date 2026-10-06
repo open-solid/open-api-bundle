@@ -24,7 +24,7 @@ class NativeConstraintGuesser implements ConstraintGuesserInterface
         $constraints = [match ($attribute->format) {
             'uuid' => new Assert\Uuid(),
             'date' => new Assert\Date(),
-            'datetime' => new Assert\DateTime(),
+            'date-time', 'datetime' => new Assert\DateTime(),
             'locale' => new Assert\Locale(),
             'currency' => new Assert\Currency(),
             'numeric' => new Assert\Type(type: 'numeric'),

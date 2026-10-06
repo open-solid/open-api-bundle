@@ -16,7 +16,7 @@ namespace OpenSolid\OpenApiBundle\OpenApi\Analyser\Guesser\Schema;
 use OpenApi\Annotations\AbstractAnnotation;
 use OpenApi\Attributes\Schema;
 use OpenApi\Context;
-use OpenApi\Generator;
+use OpenApi\Undefined;
 use OpenSolid\OpenApiBundle\OpenApi\Analyser\Guesser\AnalyserGuesserInterface;
 
 class SchemaDefaultGuesser implements AnalyserGuesserInterface
@@ -27,7 +27,7 @@ class SchemaDefaultGuesser implements AnalyserGuesserInterface
             return;
         }
 
-        if (Generator::isDefault($annotation->readOnly) && $reflector->isReadOnly()) {
+        if (Undefined::isDefault($annotation->readOnly) && $reflector->isReadOnly()) {
             $annotation->readOnly = true;
         }
     }

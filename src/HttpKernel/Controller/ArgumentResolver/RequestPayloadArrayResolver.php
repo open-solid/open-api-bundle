@@ -25,6 +25,7 @@ use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 use Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Serializer\Exception\NotEncodableValueException;
+use Symfony\Component\Serializer\Exception\NotNormalizableValueException;
 use Symfony\Component\Serializer\Exception\PartialDenormalizationException;
 use Symfony\Component\Serializer\Exception\UnsupportedFormatException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -81,10 +82,13 @@ class RequestPayloadArrayResolver implements ValueResolverInterface, EventSubscr
             return [$attribute];
         }
 
-        if ($attribute instanceof Payload && null !== $attribute->itemsType) {
+        $itemsType = ($attribute instanceof Payload ? $attribute->itemsType : null)
+            ?? ($attribute instanceof MapRequestPayload ? $attribute->type : null);
+
+        if (null !== $itemsType) {
             $attribute->metadata = new ArgumentMetadata(
                 $argument->getName(),
-                $attribute->itemsType.'[]',
+                $itemsType.'[]',
                 $argument->isVariadic(),
                 $argument->hasDefaultValue(),
                 $argument->hasDefaultValue() ? $argument->getDefaultValue() : null,
@@ -122,8 +126,8 @@ class RequestPayloadArrayResolver implements ValueResolverInterface, EventSubscr
                     $payload = $this->$payloadMapper($request, $type, $argument);
                 } catch (PartialDenormalizationException $e) {
                     $trans = $this->translator ? $this->translator->trans(...) : fn ($m, $p) => strtr($m, $p);
-                    foreach ($e->getErrors() as $error) {
-                        $parameters = ['{{ type }}' => implode('|', $error->getExpectedTypes())];
+                    foreach ($this->denormalizationErrors($e) as $error) {
+                        $parameters = ['{{ type }}' => implode('|', $error->getExpectedTypes() ?? ['unknown'])];
                         if ($error->canUseMessageForUser()) {
                             $parameters['hint'] = $error->getMessage();
                         }
@@ -145,7 +149,7 @@ class RequestPayloadArrayResolver implements ValueResolverInterface, EventSubscr
                 try {
                     $payload = $this->$payloadMapper($request, $type, $argument);
                 } catch (PartialDenormalizationException $e) {
-                    throw new HttpException($validationFailedCode, implode("\n", array_map(static fn ($e) => $e->getMessage(), $e->getErrors())), $e);
+                    throw new HttpException($validationFailedCode, implode("\n", array_map(static fn ($e) => $e->getMessage(), $this->denormalizationErrors($e))), $e);
                 }
             }
 
@@ -153,7 +157,7 @@ class RequestPayloadArrayResolver implements ValueResolverInterface, EventSubscr
                 $payload = match (true) {
                     $argument->metadata->hasDefaultValue() => $argument->metadata->getDefaultValue(),
                     $argument->metadata->isNullable() => null,
-                    default => throw new HttpException($validationFailedCode)
+                    default => throw new HttpException($validationFailedCode),
                 };
             }
 
@@ -170,9 +174,24 @@ class RequestPayloadArrayResolver implements ValueResolverInterface, EventSubscr
         return RequestPayloadValueResolver::getSubscribedEvents();
     }
 
+    /**
+     * @return array<NotNormalizableValueException>
+     */
+    private function denormalizationErrors(PartialDenormalizationException $e): array
+    {
+        // Symfony 8.1+ renamed getErrors() to getNotNormalizableValueErrors()
+        return method_exists($e, 'getNotNormalizableValueErrors') ? $e->getNotNormalizableValueErrors() : $e->getErrors();
+    }
+
     private function mapQueryString(Request $request, string $type, MapQueryString $attribute): ?object
     {
-        if (!$data = $request->query->all()) {
+        $data = $request->query->all();
+
+        if (null !== $attribute->key) {
+            $data = $data[$attribute->key] ?? [];
+        }
+
+        if (!$data || !\is_array($data)) {
             return null;
         }
 

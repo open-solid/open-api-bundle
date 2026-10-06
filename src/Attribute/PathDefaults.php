@@ -37,6 +37,7 @@ class PathDefaults
     public bool $allowReserved;
     public array $spaceDelimited;
     public array $pipeDelimited;
+    public mixed $deepObject;
     public array $x;
     public array $attachables;
     public string $format;
@@ -162,6 +163,13 @@ class PathDefaults
     public function pipeDelimited(array $pipeDelimited): self
     {
         $this->pipeDelimited = $pipeDelimited;
+
+        return $this;
+    }
+
+    public function deepObject(mixed $deepObject): self
+    {
+        $this->deepObject = $deepObject;
 
         return $this;
     }

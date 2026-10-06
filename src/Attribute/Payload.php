@@ -28,7 +28,9 @@ class Payload extends MapRequestPayload
         string $resolver = RequestPayloadValueResolver::class,
         int $validationFailedStatusCode = Response::HTTP_UNPROCESSABLE_ENTITY,
         public ?string $itemsType = null,
+        ?string $type = null,
+        bool $mapWhenEmpty = false,
     ) {
-        parent::__construct($acceptFormat, $serializationContext, $validationGroups, $resolver, $validationFailedStatusCode);
+        parent::__construct($acceptFormat, $serializationContext, $validationGroups, $resolver, $validationFailedStatusCode, $type, $mapWhenEmpty);
     }
 }

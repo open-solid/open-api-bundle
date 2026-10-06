@@ -15,6 +15,36 @@ components:
                     type: string
             type: object
             readOnly: true
+        UnauthorizedErrorView:
+            properties:
+                type:
+                    type: string
+                    default: 'https://tools.ietf.org/html/rfc2616#section-10'
+                title:
+                    type: string
+                    default: 'Unauthorized'
+                status:
+                    type: integer
+                    default: 401
+                detail:
+                    type: string
+            type: object
+            readOnly: true
+        ForbiddenErrorView:
+            properties:
+                type:
+                    type: string
+                    default: 'https://tools.ietf.org/html/rfc2616#section-10'
+                title:
+                    type: string
+                    default: 'Forbidden'
+                status:
+                    type: integer
+                    default: 403
+                detail:
+                    type: string
+            type: object
+            readOnly: true
         NotFoundErrorView:
             properties:
                 type:
@@ -73,6 +103,18 @@ components:
                 application/json:
                     schema:
                         $ref: '#/components/schemas/BadRequestErrorView'
+        '401':
+            description: 'Unauthorized'
+            content:
+                application/json:
+                    schema:
+                        $ref: '#/components/schemas/UnauthorizedErrorView'
+        '403':
+            description: 'Forbidden'
+            content:
+                application/json:
+                    schema:
+                        $ref: '#/components/schemas/ForbiddenErrorView'
         '404':
             description: 'Not found'
             content:

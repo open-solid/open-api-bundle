@@ -21,14 +21,8 @@ return static function (ContainerConfigurator $container): void {
         ->set(OABAnalyser\Guesser\Property\PropertyDefaultGuesser::class)
             ->tag('openapi.analyser_guesser')
 
-        ->set(OABAnalyser\Guesser\Property\PropertyEnumGuesser::class)
-            ->tag('openapi.analyser_guesser')
-
         ->set(OABAnalyser\Guesser\Schema\SchemaDefaultGuesser::class)
             ->tag('openapi.analyser_guesser')
-
-        ->set(Analysers\DocBlockAnnotationFactory::class)
-            ->tag('openapi.annotation_factory')
 
         ->set(OABAnalyser\Factory\AttributeFactory::class)
             ->args([

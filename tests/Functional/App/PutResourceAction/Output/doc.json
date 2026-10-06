@@ -62,6 +62,10 @@
                 "writeOnly": true
             },
             "ResourceView": {
+                "required": [
+                    "id",
+                    "name"
+                ],
                 "properties": {
                     "id": {
                         "type": "string",

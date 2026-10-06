@@ -9,14 +9,16 @@ use function Symfony\Component\DependencyInjection\Loader\Configurator\tagged_it
 
 return static function (ContainerConfigurator $container): void {
     $container->services()
-        ->instanceof(Processors\ProcessorInterface::class)
-            ->tag('openapi.processor')
+        ->set(OAB\Constraint\ConstraintSchemaApplier::class)
 
         ->set(Processors\DocBlockDescriptions::class)
             ->tag('openapi.processor', ['priority' => 100])
 
         ->set(Processors\MergeIntoOpenApi::class)
             ->tag('openapi.processor', ['priority' => 95])
+
+        ->set(OAB\Processor\RemoveScannedQueryParameters::class)
+            ->tag('openapi.processor', ['priority' => 92])
 
         ->set(Processors\MergeIntoComponents::class)
             ->tag('openapi.processor', ['priority' => 90])
@@ -36,8 +38,22 @@ return static function (ContainerConfigurator $container): void {
         ->set(Processors\AugmentSchemas::class)
             ->tag('openapi.processor', ['priority' => 65])
 
+        ->set(OAB\Processor\AugmentSchemas::class)
+            ->args([service(OAB\Constraint\ConstraintSchemaApplier::class)])
+            ->tag('openapi.processor', ['priority' => 64])
+
+        ->set(OAB\Processor\AugmentSchemaConstraints::class)
+            ->args([service(OAB\Constraint\ConstraintSchemaApplier::class)])
+            ->tag('openapi.processor', ['priority' => 63])
+
+        ->set(Processors\AugmentRequestBody::class)
+            ->tag('openapi.processor', ['priority' => 62])
+
         ->set(Processors\AugmentProperties::class)
             ->tag('openapi.processor', ['priority' => 60])
+
+        ->set(Processors\AugmentDiscriminators::class)
+            ->tag('openapi.processor', ['priority' => 55])
 
         ->set(Processors\BuildPaths::class)
             ->tag('openapi.processor', ['priority' => 50])
@@ -45,17 +61,33 @@ return static function (ContainerConfigurator $container): void {
         ->set(Processors\AugmentParameters::class)
             ->tag('openapi.processor', ['priority' => 45])
 
+        ->set(OAB\Processor\AugmentPathParameters::class)
+            ->tag('openapi.processor', ['priority' => 44])
+
+        ->set(OAB\Processor\AugmentQueryParameters::class)
+            ->tag('openapi.processor', ['priority' => 43])
+
+        ->set(OAB\Processor\AugmentParameterConstraints::class)
+            ->args([service(OAB\Constraint\ConstraintSchemaApplier::class)])
+            ->tag('openapi.processor', ['priority' => 42])
+
+        ->set(OAB\Processor\AugmentEnumSchemas::class)
+            ->tag('openapi.processor', ['priority' => 41])
+
         ->set(Processors\AugmentRefs::class)
             ->tag('openapi.processor', ['priority' => 40])
 
-        ->set(OAB\Processor\AugmentSchemas::class)
-            ->tag('openapi.processor', ['priority' => 35])
+        ->set(Processors\AugmentItems::class)
+            ->tag('openapi.processor', ['priority' => 33])
 
         ->set(Processors\MergeJsonContent::class)
             ->tag('openapi.processor', ['priority' => 30])
 
         ->set(Processors\MergeXmlContent::class)
             ->tag('openapi.processor', ['priority' => 25])
+
+        ->set(Processors\AugmentMediaType::class)
+            ->tag('openapi.processor', ['priority' => 23])
 
         ->set(Processors\OperationId::class)
             ->tag('openapi.processor', ['priority' => 20])
@@ -72,5 +104,8 @@ return static function (ContainerConfigurator $container): void {
 
         ->set(OAB\Processor\CleanupAnnotations::class)
             ->tag('openapi.processor', ['priority' => 5])
+
+        ->set(Processors\AugmentTags::class)
+            ->tag('openapi.processor', ['priority' => 0])
     ;
 };

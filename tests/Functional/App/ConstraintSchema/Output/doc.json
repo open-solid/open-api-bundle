@@ -1,0 +1,414 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "API Documentation",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "/"
+        }
+    ],
+    "paths": {
+        "/items": {
+            "post": {
+                "operationId": "01635fa281c70533bc8e7685a27c386d",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateItemPayload"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ItemView"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "CreateItemPayload": {
+                "required": [
+                    "name",
+                    "size",
+                    "code",
+                    "quantity",
+                    "notBlankInteger"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 3
+                    },
+                    "size": {
+                        "type": "integer",
+                        "enum": [
+                            1,
+                            2
+                        ]
+                    },
+                    "currency": {
+                        "type": "string",
+                        "default": "USD"
+                    },
+                    "color": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "enum": [
+                            "Red",
+                            "Green",
+                            null
+                        ]
+                    },
+                    "code": {
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "quantity": {
+                        "type": "integer"
+                    },
+                    "optionalNotBlank": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "minLength": 1
+                    },
+                    "notBlankInteger": {
+                        "type": "integer"
+                    },
+                    "email": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "email"
+                    },
+                    "explicitFormat": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "idn-email"
+                    },
+                    "uuid": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "uuid"
+                    },
+                    "ulid": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "ulid"
+                    },
+                    "url": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "uri"
+                    },
+                    "hostname": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "hostname"
+                    },
+                    "ipv4": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "ipv4"
+                    },
+                    "ipv6": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "ipv6"
+                    },
+                    "date": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date"
+                    },
+                    "dateTime": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "time": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "time"
+                    },
+                    "range": {
+                        "type": [
+                            "integer",
+                            "null"
+                        ],
+                        "maximum": 10,
+                        "minimum": 1
+                    },
+                    "positive": {
+                        "type": [
+                            "integer",
+                            "null"
+                        ],
+                        "exclusiveMinimum": 0
+                    },
+                    "positiveOrZero": {
+                        "type": [
+                            "integer",
+                            "null"
+                        ],
+                        "minimum": 0
+                    },
+                    "negative": {
+                        "type": [
+                            "integer",
+                            "null"
+                        ],
+                        "exclusiveMaximum": 0
+                    },
+                    "negativeOrZero": {
+                        "type": [
+                            "integer",
+                            "null"
+                        ],
+                        "maximum": 0
+                    },
+                    "notNumericComparison": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "slug": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "pattern": "^[a-z]+$"
+                    },
+                    "notDigits": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "status": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "enum": [
+                            "draft",
+                            "published"
+                        ]
+                    },
+                    "multiple": {
+                        "type": "array",
+                        "items": {},
+                        "default": []
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "maxLength": 5
+                        },
+                        "default": [],
+                        "maxItems": 3,
+                        "minItems": 1
+                    },
+                    "untypedItems": {
+                        "type": "array",
+                        "items": {
+                            "exclusiveMinimum": 0
+                        },
+                        "default": []
+                    },
+                    "sizes": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer",
+                            "enum": [
+                                1,
+                                2
+                            ]
+                        },
+                        "default": []
+                    },
+                    "optionalSize": {
+                        "type": [
+                            "integer",
+                            "null"
+                        ],
+                        "enum": [
+                            1,
+                            2,
+                            null
+                        ]
+                    }
+                },
+                "type": "object"
+            },
+            "ItemView": {
+                "required": [
+                    "name",
+                    "size"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "size": {
+                        "type": "integer",
+                        "enum": [
+                            1,
+                            2
+                        ]
+                    },
+                    "note": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    }
+                },
+                "type": "object",
+                "readOnly": true
+            },
+            "BadRequestErrorView": {
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "default": "https://tools.ietf.org/html/rfc2616#section-10"
+                    },
+                    "title": {
+                        "type": "string",
+                        "default": "Bad Request"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "default": 400
+                    },
+                    "detail": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "readOnly": true
+            },
+            "ValidationErrorView": {
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "default": "https://symfony.com/errors/validation"
+                    },
+                    "title": {
+                        "type": "string",
+                        "default": "Validation Failed"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "default": 422
+                    },
+                    "detail": {
+                        "type": "string"
+                    },
+                    "violations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationViolationErrorView"
+                        }
+                    }
+                },
+                "type": "object",
+                "readOnly": true
+            },
+            "ValidationViolationErrorView": {
+                "properties": {
+                    "propertyPath": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "template": {
+                        "type": "string"
+                    },
+                    "parameters": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
+                    },
+                    "type": {
+                        "type": "string",
+                        "example": "urn:uuid:9ff3fdc4-b214-49db-8718-39c315e33d45"
+                    }
+                },
+                "type": "object",
+                "readOnly": true
+            }
+        },
+        "responses": {
+            "400": {
+                "description": "Bad request",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/BadRequestErrorView"
+                        }
+                    }
+                }
+            },
+            "422": {
+                "description": "Validation error",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/ValidationErrorView"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

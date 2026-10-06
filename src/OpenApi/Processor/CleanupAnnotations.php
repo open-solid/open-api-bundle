@@ -14,14 +14,7 @@ declare(strict_types=1);
 namespace OpenSolid\OpenApiBundle\OpenApi\Processor;
 
 use OpenApi\Analysis;
-use OpenApi\Annotations\Operation;
-use OpenApi\Generator;
-use OpenApi\Processors\ProcessorInterface;
-use OpenSolid\OpenApiBundle\Routing\Attribute\Delete;
-use OpenSolid\OpenApiBundle\Routing\Attribute\Get;
-use OpenSolid\OpenApiBundle\Routing\Attribute\Patch;
-use OpenSolid\OpenApiBundle\Routing\Attribute\Post;
-use OpenSolid\OpenApiBundle\Routing\Attribute\Put;
+use OpenApi\Undefined;
 
 readonly class CleanupAnnotations implements ProcessorInterface
 {
@@ -41,7 +34,7 @@ readonly class CleanupAnnotations implements ProcessorInterface
             return;
         }
 
-        if (Generator::isDefault($openapi->components)) {
+        if (Undefined::isDefault($openapi->components) || Undefined::isDefault($openapi->components->responses)) {
             return;
         }
 
@@ -66,23 +59,15 @@ readonly class CleanupAnnotations implements ProcessorInterface
             return;
         }
 
-        if (Generator::isDefault($openapi->components)) {
+        if (Undefined::isDefault($openapi->components) || Undefined::isDefault($openapi->components->responses)) {
             return;
         }
 
         foreach ($openapi->components->responses as $i => $response) {
-            if (!Generator::isDefault($openapi->paths)) {
+            if (!Undefined::isDefault($openapi->paths)) {
                 foreach ($openapi->paths as $pathItem) {
-                    /** @var Operation[]|Post[]|Get[]|Put[]|Patch[]|Delete[] $methods */
-                    $methods = [
-                        $pathItem->post,
-                        $pathItem->get,
-                        $pathItem->put,
-                        $pathItem->patch,
-                        $pathItem->delete,
-                    ];
-                    foreach ($methods as $method) {
-                        if (Generator::isDefault($method) || Generator::isDefault($method->responses)) {
+                    foreach ($this->operationsOf($pathItem) as $method) {
+                        if (Undefined::isDefault($method->responses)) {
                             continue;
                         }
 
@@ -100,7 +85,7 @@ readonly class CleanupAnnotations implements ProcessorInterface
         }
 
         if ([] === $openapi->components->responses) {
-            $openapi->components->responses = Generator::UNDEFINED;
+            $openapi->components->responses = Undefined::UNDEFINED;
         }
     }
 
@@ -110,12 +95,12 @@ readonly class CleanupAnnotations implements ProcessorInterface
             return;
         }
 
-        if (Generator::isDefault($openapi->components) || Generator::isDefault($openapi->components->parameters)) {
+        if (Undefined::isDefault($openapi->components) || Undefined::isDefault($openapi->components->parameters)) {
             return;
         }
 
         foreach ($openapi->components->parameters as $i => $parameter) {
-            if (!Generator::isDefault($parameter->name) && !Generator::isDefault($parameter->parameter)) {
+            if (!Undefined::isDefault($parameter->name) && !Undefined::isDefault($parameter->parameter)) {
                 continue;
             }
 
@@ -124,7 +109,7 @@ readonly class CleanupAnnotations implements ProcessorInterface
         }
 
         if ([] === $openapi->components->parameters) {
-            $openapi->components->parameters = Generator::UNDEFINED;
+            $openapi->components->parameters = Undefined::UNDEFINED;
         }
     }
 
@@ -134,15 +119,39 @@ readonly class CleanupAnnotations implements ProcessorInterface
             return;
         }
 
-        if (Generator::isDefault($openapi->components)) {
+        if (Undefined::isDefault($openapi->components) || Undefined::isDefault($openapi->components->schemas)) {
             return;
         }
 
-        foreach ($openapi->components->schemas as $i => $schema) {
-            foreach ($analysis->annotations as $annotation) {
-                if (property_exists($annotation, 'ref') && (string) $annotation->ref === '#/components/schemas/'.$schema->schema) {
-                    continue 2;
+        $schemas = [];
+        foreach ($openapi->components->schemas as $schema) {
+            $schemas['#/components/schemas/'.$schema->schema] = $schema;
+        }
+
+        // refs used outside the schemas, then the refs those schemas use in turn
+        $components = $openapi->components;
+        $openapi->components = clone $components;
+        $openapi->components->schemas = Undefined::UNDEFINED;
+        $refs = $this->collectRefs($openapi);
+        $openapi->components = $components;
+
+        $pending = array_keys($refs);
+        while (null !== $ref = array_pop($pending)) {
+            if (!isset($schemas[$ref])) {
+                continue;
+            }
+
+            foreach ($this->collectRefs($schemas[$ref]) as $nestedRef => $_) {
+                if (!isset($refs[$nestedRef])) {
+                    $refs[$nestedRef] = true;
+                    $pending[] = $nestedRef;
                 }
+            }
+        }
+
+        foreach ($openapi->components->schemas as $i => $schema) {
+            if (isset($refs['#/components/schemas/'.$schema->schema])) {
+                continue;
             }
 
             $this->detachAnnotationRecursively($schema, $analysis);
@@ -150,7 +159,7 @@ readonly class CleanupAnnotations implements ProcessorInterface
         }
 
         if ([] === $openapi->components->schemas) {
-            $openapi->components->schemas = Generator::UNDEFINED;
+            $openapi->components->schemas = Undefined::UNDEFINED;
         }
     }
 }
