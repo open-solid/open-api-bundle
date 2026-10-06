@@ -41,6 +41,7 @@ return static function (ContainerConfigurator $container): void {
                 service('serializer'),
                 service('validator')->nullOnInvalid(),
                 service('translator')->nullOnInvalid(),
+                service('.inner'),
             ])
             ->tag('controller.targeted_value_resolver', ['name' => RequestPayloadArrayResolver::class])
             ->tag('kernel.event_subscriber')

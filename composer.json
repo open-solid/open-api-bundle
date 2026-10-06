@@ -24,7 +24,7 @@
     "require-dev": {
         "roave/security-advisories": "dev-latest",
         "phpunit/phpunit": "^10.0",
-        "symfony/browser-kit": "^8.0",
+        "symfony/browser-kit": "^7.4|^8.0",
         "friendsofphp/php-cs-fixer": "^3.54"
     },
     "autoload": {
