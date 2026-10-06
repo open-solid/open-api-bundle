@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace OpenSolid\OpenApiBundle\Validator\Mapping\Loader;
 
-use OpenApi\Generator;
+use OpenApi\Undefined;
 use OpenSolid\OpenApiBundle\Attribute\Property;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -25,51 +25,62 @@ class ValidationMetadataLoader implements ValidatorMetadataLoaderInterface
         $groups = $property->groups;
         $loaded = false;
 
-        if (!Generator::isDefault($property->minLength) || !Generator::isDefault($property->maxLength)) {
+        if (!Undefined::isDefault($property->minLength) || !Undefined::isDefault($property->maxLength)) {
             $metadata->addPropertyConstraint($reflectionProperty->name, new Assert\Length(
-                min: Generator::isDefault($property->minLength) ? null : $property->minLength,
-                max: Generator::isDefault($property->maxLength) ? null : $property->maxLength,
+                min: Undefined::isDefault($property->minLength) ? null : $property->minLength,
+                max: Undefined::isDefault($property->maxLength) ? null : $property->maxLength,
                 groups: $groups,
             ));
             $loaded = true;
         }
 
-        if (!Generator::isDefault($property->minItems) || !Generator::isDefault($property->maxItems)) {
+        if (!Undefined::isDefault($property->minItems) || !Undefined::isDefault($property->maxItems)) {
             $metadata->addPropertyConstraint($reflectionProperty->name, new Assert\Count(
-                min: Generator::isDefault($property->minItems) ? null : $property->minItems,
-                max: Generator::isDefault($property->maxItems) ? null : $property->maxItems,
+                min: Undefined::isDefault($property->minItems) ? null : $property->minItems,
+                max: Undefined::isDefault($property->maxItems) ? null : $property->maxItems,
                 groups: $groups,
             ));
             $loaded = true;
         }
 
-        if (!Generator::isDefault($property->minimum)) {
-            $constraint = Generator::isDefault($property->exclusiveMinimum)
-                ? new Assert\GreaterThanOrEqual(value: $property->minimum, groups: $groups)
-                : new Assert\GreaterThan(value: $property->minimum, groups: $groups);
+        // OpenAPI 3.0 flags "minimum" as exclusive, OpenAPI 3.1 gives the exclusive bound itself
+        if (\is_int($property->exclusiveMinimum) || \is_float($property->exclusiveMinimum)) {
+            $metadata->addPropertyConstraint($reflectionProperty->name, new Assert\GreaterThan(value: $property->exclusiveMinimum, groups: $groups));
+            $loaded = true;
+        }
+
+        if (!Undefined::isDefault($property->minimum)) {
+            $constraint = true === $property->exclusiveMinimum
+                ? new Assert\GreaterThan(value: $property->minimum, groups: $groups)
+                : new Assert\GreaterThanOrEqual(value: $property->minimum, groups: $groups);
             $metadata->addPropertyConstraint($reflectionProperty->name, $constraint);
             $loaded = true;
         }
 
-        if (!Generator::isDefault($property->maximum)) {
-            $constraint = Generator::isDefault($property->exclusiveMaximum)
-                ? new Assert\LessThanOrEqual(value: $property->maximum, groups: $groups)
-                : new Assert\LessThan(value: $property->maximum, groups: $groups);
+        if (\is_int($property->exclusiveMaximum) || \is_float($property->exclusiveMaximum)) {
+            $metadata->addPropertyConstraint($reflectionProperty->name, new Assert\LessThan(value: $property->exclusiveMaximum, groups: $groups));
+            $loaded = true;
+        }
+
+        if (!Undefined::isDefault($property->maximum)) {
+            $constraint = true === $property->exclusiveMaximum
+                ? new Assert\LessThan(value: $property->maximum, groups: $groups)
+                : new Assert\LessThanOrEqual(value: $property->maximum, groups: $groups);
             $metadata->addPropertyConstraint($reflectionProperty->name, $constraint);
             $loaded = true;
         }
 
-        if (!Generator::isDefault($property->pattern)) {
+        if (!Undefined::isDefault($property->pattern)) {
             $metadata->addPropertyConstraint($reflectionProperty->name, new Assert\Regex(pattern: $property->pattern, groups: $groups));
             $loaded = true;
         }
 
-        if (!Generator::isDefault($property->uniqueItems)) {
+        if (!Undefined::isDefault($property->uniqueItems)) {
             $metadata->addPropertyConstraint($reflectionProperty->name, new Assert\Unique(groups: $groups));
             $loaded = true;
         }
 
-        if (!Generator::isDefault($property->enum)) {
+        if (!Undefined::isDefault($property->enum)) {
             $enum = $property->enum;
             $choices = [];
 
@@ -94,12 +105,12 @@ class ValidationMetadataLoader implements ValidatorMetadataLoaderInterface
             }
         }
 
-        if (!Generator::isDefault($property->multipleOf)) {
+        if (!Undefined::isDefault($property->multipleOf)) {
             $metadata->addPropertyConstraint($reflectionProperty->name, new Assert\DivisibleBy(value: $property->multipleOf, groups: $groups));
             $loaded = true;
         }
 
-        if (!Generator::isDefault($property->const)) {
+        if (!Undefined::isDefault($property->const)) {
             $metadata->addPropertyConstraint($reflectionProperty->name, new Assert\EqualTo(value: $property->const, groups: $groups));
             $loaded = true;
         }

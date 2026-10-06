@@ -96,11 +96,30 @@ class AbstractWebTestCase extends WebTestCase
         return new ApplicationTester($application);
     }
 
+    /**
+     * Run the tests with UPDATE_SNAPSHOTS=1 to write the actual content to the snapshot files.
+     */
     protected function assertSameFileResponseContent(string $content, string $filename, bool $save = false): void
     {
-        if ($save) {
-            file_put_contents(__DIR__.'/App/'.self::getTestCase().'/Output/'.$filename, $content);
+        $this->assertJsonStringEqualsJsonFile($this->snapshot($filename, $content, $save), $content);
+    }
+
+    protected function assertSameFileContent(string $content, string $filename, bool $save = false): void
+    {
+        $this->assertStringEqualsFile($this->snapshot($filename, $content, $save), $content);
+    }
+
+    private function snapshot(string $filename, string $content, bool $save): string
+    {
+        $path = __DIR__.'/App/'.self::getTestCase().'/Output/'.$filename;
+
+        if ($save || getenv('UPDATE_SNAPSHOTS')) {
+            if (!is_dir(\dirname($path))) {
+                mkdir(\dirname($path), 0777, true);
+            }
+            file_put_contents($path, $content);
         }
-        $this->assertJsonStringEqualsJsonFile(__DIR__.'/App/'.self::getTestCase().'/Output/'.$filename, $content);
+
+        return $path;
     }
 }

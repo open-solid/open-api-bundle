@@ -16,7 +16,7 @@ paths:
           required: true
           schema:
             type: string
-          format: uuid
+            format: uuid
       responses:
         '204':
           description: Successful

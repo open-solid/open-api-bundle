@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace OpenSolid\OpenApiBundle\Controller;
 
+use OpenApi\Annotations as OA;
 use OpenSolid\OpenApiBundle\Generator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,14 +38,7 @@ readonly class OpenApiController
             throw new NotFoundHttpException('OpenAPI spec not found.');
         }
 
-        $validationErrors = '';
-        try {
-            if (!$openapi->validate()) {
-                throw new \ErrorException('OpenAPI spec is invalid.');
-            }
-        } catch (\ErrorException $e) {
-            $validationErrors = $e->getMessage();
-        }
+        $validationErrors = implode("\n", $this->validate($openapi));
 
         $content = $this->render($this->template, [
             'url' => $urlGenerator->generate('openapi_json', [], UrlGeneratorInterface::RELATIVE_PATH),
@@ -89,6 +83,29 @@ readonly class OpenApiController
         ] + $schema;
 
         return new JsonResponse($data);
+    }
+
+    /**
+     * @return list<string>
+     */
+    private function validate(OA\OpenApi $openapi): array
+    {
+        $errors = [];
+        set_error_handler(static function (int $level, string $message) use (&$errors): bool {
+            $errors[] = $message;
+
+            return true;
+        }, \E_USER_WARNING | \E_USER_NOTICE);
+
+        try {
+            if (!$openapi->validate(null, $openapi->openapi) && [] === $errors) {
+                $errors[] = 'OpenAPI spec is invalid.';
+            }
+        } finally {
+            restore_error_handler();
+        }
+
+        return $errors;
     }
 
     private function render(string $name, array $context = []): string

@@ -1,0 +1,464 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "API Documentation",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "/"
+        }
+    ],
+    "paths": {
+        "/items": {
+            "put": {
+                "operationId": "cb46801d854efa87933a7452bbce36ad",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/ItemPayload"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ItemView"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            },
+            "post": {
+                "operationId": "27773390bb75f53b3dba8cf5506bf376",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ItemPayload"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "The created item",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ItemView"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/403"
+                    },
+                    "409": {
+                        "description": "The item already exists"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "options": {
+                "operationId": "d59f0b30543ddb1ae4929ec67e26398a",
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    }
+                }
+            },
+            "patch": {
+                "operationId": "98f5743ff15ab7928509fb9057bcc990",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/ItemPayload"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "Successful"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/404"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            }
+        },
+        "/items/{id}": {
+            "put": {
+                "operationId": "09cc88ea392d33afa7d8c921a355d9c9",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ItemPayload"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Custom body",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "9a0963f4e6b521c6931451ee70612dce",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Successful"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/404"
+                    }
+                }
+            },
+            "head": {
+                "operationId": "d951d83665a40899ca528787d7f3a933",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/404"
+                    }
+                }
+            }
+        },
+        "/items/ids": {
+            "get": {
+                "operationId": "0108cf8b354cfdadfc063c467684047a",
+                "responses": {
+                    "200": {
+                        "description": "Successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "integer"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    }
+                },
+                "security": []
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ItemPayload": {
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "minLength": 1
+                    }
+                },
+                "type": "object"
+            },
+            "ItemView": {
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "readOnly": true
+            },
+            "BadRequestErrorView": {
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "default": "https://tools.ietf.org/html/rfc2616#section-10"
+                    },
+                    "title": {
+                        "type": "string",
+                        "default": "Bad Request"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "default": 400
+                    },
+                    "detail": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "readOnly": true
+            },
+            "UnauthorizedErrorView": {
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "default": "https://tools.ietf.org/html/rfc2616#section-10"
+                    },
+                    "title": {
+                        "type": "string",
+                        "default": "Unauthorized"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "default": 401
+                    },
+                    "detail": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "readOnly": true
+            },
+            "ForbiddenErrorView": {
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "default": "https://tools.ietf.org/html/rfc2616#section-10"
+                    },
+                    "title": {
+                        "type": "string",
+                        "default": "Forbidden"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "default": 403
+                    },
+                    "detail": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "readOnly": true
+            },
+            "NotFoundErrorView": {
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "default": "https://tools.ietf.org/html/rfc2616#section-10"
+                    },
+                    "title": {
+                        "type": "string",
+                        "default": "Not Found"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "default": 404
+                    },
+                    "detail": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "readOnly": true
+            },
+            "ValidationErrorView": {
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "default": "https://symfony.com/errors/validation"
+                    },
+                    "title": {
+                        "type": "string",
+                        "default": "Validation Failed"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "default": 422
+                    },
+                    "detail": {
+                        "type": "string"
+                    },
+                    "violations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationViolationErrorView"
+                        }
+                    }
+                },
+                "type": "object",
+                "readOnly": true
+            },
+            "ValidationViolationErrorView": {
+                "properties": {
+                    "propertyPath": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "template": {
+                        "type": "string"
+                    },
+                    "parameters": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
+                    },
+                    "type": {
+                        "type": "string",
+                        "example": "urn:uuid:9ff3fdc4-b214-49db-8718-39c315e33d45"
+                    }
+                },
+                "type": "object",
+                "readOnly": true
+            }
+        },
+        "responses": {
+            "400": {
+                "description": "Bad request",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/BadRequestErrorView"
+                        }
+                    }
+                }
+            },
+            "401": {
+                "description": "Unauthorized",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/UnauthorizedErrorView"
+                        }
+                    }
+                }
+            },
+            "403": {
+                "description": "Forbidden",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/ForbiddenErrorView"
+                        }
+                    }
+                }
+            },
+            "404": {
+                "description": "Not found",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/NotFoundErrorView"
+                        }
+                    }
+                }
+            },
+            "422": {
+                "description": "Validation error",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/ValidationErrorView"
+                        }
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearer": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        }
+    }
+}

@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace OpenSolid\OpenApiBundle\Routing\Attribute;
 
 #[\Attribute(\Attribute::IS_REPEATABLE | \Attribute::TARGET_CLASS | \Attribute::TARGET_METHOD)]
-class Delete extends \OpenApi\Attributes\Delete
+class Delete extends \OpenApi\Attributes\Delete implements ApiRouteInterface
 {
     use ApiRouteTrait;
 

@@ -30,9 +30,11 @@ class ResolvableAnalyser implements AnalyserInterface
     {
     }
 
-    public function setGenerator(Generator $generator): void
+    public function setGenerator(Generator $generator): static
     {
         $this->generator = $generator;
+
+        return $this;
     }
 
     public function fromFile(string $filename, Context $context): Analysis

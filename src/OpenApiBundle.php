@@ -16,6 +16,7 @@ namespace OpenSolid\OpenApiBundle;
 use OpenSolid\OpenApiBundle\DependencyInjection\Compiler\SerializerMappingPass;
 use OpenSolid\OpenApiBundle\DependencyInjection\Compiler\TrackPathsPass;
 use OpenSolid\OpenApiBundle\DependencyInjection\Compiler\ValidatorMappingPass;
+use OpenSolid\OpenApiBundle\OpenApi\Processor\ProcessorInterface;
 use Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -61,6 +62,9 @@ class OpenApiBundle extends AbstractBundle
         ;
 
         $container->import('../config/services.php');
+
+        $builder->registerForAutoconfiguration(ProcessorInterface::class)
+            ->addTag('openapi.processor');
     }
 
     public function getPath(): string

@@ -18,11 +18,21 @@ use OpenApi\Attributes\JsonContent;
 use OpenApi\Attributes\PathParameter;
 use OpenApi\Attributes\Schema;
 use OpenApi\Attributes\XmlContent;
-use OpenApi\Generator;
+use OpenApi\Undefined;
 
 #[\Attribute(\Attribute::TARGET_CLASS | \Attribute::TARGET_METHOD | \Attribute::TARGET_PROPERTY | \Attribute::TARGET_PARAMETER | \Attribute::IS_REPEATABLE)]
 class Path extends PathParameter
 {
+    /**
+     * "format" and "enum" describe the parameter value, so they are moved to the schema.
+     *
+     * @see \OpenSolid\OpenApiBundle\OpenApi\Processor\AugmentPathParameters
+     */
+    public static $_blacklist = ['_context', '_unmerged', '_analysis', 'attachables', 'format', 'enum'];
+
+    /**
+     * @param array|class-string $enum
+     */
     /**
      * @param array|class-string $enum
      */
@@ -45,6 +55,7 @@ class Path extends PathParameter
         ?bool $allowReserved = null,
         ?array $spaceDelimited = null,
         ?array $pipeDelimited = null,
+        mixed $deepObject = null,
         ?array $x = null,
         ?array $attachables = null,
         // custom properties
@@ -52,29 +63,30 @@ class Path extends PathParameter
         public array|string|null $enum = null,
     ) {
         $defaults = static::defaults();
-        $this->format = $format ?? $defaults->format ?? Generator::UNDEFINED;
-        $this->enum = $enum ?? $defaults->enum ?? Generator::UNDEFINED;
+        $this->format = $format ?? $defaults->format ?? Undefined::UNDEFINED;
+        $this->enum = $enum ?? $defaults->enum ?? Undefined::UNDEFINED;
 
         parent::__construct(
-            $parameter ?? $defaults->parameter ?? null,
-            $name ?? $defaults->name ?? null,
-            $description ?? $defaults->description ?? null,
-            $in ?? $defaults->in ?? null,
-            $required ?? $defaults->isRequired ?? null,
-            $deprecated ?? $defaults->deprecated ?? null,
-            $allowEmptyValue ?? $defaults->allowEmptyValue ?? null,
-            $ref ?? $defaults->ref ?? null,
-            $schema ?? $defaults->schema ?? null,
-            $example ?? $defaults->example ?? Generator::UNDEFINED,
-            $examples ?? $defaults->examples ?? null,
-            $content ?? $defaults->content ?? null,
-            $style ?? $defaults->style ?? null,
-            $explode ?? $defaults->explode ?? null,
-            $allowReserved ?? $defaults->allowReserved ?? null,
-            $spaceDelimited ?? $defaults->spaceDelimited ?? null,
-            $pipeDelimited ?? $defaults->pipeDelimited ?? null,
-            $x ?? $defaults->x ?? null,
-            $attachables ?? $defaults->attachables ?? null,
+            parameter: $parameter ?? $defaults->parameter ?? null,
+            name: $name ?? $defaults->name ?? null,
+            description: $description ?? $defaults->description ?? Undefined::UNDEFINED,
+            in: $in ?? $defaults->in ?? null,
+            required: $required ?? $defaults->required ?? null,
+            deprecated: $deprecated ?? $defaults->deprecated ?? null,
+            allowEmptyValue: $allowEmptyValue ?? $defaults->allowEmptyValue ?? null,
+            ref: $ref ?? $defaults->ref ?? null,
+            schema: $schema ?? $defaults->schema ?? null,
+            example: $example ?? $defaults->example ?? Undefined::UNDEFINED,
+            examples: $examples ?? $defaults->examples ?? null,
+            content: $content ?? $defaults->content ?? null,
+            style: $style ?? $defaults->style ?? null,
+            explode: $explode ?? $defaults->explode ?? null,
+            allowReserved: $allowReserved ?? $defaults->allowReserved ?? null,
+            spaceDelimited: $spaceDelimited ?? $defaults->spaceDelimited ?? null,
+            pipeDelimited: $pipeDelimited ?? $defaults->pipeDelimited ?? null,
+            deepObject: $deepObject ?? $defaults->deepObject ?? null,
+            x: $x ?? $defaults->x ?? null,
+            attachables: $attachables ?? $defaults->attachables ?? null,
         );
     }
 

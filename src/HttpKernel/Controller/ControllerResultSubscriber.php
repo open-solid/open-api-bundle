@@ -15,7 +15,7 @@ namespace OpenSolid\OpenApiBundle\HttpKernel\Controller;
 
 use OpenApi\Annotations\Operation;
 use OpenApi\Attributes as OA;
-use OpenApi\Generator;
+use OpenApi\Undefined;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
@@ -37,25 +37,36 @@ readonly class ControllerResultSubscriber implements EventSubscriberInterface
 
         $result = $event->getControllerResult();
 
-        if (!$result) {
-            $event->setResponse(new Response(status: 204));
+        if ($result instanceof Response) {
+            return;
+        }
+
+        // Symfony 8.1+ exposes "controllerMetadata", older versions the deprecated "controllerArgumentsEvent"
+        $controllerMetadata = property_exists($event, 'controllerMetadata') ? $event->controllerMetadata : $event->controllerArgumentsEvent;
+        $controllerAttributes = $controllerMetadata?->getAttributes() ?? [];
+
+        if (null === $result) {
+            $event->setResponse(new Response(status: $this->guessStatusCode($controllerAttributes, 204)));
 
             return;
         }
 
-        if ($result instanceof Response || null === $event->controllerArgumentsEvent) {
+        if (null === $controllerMetadata) {
             return;
         }
 
         $request = $event->getRequest();
         $content = $this->serializer->serialize($result, $request->getPreferredFormat('json'));
-        $statusCode = $this->guessStatusCode($event->controllerArgumentsEvent->getAttributes());
+        $statusCode = $this->guessStatusCode($controllerAttributes);
         $contentType = $request->getAcceptableContentTypes()[0] ?? $request->headers->get('CONTENT_TYPE', 'application/json');
 
         $event->setResponse(new Response($content, $statusCode, ['Content-Type' => $contentType]));
     }
 
-    protected function guessStatusCode(array $controllerAttributes): int
+    /**
+     * @param array<class-string, list<object>> $controllerAttributes
+     */
+    protected function guessStatusCode(array $controllerAttributes, ?int $default = null): int
     {
         foreach ($controllerAttributes as $attributes) {
             foreach ($attributes as $attribute) {
@@ -63,7 +74,15 @@ readonly class ControllerResultSubscriber implements EventSubscriberInterface
                     continue;
                 }
 
-                if (!Generator::isDefault($attribute->responses)) {
+                if (property_exists($attribute, 'statusCode') && null !== $attribute->statusCode) {
+                    return $attribute->statusCode;
+                }
+
+                if (null !== $default) {
+                    return $default;
+                }
+
+                if (!Undefined::isDefault($attribute->responses)) {
                     foreach ($attribute->responses as $res) {
                         if (is_numeric($res->response) && $res->response >= 200 && $res->response < 300) {
                             return (int) $res->response;
@@ -77,7 +96,7 @@ readonly class ControllerResultSubscriber implements EventSubscriberInterface
             }
         }
 
-        return 200;
+        return $default ?? 200;
     }
 
     public static function getSubscribedEvents(): array

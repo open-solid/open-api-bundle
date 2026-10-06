@@ -41,9 +41,6 @@ class ExportOpenApiCommandTest extends AbstractWebTestCase
         $tester->assertCommandIsSuccessful();
         $this->assertStringContainsString('OpenAPI spec has been exported successfully.', $tester->getDisplay());
 
-        $actual = trim(file_get_contents($filename));
-        // file_put_contents(__DIR__.'/App/ExportOpenApiCommand/Output/doc.yaml', $actual);
-        $expected = trim(file_get_contents(__DIR__.'/App/ExportOpenApiCommand/Output/doc.yaml'));
-        $this->assertSame($expected, $actual);
+        $this->assertSameFileContent(file_get_contents($filename), 'doc.yaml');
     }
 }

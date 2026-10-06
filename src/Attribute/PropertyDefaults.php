@@ -15,6 +15,7 @@ namespace OpenSolid\OpenApiBundle\Attribute;
 
 use OpenApi\Attributes\AdditionalProperties;
 use OpenApi\Attributes\Discriminator;
+use OpenApi\Attributes\Encoding;
 use OpenApi\Attributes\ExternalDocumentation;
 use OpenApi\Attributes\Items;
 use OpenApi\Attributes\Xml;
@@ -22,6 +23,7 @@ use OpenApi\Attributes\Xml;
 class PropertyDefaults
 {
     public string $property;
+    public Encoding $encoding;
     public string|object $ref;
     public string $schema;
     public string $title;
@@ -30,36 +32,58 @@ class PropertyDefaults
     public int $minProperties;
     public array $required;
     public array $properties;
-    public string $type;
+    public string|array $type;
     public string $format;
     public Items $items;
     public string $collectionFormat;
-    public mixed $default;
-    public int|float $maximum;
-    public bool $exclusiveMaximum;
-    public int|float $minimum;
-    public bool $exclusiveMinimum;
-    public int $maxLength;
-    public int $minLength;
-    public int $maxItems;
-    public int $minItems;
-    public bool $uniqueItems;
     public string $pattern;
-    public array|string $enum;
     public Discriminator $discriminator;
     public bool $readOnly;
     public bool $writeOnly;
     public Xml $xml;
     public ExternalDocumentation $externalDocs;
     public mixed $example;
+    public array $examples;
     public bool $nullable;
     public bool $deprecated;
     public array $allOf;
     public array $anyOf;
     public array $oneOf;
+    public string $contentEncoding;
+    public string $contentMediaType;
+    public mixed $default;
+    public int|float $maximum;
+    public bool|int|float $exclusiveMaximum;
+    public int|float $minimum;
+    public bool|int|float $exclusiveMinimum;
+    public int $maxLength;
+    public int $minLength;
+    public int $maxItems;
+    public int $minItems;
+    public bool $uniqueItems;
+    public array|string $enum;
+    public mixed $not;
     public AdditionalProperties|bool $additionalProperties;
+    public array $additionalItems;
+    public array $contains;
+    public int $minContains;
+    public int $maxContains;
+    public array $prefixItems;
+    public array $patternProperties;
+    public array $unevaluatedProperties;
+    public mixed $unevaluatedItems;
+    public mixed $dependencies;
+    public array $dependentRequired;
+    public array $dependentSchemas;
+    public mixed $propertyNames;
+    public mixed $const;
+    public mixed $if;
+    public mixed $then;
+    public mixed $else;
+    public mixed $contentSchema;
     public array $x;
     public array $attachables;
+    public int|float $multipleOf;
     public array $groups;
 
     public static function create(): self
@@ -70,6 +94,13 @@ class PropertyDefaults
     public function property(string $property): self
     {
         $this->property = $property;
+
+        return $this;
+    }
+
+    public function encoding(Encoding $encoding): self
+    {
+        $this->encoding = $encoding;
 
         return $this;
     }
@@ -130,7 +161,7 @@ class PropertyDefaults
         return $this;
     }
 
-    public function type(string $type): self
+    public function type(string|array $type): self
     {
         $this->type = $type;
 
@@ -158,86 +189,9 @@ class PropertyDefaults
         return $this;
     }
 
-    public function default(mixed $default): self
-    {
-        $this->default = $default;
-
-        return $this;
-    }
-
-    public function maximum(int|float $maximum): self
-    {
-        $this->maximum = $maximum;
-
-        return $this;
-    }
-
-    public function exclusiveMaximum(bool $value = true): self
-    {
-        $this->exclusiveMaximum = $value;
-
-        return $this;
-    }
-
-    public function minimum(int|float $minimum): self
-    {
-        $this->minimum = $minimum;
-
-        return $this;
-    }
-
-    public function exclusiveMinimum(bool $value = true): self
-    {
-        $this->exclusiveMinimum = $value;
-
-        return $this;
-    }
-
-    public function maxLength(int $maxLength): self
-    {
-        $this->maxLength = $maxLength;
-
-        return $this;
-    }
-
-    public function minLength(int $minLength): self
-    {
-        $this->minLength = $minLength;
-
-        return $this;
-    }
-
-    public function maxItems(int $maxItems): self
-    {
-        $this->maxItems = $maxItems;
-
-        return $this;
-    }
-
-    public function minItems(int $minItems): self
-    {
-        $this->minItems = $minItems;
-
-        return $this;
-    }
-
-    public function uniqueItems(bool $value = true): self
-    {
-        $this->uniqueItems = $value;
-
-        return $this;
-    }
-
     public function pattern(string $pattern): self
     {
         $this->pattern = $pattern;
-
-        return $this;
-    }
-
-    public function enum(array|string $enum): self
-    {
-        $this->enum = $enum;
 
         return $this;
     }
@@ -284,6 +238,13 @@ class PropertyDefaults
         return $this;
     }
 
+    public function examples(array $examples): self
+    {
+        $this->examples = $examples;
+
+        return $this;
+    }
+
     public function nullable(bool $value = true): self
     {
         $this->nullable = $value;
@@ -319,9 +280,226 @@ class PropertyDefaults
         return $this;
     }
 
+    public function contentEncoding(string $contentEncoding): self
+    {
+        $this->contentEncoding = $contentEncoding;
+
+        return $this;
+    }
+
+    public function contentMediaType(string $contentMediaType): self
+    {
+        $this->contentMediaType = $contentMediaType;
+
+        return $this;
+    }
+
+    public function default(mixed $default): self
+    {
+        $this->default = $default;
+
+        return $this;
+    }
+
+    public function maximum(int|float $maximum): self
+    {
+        $this->maximum = $maximum;
+
+        return $this;
+    }
+
+    public function exclusiveMaximum(bool|int|float $value = true): self
+    {
+        $this->exclusiveMaximum = $value;
+
+        return $this;
+    }
+
+    public function minimum(int|float $minimum): self
+    {
+        $this->minimum = $minimum;
+
+        return $this;
+    }
+
+    public function exclusiveMinimum(bool|int|float $value = true): self
+    {
+        $this->exclusiveMinimum = $value;
+
+        return $this;
+    }
+
+    public function maxLength(int $maxLength): self
+    {
+        $this->maxLength = $maxLength;
+
+        return $this;
+    }
+
+    public function minLength(int $minLength): self
+    {
+        $this->minLength = $minLength;
+
+        return $this;
+    }
+
+    public function maxItems(int $maxItems): self
+    {
+        $this->maxItems = $maxItems;
+
+        return $this;
+    }
+
+    public function minItems(int $minItems): self
+    {
+        $this->minItems = $minItems;
+
+        return $this;
+    }
+
+    public function uniqueItems(bool $value = true): self
+    {
+        $this->uniqueItems = $value;
+
+        return $this;
+    }
+
+    public function enum(array|string $enum): self
+    {
+        $this->enum = $enum;
+
+        return $this;
+    }
+
+    public function not(mixed $not): self
+    {
+        $this->not = $not;
+
+        return $this;
+    }
+
     public function additionalProperties(AdditionalProperties|bool $additionalProperties): self
     {
         $this->additionalProperties = $additionalProperties;
+
+        return $this;
+    }
+
+    public function additionalItems(array $additionalItems): self
+    {
+        $this->additionalItems = $additionalItems;
+
+        return $this;
+    }
+
+    public function contains(array $contains): self
+    {
+        $this->contains = $contains;
+
+        return $this;
+    }
+
+    public function minContains(int $minContains): self
+    {
+        $this->minContains = $minContains;
+
+        return $this;
+    }
+
+    public function maxContains(int $maxContains): self
+    {
+        $this->maxContains = $maxContains;
+
+        return $this;
+    }
+
+    public function prefixItems(array $prefixItems): self
+    {
+        $this->prefixItems = $prefixItems;
+
+        return $this;
+    }
+
+    public function patternProperties(array $patternProperties): self
+    {
+        $this->patternProperties = $patternProperties;
+
+        return $this;
+    }
+
+    public function unevaluatedProperties(array $unevaluatedProperties): self
+    {
+        $this->unevaluatedProperties = $unevaluatedProperties;
+
+        return $this;
+    }
+
+    public function unevaluatedItems(mixed $unevaluatedItems): self
+    {
+        $this->unevaluatedItems = $unevaluatedItems;
+
+        return $this;
+    }
+
+    public function dependencies(mixed $dependencies): self
+    {
+        $this->dependencies = $dependencies;
+
+        return $this;
+    }
+
+    public function dependentRequired(array $dependentRequired): self
+    {
+        $this->dependentRequired = $dependentRequired;
+
+        return $this;
+    }
+
+    public function dependentSchemas(array $dependentSchemas): self
+    {
+        $this->dependentSchemas = $dependentSchemas;
+
+        return $this;
+    }
+
+    public function propertyNames(mixed $propertyNames): self
+    {
+        $this->propertyNames = $propertyNames;
+
+        return $this;
+    }
+
+    public function const(mixed $const): self
+    {
+        $this->const = $const;
+
+        return $this;
+    }
+
+    public function if(mixed $if): self
+    {
+        $this->if = $if;
+
+        return $this;
+    }
+
+    public function then(mixed $then): self
+    {
+        $this->then = $then;
+
+        return $this;
+    }
+
+    public function else(mixed $else): self
+    {
+        $this->else = $else;
+
+        return $this;
+    }
+
+    public function contentSchema(mixed $contentSchema): self
+    {
+        $this->contentSchema = $contentSchema;
 
         return $this;
     }
@@ -336,6 +514,13 @@ class PropertyDefaults
     public function attachables(array $attachables): self
     {
         $this->attachables = $attachables;
+
+        return $this;
+    }
+
+    public function multipleOf(int|float $multipleOf): self
+    {
+        $this->multipleOf = $multipleOf;
 
         return $this;
     }

@@ -15,6 +15,7 @@ namespace OpenSolid\OpenApiBundle\Routing\Attribute;
 
 use OpenApi\Attributes\ExternalDocumentation;
 use OpenApi\Attributes\RequestBody;
+use OpenApi\Undefined;
 use Symfony\Component\Routing\Attribute\Route;
 
 trait ApiRouteTrait
@@ -54,25 +55,26 @@ trait ApiRouteTrait
         // custom properties
         public ?string $itemsType = null,
         public ?string $when = null,
+        public ?int $statusCode = null,
     ) {
-        self::$_blacklist = array_unique(array_merge(self::$_blacklist, ['route', 'itemsType', 'when']));
+        self::$_blacklist = array_unique(array_merge(self::$_blacklist, ['route', 'itemsType', 'when', 'statusCode']));
 
         parent::__construct(
-            $path,
-            $name,
-            $description,
-            $summary,
-            $security,
-            $servers,
-            $requestBody,
-            $tags,
-            $parameters,
-            $responses,
-            $callbacks,
-            $externalDocs,
-            $deprecated,
-            $x,
-            $attachables,
+            path: $path,
+            operationId: $name,
+            description: $description ?? Undefined::UNDEFINED,
+            summary: $summary ?? Undefined::UNDEFINED,
+            security: $security,
+            servers: $servers,
+            requestBody: $requestBody,
+            tags: $tags,
+            parameters: $parameters,
+            responses: $responses,
+            callbacks: $callbacks,
+            externalDocs: $externalDocs,
+            deprecated: $deprecated,
+            x: $x,
+            attachables: $attachables,
         );
 
         if ($condition && $when) {
@@ -100,18 +102,13 @@ trait ApiRouteTrait
         );
     }
 
-    public function __call(string $name, array $arguments): mixed
-    {
-        return $this->route->{$name}(...$arguments);
-    }
-
     public function __get(string $name): mixed
     {
         if (property_exists($this->route, $name)) {
             return $this->route->{$name};
         }
 
-        parent::__get($name);
+        $this->_context->logger->warning(\sprintf('Property "%s" doesn\'t exist in a %s', $name, $this->identity()));
 
         return null;
     }
