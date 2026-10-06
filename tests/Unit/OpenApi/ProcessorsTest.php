@@ -23,6 +23,7 @@ use OpenApi\Undefined;
 use OpenSolid\OpenApiBundle\Attribute\Path;
 use OpenSolid\OpenApiBundle\OpenApi\Constraint\ConstraintSchemaApplier;
 use OpenSolid\OpenApiBundle\OpenApi\Processor\AugmentEnumSchemas;
+use OpenSolid\OpenApiBundle\OpenApi\Processor\AugmentParameterConstraints;
 use OpenSolid\OpenApiBundle\OpenApi\Processor\AugmentPathParameters;
 use OpenSolid\OpenApiBundle\OpenApi\Processor\AugmentQueryParameters;
 use OpenSolid\OpenApiBundle\OpenApi\Processor\AugmentSchemas;
@@ -152,6 +153,35 @@ class ProcessorsTest extends TestCase
         $this->assertTrue(Undefined::isDefault($parameter->schema));
     }
 
+    public function testAugmentQueryParametersNormalizesEnumDefaults(): void
+    {
+        $pure = $this->queryParameterOf('pure');
+        $backed = $this->queryParameterOf('backed');
+        (new AugmentQueryParameters())->setGenerator(new Generator())(new Analysis([$pure, $backed], $this->context()));
+
+        $this->assertSame('Foo', $pure->schema->default);
+        $this->assertSame('draft', $backed->schema->default);
+    }
+
+    public function testAugmentQueryParametersKeepsExplicitRequiredOnProperties(): void
+    {
+        $explicit = $this->queryParameterOf('optional', required: true);
+        $inferred = $this->queryParameterOf('optional');
+        (new AugmentQueryParameters())->setGenerator(new Generator())(new Analysis([$explicit, $inferred], $this->context()));
+
+        $this->assertTrue($explicit->required);
+        $this->assertFalse($inferred->required);
+    }
+
+    public function testAugmentParameterConstraintsMarksConstrainedParametersAsRequired(): void
+    {
+        $parameter = new OAT\QueryParameter(name: 'single', required: false);
+        $parameter->_context = new Context(['reflector' => new \ReflectionProperty(ProcessorFixture::class, 'single')], $this->context());
+        (new AugmentParameterConstraints())(new Analysis([$parameter], $this->context()));
+
+        $this->assertTrue($parameter->required);
+    }
+
     public function testAugmentEnumSchemas(): void
     {
         $withoutSchema = new OAT\QueryParameter(name: 'q');
@@ -203,6 +233,14 @@ class ProcessorsTest extends TestCase
         $this->assertTrue(Undefined::isDefault($schema->pattern));
 
         $this->assertNull(ConstraintSchemaApplier::resolveReflector(new \ReflectionClass(self::class)));
+    }
+
+    private function queryParameterOf(string $property, ?bool $required = null): OAT\QueryParameter
+    {
+        $parameter = new OAT\QueryParameter(name: $property, required: $required);
+        $parameter->_context = new Context(['reflector' => new \ReflectionProperty(ProcessorQuery::class, $property)], $this->context());
+
+        return $parameter;
     }
 
     private function schemaOf(string $property): OA\Schema
@@ -262,4 +300,13 @@ class ProcessorFixture
 
     #[Assert\Regex('')]
     public ?string $emptyPattern = null;
+}
+
+class ProcessorQuery
+{
+    public ProcessorPure $pure = ProcessorPure::Foo;
+
+    public ProcessorStatus $backed = ProcessorStatus::Draft;
+
+    public ?string $optional = null;
 }

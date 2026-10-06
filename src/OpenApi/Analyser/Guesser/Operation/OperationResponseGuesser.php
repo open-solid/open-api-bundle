@@ -75,7 +75,7 @@ class OperationResponseGuesser implements AnalyserGuesserInterface
 
         $statusCode = property_exists($operation, 'statusCode') && null !== $operation->statusCode
             ? $operation->statusCode
-            : ($isVoid ? 204 : ($operation instanceof OA\Post ? 201 : 200));
+            : ($isVoid ? 204 : ($this->declaredSuccessStatusCode($operation) ?? ($operation instanceof OA\Post ? 201 : 200)));
 
         $response = new OA\Response(response: $statusCode, description: 'Successful');
         $response->_context = new Context(['nested' => $operation], $context);
@@ -95,6 +95,24 @@ class OperationResponseGuesser implements AnalyserGuesserInterface
         $response->merge([$jsonContent]);
 
         return $response;
+    }
+
+    /**
+     * The first declared 2xx status code. ControllerResultSubscriber sends this one at runtime.
+     */
+    private function declaredSuccessStatusCode(Operation $operation): ?int
+    {
+        if (Undefined::isDefault($operation->responses)) {
+            return null;
+        }
+
+        foreach ($operation->responses as $response) {
+            if (is_numeric($response->response) && $response->response >= 200 && $response->response < 300) {
+                return (int) $response->response;
+            }
+        }
+
+        return null;
     }
 
     private function createRefResponse(int $statusCode, Operation $operation, Context $context): OA\Response

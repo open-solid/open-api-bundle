@@ -192,7 +192,12 @@ class RequestPayloadArrayResolver implements ValueResolverInterface, EventSubscr
         }
 
         if (!$data || !\is_array($data)) {
-            return null;
+            // Symfony 8.1+ exposes "mapWhenEmpty"
+            if (!($attribute->mapWhenEmpty ?? false)) {
+                return null;
+            }
+
+            $data = [];
         }
 
         return $this->serializer->denormalize($data, $type, null, $attribute->serializationContext + self::CONTEXT_DENORMALIZE);
@@ -213,7 +218,10 @@ class RequestPayloadArrayResolver implements ValueResolverInterface, EventSubscr
         }
 
         if ('' === $data = $request->getContent()) {
-            return null;
+            // Symfony 8.1+ exposes "mapWhenEmpty"
+            return ($attribute->mapWhenEmpty ?? false)
+                ? $this->serializer->denormalize([], $type, null, $attribute->serializationContext + self::CONTEXT_DENORMALIZE)
+                : null;
         }
 
         if ('form' === $format) {

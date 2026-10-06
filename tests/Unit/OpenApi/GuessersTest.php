@@ -91,6 +91,29 @@ class GuessersTest extends TestCase
         $this->assertSame([$ok, $text], $operation->responses);
         $this->assertSame([], $ok->_unmerged);
     }
+
+    public function testInferredBodyIsMergedIntoDeclaredSuccessResponse(): void
+    {
+        $operation = new OAT\Get(responses: [
+            $accepted = new OAT\Response(response: 202, description: 'Accepted'),
+        ]);
+        (new OperationResponseGuesser())->guess(new \ReflectionMethod(GuesserFixture::class, 'object'), $operation, new Context());
+
+        $this->assertSame([$accepted], $operation->responses);
+        $this->assertCount(1, $accepted->_unmerged);
+        $this->assertInstanceOf(OA\JsonContent::class, $accepted->_unmerged[0]);
+    }
+
+    public function testDefaultSuccessResponseIsAddedWhenNoneIsDeclared(): void
+    {
+        $operation = new OAT\Get(responses: [
+            $notFound = new OAT\Response(response: 404, description: 'Not found'),
+        ]);
+        (new OperationResponseGuesser())->guess(new \ReflectionMethod(GuesserFixture::class, 'object'), $operation, new Context());
+
+        $this->assertSame(['200', '404'], array_map(static fn (OA\Response $r) => (string) $r->response, $operation->responses));
+        $this->assertSame($notFound, $operation->responses[1]);
+    }
 }
 
 class GuesserFixture

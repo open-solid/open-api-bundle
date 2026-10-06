@@ -78,17 +78,19 @@ class AugmentQueryParameters implements ProcessorInterface, GeneratorAwareInterf
             if (Undefined::isDefault($schema->default) && $hasDefault) {
                 $default = $reflector->getDefaultValue();
                 if (null !== $default) {
-                    $schema->default = $default;
+                    $schema->default = $default instanceof \BackedEnum ? $default->value : ($default instanceof \UnitEnum ? $default->name : $default);
                 }
             }
 
-            // swagger-php cannot decide this one: the parameter context is nested, so its
-            // type resolver bails out and leaves `required: true` on an empty schema. A
-            // path parameter is always required, whatever the PHP signature says.
+            // swagger-php cannot decide this one for a ReflectionParameter: the parameter
+            // context is nested, so its type resolver bails out and leaves `required: true`
+            // on an empty schema. It never sets it for a ReflectionProperty, so there a
+            // `true` is explicit and is kept. A path parameter is always required, whatever
+            // the PHP signature says.
             $isOptional = $hasDefault || (null !== $type && $type->allowsNull());
 
             if ('path' !== $parameter->in
-                && (Undefined::isDefault($parameter->required) || ($parameter->required && $isOptional))
+                && (Undefined::isDefault($parameter->required) || ($reflector instanceof \ReflectionParameter && $parameter->required && $isOptional))
             ) {
                 $parameter->required = !$isOptional;
             }

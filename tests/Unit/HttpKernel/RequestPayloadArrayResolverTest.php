@@ -135,6 +135,28 @@ class RequestPayloadArrayResolverTest extends TestCase
         $this->assertHttpException(422, null, fn () => $this->resolve($this->jsonRequest(''), new Payload(), $this->metadata()));
     }
 
+    public function testEmptyPayloadIsMappedWhenMapWhenEmptyIsEnabled(): void
+    {
+        if (!property_exists(MapRequestPayload::class, 'mapWhenEmpty')) {
+            $this->markTestSkipped('The "mapWhenEmpty" option requires Symfony 8.1 or later.');
+        }
+
+        $payload = $this->resolve($this->jsonRequest(''), new Payload(mapWhenEmpty: true), new ArgumentMetadata('foo', Dummy::class.'[]', false, false, null, true));
+
+        $this->assertSame([], $payload);
+    }
+
+    public function testEmptyQueryStringIsMappedWhenMapWhenEmptyIsEnabled(): void
+    {
+        if (!property_exists(MapRequestPayload::class, 'mapWhenEmpty')) {
+            $this->markTestSkipped('The "mapWhenEmpty" option requires Symfony 8.1 or later.');
+        }
+
+        $payload = $this->resolve(new Request(), new Query(mapWhenEmpty: true), new ArgumentMetadata('foo', \stdClass::class, false, true, null));
+
+        $this->assertInstanceOf(\stdClass::class, $payload);
+    }
+
     public function testValidationFailure(): void
     {
         try {
