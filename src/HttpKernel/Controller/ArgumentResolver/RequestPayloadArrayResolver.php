@@ -19,11 +19,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryString;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
+use Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestPayloadValueResolver;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 use Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\Exception\NotEncodableValueException;
 use Symfony\Component\Serializer\Exception\PartialDenormalizationException;
 use Symfony\Component\Serializer\Exception\UnsupportedFormatException;
@@ -57,6 +57,7 @@ class RequestPayloadArrayResolver implements ValueResolverInterface, EventSubscr
         private readonly SerializerInterface&DenormalizerInterface $serializer,
         private readonly ?ValidatorInterface $validator = null,
         private readonly ?TranslatorInterface $translator = null,
+        private readonly ?RequestPayloadValueResolver $decorated = null,
     ) {
     }
 
@@ -67,7 +68,7 @@ class RequestPayloadArrayResolver implements ValueResolverInterface, EventSubscr
             ?? null;
 
         if (!$attribute) {
-            return [];
+            return $this->decorated?->resolve($request, $argument) ?? [];
         }
 
         if ($argument->isVariadic()) {
@@ -160,13 +161,13 @@ class RequestPayloadArrayResolver implements ValueResolverInterface, EventSubscr
         }
 
         $event->setArguments($arguments);
+
+        $this->decorated?->onKernelControllerArguments($event);
     }
 
     public static function getSubscribedEvents(): array
     {
-        return [
-            KernelEvents::CONTROLLER_ARGUMENTS => 'onKernelControllerArguments',
-        ];
+        return RequestPayloadValueResolver::getSubscribedEvents();
     }
 
     private function mapQueryString(Request $request, string $type, MapQueryString $attribute): ?object

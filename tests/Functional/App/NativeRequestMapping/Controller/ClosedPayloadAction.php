@@ -1,0 +1,28 @@
+<?php
+
+declare(strict_types=1);
+
+/*
+ * This file is part of OpenSolid package.
+ *
+ * (c) Yonel Ceruto <open@yceruto.dev>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace OpenSolid\Tests\OpenApiBundle\Functional\App\NativeRequestMapping\Controller;
+
+use OpenSolid\OpenApiBundle\Attribute\Payload;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
+
+class ClosedPayloadAction
+{
+    #[Route('/closed', methods: 'POST')]
+    #[Closed]
+    public function __invoke(#[Payload] ClosedPayload $payload): Response
+    {
+        return new Response($payload->name);
+    }
+}

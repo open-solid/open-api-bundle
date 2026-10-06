@@ -1,0 +1,7 @@
+imports:
+    - { resource: ../config.yaml }
+
+services:
+    OpenSolid\Tests\OpenApiBundle\Functional\App\NativeRequestMapping\Controller\ClosedListener:
+        tags:
+            - { name: kernel.event_listener, event: 'kernel.controller_arguments.OpenSolid\Tests\OpenApiBundle\Functional\App\NativeRequestMapping\Controller\Closed', method: onClosed }
